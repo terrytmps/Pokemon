@@ -1,0 +1,17 @@
+.idea
+.venv
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+*.swp
+*.vscode/
+.DS_Store
+
+models/__pycache__
+benchmark.json
+report.xml
+coverage.xml
+.coverage
