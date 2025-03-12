@@ -1,22 +1,8 @@
-from models.Alert import Alert
+""" from models.Alert import Alert
 from models.Enums.MeasureType import MeasureType
 
 
 class Surveillance:
-    """
-    Surveillance : Système global de surveillance
-        • Gère les Alert
-        • Analyse les Situation
-        • Collecte les Mesures
-
-    Attributs:
-        seuil_temperature_inferieur
-        seuil_temperature_superieur
-        horaire_sortie_tard
-        duree_sortie_prolongee
-        durée_inactivite_prolongee
-    """
-
     def __init__(self):
         self._seuil_temperature_inferieur = 10
         self._seuil_temperature_superieur = 25
@@ -52,3 +38,4 @@ class Surveillance:
 
     def analyseSituation(self):
         pass
+ """

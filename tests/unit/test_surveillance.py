@@ -1,29 +1,14 @@
-import pytest
-from datetime import datetime
-from models.Surveillance import Surveillance
-from models.Alert import Alert
-from models.Enums.MeasureType import MeasureType
-from models.Enums.LevelAlert import LevelAlert
-from models.Mesure.MesureTemperature import MesureTemperature
-from models.Mesure.MesureHeureSortie import MesureHeureSortie
-from models.Mesure.MesureDureeSortie import MesureDureeSortie
-from models.Mesure.MesureDureeInactivite import MesureDureeInactivite
-
-
-@pytest.fixture
+""" @pytest.fixture
 def surveillance():
-    """Fixture fournissant une instance de Surveillance avec les seuils par défaut."""
     return Surveillance()
 
 
 @pytest.fixture
 def fixed_timestamp():
-    """Fixture fournissant un timestamp fixe pour les tests."""
     return datetime.now()
 
 
 def create_mesure(mesure_type, value, timestamp):
-    """Fonction utilitaire pour créer une instance de Mesure."""
     if mesure_type == MeasureType.TEMPERATURE:
         return MesureTemperature(value, timestamp)
     if mesure_type == MeasureType.HEURE_SORTIE:
@@ -37,10 +22,8 @@ def create_mesure(mesure_type, value, timestamp):
 
 
 class TestSurveillance:
-    """Classe de tests pour la classe Surveillance."""
 
     def test_seuils_par_defaut(self, surveillance):
-        """Vérifie que les seuils par défaut sont corrects."""
         assert surveillance.seuil_temperature_inferieur == 10
         assert surveillance.seuil_temperature_superieur == 25
         assert surveillance.horaire_sortie_tard == 22
@@ -65,7 +48,6 @@ class TestSurveillance:
         expected_message,
         expected_niveau,
     ):
-        """Teste la gestion d'alerte pour une mesure de température."""
         mesure = create_mesure(MeasureType.TEMPERATURE, temperature, fixed_timestamp)
         alerte = surveillance.handleAlert(mesure)
         assert isinstance(alerte, Alert)
@@ -83,7 +65,6 @@ class TestSurveillance:
     def test_handle_heure_sortie_alert(
         self, surveillance, fixed_timestamp, heure, expected_message, expected_niveau
     ):
-        """Teste la gestion d'alerte pour une mesure d'heure de sortie."""
         mesure = create_mesure(MeasureType.HEURE_SORTIE, heure, fixed_timestamp)
         alerte = surveillance.handleAlert(mesure)
         assert isinstance(alerte, Alert)
@@ -101,7 +82,6 @@ class TestSurveillance:
     def test_handle_duree_sortie_alert(
         self, surveillance, fixed_timestamp, duree, expected_message, expected_niveau
     ):
-        """Teste la gestion d'alerte pour une mesure de durée de sortie."""
         mesure = create_mesure(MeasureType.DUREE_SORTIE, duree, fixed_timestamp)
         alerte = surveillance.handleAlert(mesure)
         assert isinstance(alerte, Alert)
@@ -119,9 +99,8 @@ class TestSurveillance:
     def test_handle_duree_inactivite_alert(
         self, surveillance, fixed_timestamp, duree, expected_message, expected_niveau
     ):
-        """Teste la gestion d'alerte pour une mesure de durée d'inactivité."""
         mesure = create_mesure(MeasureType.DUREE_INACTIVITE, duree, fixed_timestamp)
         alerte = surveillance.handleAlert(mesure)
         assert isinstance(alerte, Alert)
         assert alerte.message == expected_message
-        assert alerte.niveau_gravite == expected_niveau
+        assert alerte.niveau_gravite == expected_niveau """

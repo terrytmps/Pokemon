@@ -1,4 +1,4 @@
-# Atelier 1 - Du procédural à l’objet
+# Projet de session - IFT785 : Lucas ARIES et Terry TEMPESTINI
 
 ## Configuration initiale
 

@@ -3,7 +3,7 @@
 {% extends "partials/base.html" %}
 
 {% block content %}
-<h1 class="mb-4">Informations en temps réel</h1>
+<h1 class="mb-4">Informations</h1>
 <div class="container mt-4">
     <!-- Vue d'ensemble -->
     <div class="row mb-4">
@@ -14,156 +14,15 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="alert alert-info">
-                                Température moyenne: 22°C
+                                Choisir un titre pour notre application
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="alert alert-warning">
-                                Alertes actives: 2
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="alert alert-success">
-                                Pièces surveillées: 4
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="alert alert-primary">
-                                Dernier relevé: 10:30
+                                Définir le but de l'application et les fonctionnalités
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cartes des pièces -->
-    <div class="row mb-4">
-        <!-- Salon -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Salon</h5>
-                    <span class="badge bg-success">Normal</span>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Température
-                            <span>21.5°C</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Dernière activité
-                            <span>Il y a 30 min</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Durée d'inactivité
-                            <span>0.5h</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Chambre -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Chambre</h5>
-                    <span class="badge bg-danger">Alerte</span>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
-                            Température
-                            <span>26.5°C</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Dernière activité
-                            <span>Il y a 3h</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
-                            Durée d'inactivité
-                            <span>3h</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cuisine -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Cuisine</h5>
-                    <span class="badge bg-warning">Attention</span>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Température
-                            <span>23.5°C</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center text-warning">
-                            Dernière activité
-                            <span>Il y a 1.5h</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Durée d'inactivité
-                            <span>1.5h</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Salle de bain -->
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Salle de bain</h5>
-                    <span class="badge bg-success">Normal</span>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Température
-                            <span>22.0°C</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Dernière activité
-                            <span>Il y a 45 min</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Durée d'inactivité
-                            <span>0.75h</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Graphiques -->
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Évolution de la température</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="temperatureChart"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Durée d'inactivité par pièce</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="inactivityChart"></canvas>
                 </div>
             </div>
         </div>
