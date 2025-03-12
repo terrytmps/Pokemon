@@ -1,0 +1,177 @@
+
+{% extends "partials/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Filtres -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Filtres</h5>
+        </div>
+        <div class="card-body">
+            <form id="filterForm" class="row g-3">
+                <div class="col-md-4">
+                    <label for="piece" class="form-label">Pièce</label>
+                    <select class="form-select" id="piece" name="piece">
+                        <option value="">Toutes les pièces</option>
+                        <option value="salon">Salon</option>
+                        <option value="chambre">Chambre</option>
+                        <option value="cuisine">Cuisine</option>
+                        <option value="salleDeBain">Salle de bain</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="situation" class="form-label">Type de situation</label>
+                    <select class="form-select" id="situation" name="situation">
+                        <option value="">Toutes les situations</option>
+                        <option value="normal">Normal</option>
+                        <option value="attention">Attention</option>
+                        <option value="alerte">Alerte</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">Filtrer</button>
+                    <button type="button" class="btn btn-secondary" id="showAllDetails">Afficher tous les détails</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Résultats -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Détails des situations</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Pièce</th>
+                            <th>Situation</th>
+                            <th>Température</th>
+                            <th>Durée d'inactivité</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailsTableBody">
+                        <!-- Exemple de données -->
+                        <tr>
+                            <td>21/01/2025 10:30</td>
+                            <td>Salon</td>
+                            <td><span class="badge bg-success">Normal</span></td>
+                            <td>21.5°C</td>
+                            <td>0.5h</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal">
+                                    Voir détails
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>21/01/2025 10:30</td>
+                            <td>Chambre</td>
+                            <td><span class="badge bg-danger">Alerte</span></td>
+                            <td>26.5°C</td>
+                            <td>3h</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal">
+                                    Voir détails
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour les détails complets -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Détails complets</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Informations générales</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Date :</strong> <span id="modalDate">21/01/2025 10:30</span></li>
+                            <li><strong>Pièce :</strong> <span id="modalPiece">Chambre</span></li>
+                            <li><strong>Situation :</strong> <span id="modalSituation">Alerte</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Mesures</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Température :</strong> <span id="modalTemp">26.5°C</span></li>
+                            <li><strong>Durée d'inactivité :</strong> <span id="modalInactivity">3h</span></li>
+                            <li><strong>Heure dernière activité :</strong> <span id="modalLastActivity">07:30</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h6>Historique des 24 dernières heures</h6>
+                        <canvas id="modalHistoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary">Exporter en PDF</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Script pour gérer les filtres
+document.getElementById('filterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Logique de filtrage ici si vous le voulez
+    const piece = document.getElementById('piece').value;
+    const situation = document.getElementById('situation').value;
+    console.log('Filtres appliqués:', { piece, situation });
+});
+
+// Script pour afficher tous les détails
+document.getElementById('showAllDetails').addEventListener('click', function() {
+    // Logique pour afficher tous les détails
+    console.log('Affichage de tous les détails');
+});
+
+// Script pour le graphique dans la modal
+document.getElementById('detailModal').addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    // Ici vous pouvez récupérer les données associées au bouton et les utiliser pour le graphique
+    
+    const ctx = document.getElementById('modalHistoryChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['6h', '8h', '10h', '12h', '14h', '16h', '18h', '20h', '22h', '0h', '2h', '4h'],
+            datasets: [{
+                label: 'Température',
+                data: [21, 20, 22, 23, 25, 24, 23, 22, 21, 20, 19, 20],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
