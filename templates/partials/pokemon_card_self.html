@@ -1,0 +1,24 @@
+{% set pokemon_hp_percentage = (pokemon.current_hp / pokemon.max_hp) * 100 %}
+
+<div class="player-container">
+  <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img player"/>
+  <div class="pokemon-info player-info">
+    <strong>{{ pokemon.name }}</strong> <br>
+    <span class="level">Lv. {{ pokemon.level }}</span>
+    <!-- Affichage des types de Pokémon -->
+    <div class="pokemon-types">
+      {% if pokemon.first_type.value != '' %}
+        <img src="{{ pokemon.first_type.value }}" alt="{{ pokemon.first_type.name }}" class="type-img"/>
+      {% endif %}
+
+      {% if pokemon.second_type.value != '' %}
+        <img src="{{ pokemon.second_type.value }}" alt="{{ pokemon.second_type.name }}" class="type-img"/>
+      {% endif %}
+    </div>
+    <div class="hp-bar">
+      <div class="hp-fill" style="width: {{ pokemon_hp_percentage }}%;"></div>
+    </div>
+    <small>HP: {{ pokemon.current_hp }} / {{ pokemon.max_hp }}</small>
+
+  </div>
+</div>
