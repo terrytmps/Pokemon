@@ -2,34 +2,36 @@
 
 {% block content %}
 
-<div class="battle-container">
-    <!-- Left Black Bar -->
-    <div class="black-bar"></div>
-  
-    <!-- Main Battle Screen -->
-    <div class="battle-screen">
-      <!-- Opponent's Pokémon -->
-        {% with pokemon=pokemon_op%}
+    <div class="battle-container">
+        <!-- Left Black Bar -->
+        <div class="black-bar"></div>
+
+        <!-- Main Battle Screen -->
+        <div class="battle-screen">
+            <!-- Opponent's Pokémon -->
+            {% with pokemon=pokemon_op %}
                 {% include "partials/pokemon_card_enemy.html" %}
-        {% endwith %}
+            {% endwith %}
 
 
-      <!-- Player's Pokémon -->
-        {% with pokemon=pokemon_self%}
-            {% include "partials/pokemon_card_self.html" %}
-        {% endwith %}
+            <!-- Player's Pokémon -->
+            {% with pokemon=pokemon_self %}
+                {% include "partials/pokemon_card_self.html" %}
+            {% endwith %}
 
-  
-      <!-- Action Menu -->
-      {% with pokemon=pokemon_self %}
-        {% include "partials/actionPanel.html" %}
-      {% endwith %}
+            {% include "partials/display_message.html" %}
+
+
+            <!-- Action Menu -->
+            {% with pokemon=pokemon_self %}
+                {% include "partials/action_panel.html" %}
+            {% endwith %}
+        </div>
+
+        <!-- Right Black Bar -->
+        <div class="black-bar"></div>
     </div>
-  
-    <!-- Right Black Bar -->
-    <div class="black-bar"></div>
-  </div>
 
-  
+
 
 {% endblock %}

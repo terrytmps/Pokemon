@@ -1,0 +1,48 @@
+<!-- Pokémon Action Button -->
+<div class="action-container">
+    <button id="open-modal-btn" class="btn btn-primary open-modal-btn">Pokemon</button>
+</div>
+
+<!-- Modal (Hidden by default) -->
+<div id="custom-modal" class="modal">
+    <div class="modal-content">
+        <span id="close-modal-btn" class="close-btn">&times;</span>
+        <h2>Pokemon</h2>
+        <p>This is where your custom content will go.</p>
+    </div>
+</div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('custom-modal');
+        const body = document.body;
+
+        // Move the modal to the body when the DOM content is loaded
+        body.appendChild(modal);
+    });
+
+    // Get modal and button elements
+    const modal = document.getElementById('custom-modal');
+    const openModalBtn = document.getElementById('open-modal-btn');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    // Open modal when button is clicked
+    openModalBtn.addEventListener('click', () => {
+        modal.classList.add('show'); // Show the modal by adding 'show' class
+    });
+
+    // Close modal when the close button is clicked
+    closeModalBtn.addEventListener('click', () => {
+        modal.classList.remove('show'); // Hide the modal by removing 'show' class
+    });
+
+    // Close modal if user clicks outside of the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.classList.remove('show'); // Hide the modal if clicked outside
+        }
+    });
+
+
+</script>

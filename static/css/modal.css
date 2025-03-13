@@ -1,0 +1,68 @@
+/* Modal styles */
+.modal {
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Ensure it's on top of other content */
+    visibility: hidden; /* Hide by default */
+    opacity: 0; /* Make invisible */
+    transition: visibility 0s, opacity 0.3s ease-in-out; /* Smooth transition for visibility and opacity */
+}
+
+/* Show modal */
+.modal.show {
+    visibility: visible; /* Make visible */
+    opacity: 1; /* Fade in */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Close button */
+.close-btn {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Action button style */
+.open-modal-btn {
+    background-color: #f4a300;
+    border: 3px solid #b86500;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.open-modal-btn:hover {
+    background-color: #e08b00;
+    transform: scale(1.05);
+}
+
+.open-modal-btn:active {
+    background-color: #b86500;
+    transform: scale(0.98);
+}

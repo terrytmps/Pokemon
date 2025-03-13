@@ -6,7 +6,7 @@
             <div class="col-6">
                 {% if move %}
                     <!-- Bouton avec infos au survol -->
-                    <button class="btn move-btn w-100"
+                    <button class="btn move-btn w-100 bouton-attaque"
                             style="background-color: {{ move.move_type.color }};"
                             data-name="{{ move.name }}"
                             data-description="{{ move.description }}"
@@ -24,9 +24,10 @@
                     </button>
                 {% endif %}
             </div>
-            {% if loop.index is even %} </div><div class="row mt-2"> {% endif %}
+            {% if loop.index is even %}</div>
+                <div class="row mt-2"> {% endif %}
         {% endfor %}
-    </div>
+        {% include "partials/pokemon_modal.html" %}
 </div>
 
 <!-- Tooltip (Invisible au départ) -->
@@ -34,6 +35,13 @@
 
 <script>
     let tooltipTimeout;
+    const boutonsAttaque = document.querySelectorAll('.bouton-attaque');
+
+    // Parcourt chaque bouton et ajoute un écouteur d'événement
+    boutonsAttaque.forEach(bouton => {
+        bouton.addEventListener('click', lancerAttaque.bind(null, "{{ pokemon.name }}", bouton.dataset.name));
+    });
+
 
     function startTooltip(button) {
         tooltipTimeout = setTimeout(() => {
@@ -70,5 +78,54 @@
         tooltip.style.display = "none"; // Hide the tooltip
         tooltip.style.opacity = "0"; // Set opacity to 0 to hide
     }
+
+    function lancerAttaque(pokemonName, moveName) {
+        hideTooltip();
+        const joueur = document.getElementById('pokemon-joueur');
+        const adversaire = document.getElementById('pokemon-adversaire');
+
+        // Animation du Pokémon du joueur
+        joueur.classList.add('attaque');
+        // Retirer l'animation après son exécution
+        joueur.addEventListener('animationend', () => {
+            joueur.classList.remove('attaque');
+        });
+
+        // Animation du Pokémon adversaire avec un léger délai
+        setTimeout(() => {
+            adversaire.classList.add('degats');
+        }, 250);
+
+        // Retirer l'animation après son exécution
+        adversaire.addEventListener('animationend', () => {
+            adversaire.classList.remove('degats');
+        });
+        afficherMessage(pokemonName + " utilise " + moveName + "!");
+    }
+
+    function attaqueAdversaire(pokemonName, moveName) {
+        const adversaire = document.getElementById('pokemon-adversaire');
+        const joueur = document.getElementById('pokemon-joueur');
+
+        // Animation du Pokémon adversaire
+        adversaire.classList.add('attaque-adversaire');
+
+        // Retirer l'animation après son exécution
+        adversaire.addEventListener('animationend', () => {
+            adversaire.classList.remove('attaque-adversaire');
+        });
+
+        // Animation du Pokémon du joueur avec un léger délai
+        setTimeout(() => {
+            joueur.classList.add('degats-joueur');
+        }, 250);
+
+        // Retirer l'animation après son exécution
+        joueur.addEventListener('animationend', () => {
+            joueur.classList.remove('degats-joueur');
+        });
+        afficherMessage(pokemonName + " utilise " + moveName + "!");
+    }
+
 
 </script>
