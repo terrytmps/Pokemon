@@ -1,0 +1,23 @@
+<!-- Zone de texte pour les messages -->
+<div id="battle-message" class="battle-message"></div>
+
+<script>
+    let messageTimeout; // Variable pour stocker l'identifiant du timeout
+
+    function afficherMessage(message) {
+        const messageContainer = document.getElementById('battle-message');
+        messageContainer.innerHTML = `<span>${message}</span>`;
+        messageContainer.style.display = 'block';
+
+        // Si un message est déjà affiché, annulez le précédent timeout
+        if (messageTimeout) {
+            clearTimeout(messageTimeout);
+        }
+
+        // Masquer le message après 8 secondes
+        messageTimeout = setTimeout(() => {
+            messageContainer.style.display = 'none';
+        }, 4500);
+    }
+
+</script>

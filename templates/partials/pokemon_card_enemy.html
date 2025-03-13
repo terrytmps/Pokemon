@@ -1,34 +1,34 @@
 {% set pokemon_hp_percentage = (pokemon.current_hp / pokemon.max_hp) * 100 %}
 
-<div class="opponent-container">
-  <div class="pokemon-info opponent-info">
-    <strong>{{ pokemon.name }}</strong> <br>
-    <span class="level">Lv. {{ pokemon.level }}</span>
-    <!-- Affichage des types de Pokémon -->
-    <div class="pokemon-types">
-      {% if pokemon.first_type.value != '' %}
-        <img src="{{ pokemon.first_type.value }}" alt="{{ pokemon.first_type.name }}" class="type-img"/>
-      {% endif %}
+<div id="pokemon-adversaire" class="opponent-container">
+    <div class="pokemon-info opponent-info">
+        <strong>{{ pokemon.name }}</strong> <br>
+        <span class="level">Lv. {{ pokemon.level }}</span>
+        <!-- Affichage des types de Pokémon -->
+        <div class="pokemon-types">
+            {% if pokemon.first_type.value != '' %}
+                <img src="{{ pokemon.first_type.value }}" alt="{{ pokemon.first_type.name }}" class="type-img"/>
+            {% endif %}
 
-      {% if pokemon.second_type.value != '' %}
-        <img src="{{ pokemon.second_type.value }}" alt="{{ pokemon.second_type.name }}" class="type-img"/>
-      {% endif %}
+            {% if pokemon.second_type.value != '' %}
+                <img src="{{ pokemon.second_type.value }}" alt="{{ pokemon.second_type.name }}" class="type-img"/>
+            {% endif %}
+        </div>
+
+        <!-- HP Bar with Dynamic Color -->
+        <div class="hp-bar">
+            <div class="hp-fill"
+                 style="width: {{ pokemon_hp_percentage }}%; background-color:
+                         {% if pokemon_hp_percentage > 50 %} #4CAF50
+                         {% elif pokemon_hp_percentage > 20 %} #FF9800
+                         {% else %} #F44336
+                         {% endif %};">
+            </div>
+        </div>
+
+        <small>HP: {{ pokemon.current_hp }} / {{ pokemon.max_hp }}</small>
+        <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img opponent"/>
+
     </div>
-
-    <!-- HP Bar with Dynamic Color -->
-    <div class="hp-bar">
-      <div class="hp-fill"
-           style="width: {{ pokemon_hp_percentage }}%; background-color:
-           {% if pokemon_hp_percentage > 50 %} #4CAF50
-           {% elif pokemon_hp_percentage > 20 %} #FF9800
-           {% else %} #F44336
-           {% endif %};">
-      </div>
-    </div>
-
-      <small>HP: {{ pokemon.current_hp }} / {{ pokemon.max_hp }}</small>
-      <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img opponent"/>
-
-  </div>
 </div>
 

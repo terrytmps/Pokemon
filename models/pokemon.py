@@ -19,8 +19,7 @@ class Pokemon:
         self._current_xp = 0
         self.first_type = first_type
         self.second_type = second_type
-        self._moves  = [None] * 4
-
+        self._moves = [None] * 4
 
     @property
     def current_hp(self):
@@ -45,6 +44,7 @@ class Pokemon:
     """
     Handle all logic behind levelUp
     """
+
     def levelUp(self, value):
         self._current_xp += (value * self._xp_difficulty.value)
         while self._current_xp >= self._level:
@@ -54,7 +54,8 @@ class Pokemon:
     """
     Try to add a move return boolean meaning success of operation
     """
-    def addMove(self, move) -> bool :
+
+    def addMove(self, move) -> bool:
         for i in range(4):
             if self._moves[i] == None:
                 self._moves[i] = move
@@ -64,10 +65,9 @@ class Pokemon:
     """
     Try to replace a move return boolean meaning success of operation
     """
+
     def replaceMove(self, move, index) -> bool:
         if index < 0 or index > 3:
             return False
         self._moves[index] = move
         return True
-
-
