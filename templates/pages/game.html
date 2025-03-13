@@ -9,18 +9,11 @@
     <!-- Main Battle Screen -->
     <div class="battle-screen">
       <!-- Opponent's Pokémon -->
-      <div class="opponent-container">
-        <div class="pokemon-info opponent-info">
-          <strong>Charmander</strong> <br><span class="level">Lv. 10</span>
-          <div class="hp-bar">
-            <div class="hp-fill" style="width: 70%;"></div>
-          </div>
-          <small>HP: 21 / 30</small>
-        </div>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" 
-             alt="Charmander" class="pokemon-img opponent"/>
-      </div>
-  
+        {% with pokemon=pokemon_op%}
+                {% include "partials/pokemon_card_enemy.html" %}
+        {% endwith %}
+
+
       <!-- Player's Pokémon -->
         {% with pokemon=pokemon_self%}
             {% include "partials/pokemon_card_self.html" %}

@@ -1,8 +1,7 @@
 {% set pokemon_hp_percentage = (pokemon.current_hp / pokemon.max_hp) * 100 %}
 
-<div class="player-container">
-  <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img player"/>
-  <div class="pokemon-info player-info">
+<div class="opponent-container">
+  <div class="pokemon-info opponent-info">
     <strong>{{ pokemon.name }}</strong> <br>
     <span class="level">Lv. {{ pokemon.level }}</span>
     <!-- Affichage des types de Pokémon -->
@@ -27,7 +26,9 @@
       </div>
     </div>
 
-    <small>HP: {{ pokemon.current_hp }} / {{ pokemon.max_hp }}</small>
+      <small>HP: {{ pokemon.current_hp }} / {{ pokemon.max_hp }}</small>
+      <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img opponent"/>
 
   </div>
 </div>
+
