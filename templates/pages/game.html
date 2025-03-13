@@ -15,7 +15,7 @@
 
 
             <!-- Player's Pokémon -->
-            {% with pokemon=pokemon_self %}
+            {% with pokemon=player.get_current_pokemon() %}
                 {% include "partials/pokemon_card_self.html" %}
             {% endwith %}
 
@@ -23,7 +23,7 @@
 
 
             <!-- Action Menu -->
-            {% with pokemon=pokemon_self %}
+            {% with pokemon=player.get_current_pokemon(), list_pokemon=player.pokemons, player=player%}
                 {% include "partials/action_panel.html" %}
             {% endwith %}
         </div>

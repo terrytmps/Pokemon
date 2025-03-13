@@ -8,12 +8,35 @@
     <div class="modal-content">
         <span id="close-modal-btn" class="close-btn">&times;</span>
         <h2>Pokemon</h2>
-        <p>This is where your custom content will go.</p>
+        <div class="slots-container">
+            {% for poke  in list_pokemon %}
+                <div class="slot">
+                    <!-- Si un Pokémon est dans le slot, on l'affiche dans une Pokéball -->
+                    {% if poke %}
+                        <div class="pokeball pokeball_full" onclick="changePokemon({{ loop.index }})">
+                            <img src="{{ poke._sprite_url }}" alt="{{ poke.name }}'s image" class="pokemon-in-ball"/>
+                        </div>
+                        <div class="pokemon-name">{{ poke.name }}</div>
+                    {% else %}
+                        <!-- Slot vide affichant une Pokéball vide -->
+                        <div class="pokeball empty">
+                            <img src="{{ url_for('static', filename='img/pokeball.png') }}" alt="Empty Pokéball"
+                                 class="pokemon-in-ball"/>
+                        </div>
+                        <div class="pokemon-name">Vide</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 </div>
-
 <script>
+
+    function changePokemon(index) {
+
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('custom-modal');
         const body = document.body;

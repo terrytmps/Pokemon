@@ -57,7 +57,7 @@ class Pokemon:
 
     def addMove(self, move) -> bool:
         for i in range(4):
-            if self._moves[i] == None:
+            if self._moves[i] is None:
                 self._moves[i] = move
                 return True
         return False
