@@ -4,10 +4,15 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
-            <h1 class="display-4 text-danger">404</h1>
-            <h2>Page non trouvée</h2>
-            <p class="lead">Désolé, la page que vous recherchez n'existe pas.</p>
-            <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
+            <!-- Pokémon-style big numbers and red color for emphasis -->
+            <h1 class="display-3 text-danger font-weight-bold" style="font-family: 'Pokemon', sans-serif;">404</h1>
+            <h2 class="text-dark" style="font-family: 'Pokemon', sans-serif;">Page non trouvée</h2>
+            <p class="lead text-dark" style="font-family: 'Arial', sans-serif;">Désolé, la page que vous recherchez n'existe pas.</p>
+
+            <!-- Pokémon-style button with rounded edges -->
+            <a href="{{ url_for('game_controller.game') }}" class="btn btn-warning mt-4 px-4 py-2" style="border-radius: 50px; font-family: 'Pokemon', sans-serif;">
+                Retour à l'accueil
+            </a>
         </div>
     </div>
 </div>
