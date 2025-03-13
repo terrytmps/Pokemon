@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def dashboard():
-    return render_template("pages/dashboard.html")
+    return render_template("pages/game.html")
 
 
 # Gestion de la page d'erreur 404 (Page non trouvée)

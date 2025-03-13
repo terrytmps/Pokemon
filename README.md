@@ -2,15 +2,16 @@
 
 ## Configuration initiale
 
-1. **Créer un environnement virtuel** :
+1. **Première installation** :
     ```bash
     make venv
     source .venv/bin/activate
+    make install
     ```
 
-2. **Installer les dépendances** :
+2. **Lancement** :
     ```bash
-    make install
+    source .venv/bin/activate
     ```
 
 ## Lancer l'application

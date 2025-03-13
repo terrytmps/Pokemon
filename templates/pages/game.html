@@ -1,0 +1,57 @@
+{% extends "partials/base.html" %}
+
+{% block content %}
+
+<div class="battle-container">
+    <!-- Left Black Bar -->
+    <div class="black-bar"></div>
+  
+    <!-- Main Battle Screen -->
+    <div class="battle-screen">
+      <!-- Opponent's Pokémon -->
+      <div class="opponent-container">
+        <div class="pokemon-info opponent-info">
+          <strong>Charmander</strong> <span class="level">Lv. 10</span>
+          <div class="hp-bar">
+            <div class="hp-fill" style="width: 70%;"></div>
+          </div>
+          <small>HP: 21 / 30</small>
+        </div>
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" 
+             alt="Charmander" class="pokemon-img opponent"/>
+      </div>
+  
+      <!-- Player's Pokémon -->
+      <div class="player-container">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" 
+             alt="Pikachu" class="pokemon-img player"/>
+        <div class="pokemon-info player-info">
+          <strong>Pikachu</strong> <span class="level">Lv. 12</span>
+          <div class="hp-bar">
+            <div class="hp-fill" style="width: 85%;"></div>
+          </div>
+          <small>HP: 40 / 47</small>
+        </div>
+      </div>
+  
+      <!-- Action Menu -->
+      <div class="action-box">
+        <h5>Choose an action:</h5>
+        <div class="row">
+          <div class="col-6"><button class="btn btn-primary w-100">Thunderbolt</button></div>
+          <div class="col-6"><button class="btn btn-danger w-100">Flamethrower</button></div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-6"><button class="btn btn-success w-100">Quick Attack</button></div>
+          <div class="col-6"><button class="btn btn-warning w-100">Defend</button></div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Right Black Bar -->
+    <div class="black-bar"></div>
+  </div>
+
+  
+
+{% endblock %}

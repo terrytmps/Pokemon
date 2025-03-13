@@ -11,3 +11,110 @@ body {
 footer {
     margin-top: auto;
 }
+
+.bg-red {
+    background-color: #DA344D;
+}
+
+   /* Full Battle Container */
+   .battle-container {
+    margin-top: 1%;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+    background: #ddd;
+  }
+
+  .black-bar {
+    width: 20%;
+    height: 80vh;
+    background: black;
+  }
+
+  .battle-screen {
+    width: 60%;
+    padding: 20px;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    height: 80vh;
+  }
+
+  /* Opponent's Pokémon */
+  .opponent-container {
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    text-align: right;
+  }
+
+  .opponent-info {
+    margin-bottom: 5px;
+  }
+
+  .pokemon-img.opponent {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Player's Pokémon */
+  .player-container {
+    position: absolute;
+    bottom: 30%;
+    left: 10%;
+    text-align: left;
+  }
+
+  .player-info {
+    margin-top: 5px;
+  }
+
+  .pokemon-img.player {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Pokémon Info (HP, Name, Level) */
+  .pokemon-info {
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    width: 180px;
+  }
+
+  .name-level {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .hp-bar {
+    background: #ddd;
+    height: 12px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 5px 0;
+  }
+
+  .hp-fill {
+    height: 100%;
+    background: #28a745;
+  }
+
+  /* Action Box */
+  .action-box {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 90%;
+    text-align: center;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
