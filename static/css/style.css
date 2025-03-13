@@ -18,98 +18,96 @@ footer {
     background-color: #DA344D;
 }
 
-   /* Full Battle Container */
-   .battle-container {
-    margin-top: 1%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 80vh;
-    background: #ddd;
-  }
+ /* Full Battle Container */
+ .battle-container {
+  margin-top: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+  background: #ddd;
+}
 
-  .black-bar {
-    width: 20%;
-    height: 80vh;
-    background: black;
-  }
+.black-bar {
+  width: 20%;
+  height: 80vh;
+  background: black;
+}
 
-  .battle-screen {
-    width: 60%;
-    padding: 20px;
-    background: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    height: 80vh;
-  }
+.battle-screen {
+  width: 60%;
+  padding: 20px;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 80vh;
+}
 
-  /* Opponent's Pokémon */
-  .opponent-container {
-    position: absolute;
-    top: 5%;
-    right: 10%;
-    text-align: right;
-  }
+/* Opponent's Pokémon */
+.opponent-container {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  text-align: right;
+}
 
-  .opponent-info {
-    margin-bottom: 5px;
-  }
+.opponent-info {
+  margin-bottom: 5px;
+}
 
-  .pokemon-img.opponent {
-    width: 180px;
-    height: 180px;
-  }
+.pokemon-img.opponent {
+  width: 180px;
+  height: 180px;
+}
 
-  /* Player's Pokémon */
-  .player-container {
-    position: absolute;
-    bottom: 30%;
-    left: 10%;
-    text-align: left;
-  }
+/* Player's Pokémon */
+.player-container {
+  position: absolute;
+  bottom: 30%;
+  left: 10%;
+  text-align: left;
+}
 
-  .player-info {
-    margin-top: 5px;
-  }
+.player-info {
+  margin-top: 5px;
+}
 
-  .pokemon-img.player {
-    width: 200px;
-    height: 200px;
-  }
+.pokemon-img.player {
+  width: 200px;
+  height: 200px;
+}
 
-  /* Pokémon Info (HP, Name, Level) */
-  .pokemon-info {
-    background: white;
-    padding: 8px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 14px;
-    width: 180px;
-  }
+/* Pokémon Info (HP, Name, Level) */
+.pokemon-info {
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+  width: 180px;
+}
 
-  .name-level {
-    display: flex;
-    justify-content: space-between;
-  }
+.name-level {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .hp-bar {
-    background: #ddd;
-    height: 12px;
-    border-radius: 5px;
-    overflow: hidden;
-    margin: 5px 0;
-  }
+.hp-bar {
+  background: #ddd;
+  height: 12px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 5px 0;
+}
 
-  .hp-fill {
-    height: 100%;
-    background: #28a745;
-  }
-
-  /* Action Box */
-  .action-box {
+.hp-fill {
+  height: 100%;
+  background: #28a745;
+}
+/* Action Box */
+.action-box {
     background: white;
     padding: 15px;
     border-radius: 10px;
@@ -119,4 +117,72 @@ footer {
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
-  }
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Boutons d'attaques (avec couleur dynamique) */
+.move-btn {
+    color: white;
+    font-weight: bold;
+    border: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.move-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Bouton désactivé pour les slots libres */
+.btn-disabled {
+    background-color: #ccc !important;
+    color: #666 !important;
+    border: 2px dashed #999 !important;
+    cursor: not-allowed;
+    font-weight: bold;
+    opacity: 0.6;
+    animation: blink 1.5s infinite alternate;
+}
+
+/* Effet de clignotement léger */
+@keyframes blink {
+    0% { opacity: 0.6; }
+    100% { opacity: 0.8; }
+}
+
+.tooltip-box {
+    position: fixed; /* Make the tooltip fixed in the viewport */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the tooltip */
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 300px; /* Set a minimum width for the tooltip */
+    max-width: 500px; /* Set a maximum width for the tooltip */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3); /* Shadow for a nice effect */
+    display: none; /* Initially hidden */
+    opacity: 0; /* Initially hidden (invisible) */
+    pointer-events: none; /* Disable interactions with the tooltip */
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in/out */
+    text-align: left; /* Left align text to avoid center alignment issues */
+}
+
+.tooltip-box.show {
+    display: block; /* Show the tooltip when the class `show` is added */
+    opacity: 1; /* Make sure the tooltip is fully visible */
+}
+
+.tooltip-box strong {
+    font-size: 1.1em; /* Slightly larger font for the name */
+    margin-bottom: 10px;
+}
+
+.tooltip-box span {
+    font-weight: bold;
+}
+
+.tooltip-box em {
+    font-style: italic;
+}

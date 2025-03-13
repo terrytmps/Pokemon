@@ -21,17 +21,9 @@
 
   
       <!-- Action Menu -->
-      <div class="action-box">
-        <h5>Choose an action:</h5>
-        <div class="row">
-          <div class="col-6"><button class="btn btn-primary w-100">Thunderbolt</button></div>
-          <div class="col-6"><button class="btn btn-danger w-100">Flamethrower</button></div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-6"><button class="btn btn-success w-100">Quick Attack</button></div>
-          <div class="col-6"><button class="btn btn-warning w-100">Defend</button></div>
-        </div>
-      </div>
+      {% with pokemon=pokemon_self %}
+        {% include "partials/actionPanel.html" %}
+      {% endwith %}
     </div>
   
     <!-- Right Black Bar -->

@@ -1,0 +1,74 @@
+<!-- Action Menu -->
+<div class="action-box" id="display-parent-move">
+    <h5>Choose an action:</h5>
+    <div class="row">
+        {% for move in pokemon._moves %}
+            <div class="col-6">
+                {% if move %}
+                    <!-- Bouton avec infos au survol -->
+                    <button class="btn move-btn w-100"
+                            style="background-color: {{ move.move_type.color }};"
+                            data-name="{{ move.name }}"
+                            data-description="{{ move.description }}"
+                            data-power="{{ move.power }}"
+                            data-accuracy="{{ move.accuracy }}"
+                            data-type="{{ move.move_type.name }}"
+                            onmouseover="startTooltip(this)"
+                            onmouseout="hideTooltip()">
+                        {{ move.name }}
+                    </button>
+                {% else %}
+                    <!-- Bouton désactivé pour les slots vides -->
+                    <button class="btn btn-disabled w-100" disabled>
+                        Slot libre
+                    </button>
+                {% endif %}
+            </div>
+            {% if loop.index is even %} </div><div class="row mt-2"> {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Tooltip (Invisible au départ) -->
+<div id="move-tooltip" class="tooltip-box" style="display: none;"></div>
+
+<script>
+    let tooltipTimeout;
+
+    function startTooltip(button) {
+        tooltipTimeout = setTimeout(() => {
+            const tooltip = document.getElementById("move-tooltip");
+
+            // Set the tooltip content
+            tooltip.innerHTML = `
+                <strong>${button.dataset.name}</strong> <br>
+                <span>Type: ${button.dataset.type}</span> <br>
+                ⚡ <b>Power:</b> ${button.dataset.power} <br>
+                🎯 <b>Accuracy:</b> ${button.dataset.accuracy}% <br>
+                <em>${button.dataset.description}</em>
+            `;
+
+            // Position the tooltip in the center of the screen
+            tooltip.style.position = "fixed";
+            tooltip.style.left = "50%";
+            tooltip.style.top = "50%";
+            tooltip.style.transform = "translate(-50%, -50%)"; // Center the tooltip
+
+            // Make sure the tooltip is visible
+            tooltip.style.display = "block"; // Show the tooltip
+            tooltip.style.opacity = "1"; // Ensure opacity is set to 1 (fully visible)
+            tooltip.style.transition = "opacity 0.3s ease-in-out"; // Smooth transition
+
+            // Optional animation for fade-in effect
+            tooltip.style.animation = "fadeIn 0.2s ease-in-out";
+        }, 1000); // Wait 1 second before showing the tooltip
+    }
+
+    function hideTooltip() {
+        clearTimeout(tooltipTimeout); // Clear the timeout if mouse leaves before 1 second
+        const tooltip = document.getElementById("move-tooltip");
+        tooltip.style.display = "none"; // Hide the tooltip
+        tooltip.style.opacity = "0"; // Set opacity to 0 to hide
+    }
+
+</script>
