@@ -11,7 +11,7 @@ game_controller = Blueprint("game_controller", __name__)
 @game_controller.route("/")
 def game():
     pokemon_self = Pokemon("Pikachu", 12, 57, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-                        XPDifficulty.EASY, PokemonType.ELECTRIC, PokemonType.NONE)
+                        XPDifficulty.EASY, PokemonType.ELECTRIC, PokemonType.FIRE)
     pokemon_self.current_hp = 24
     pokemon_self.addMove(Move("Tonnerre", "A strong electric attack", 90, 100, PokemonType.ELECTRIC, MoveCategory.SPECIAL))
     pokemon_self.addMove(Move("Vive-Attaque", "A fast attack", 40, 100, PokemonType.NORMAL, MoveCategory.PHYSICAL))

@@ -37,6 +37,13 @@
     </script>
 </head>
 <body>
+
+    <audio autoplay loop>
+      <source src="{{ url_for('static', filename='sound/harpsichord-theorem-270273.mp3') }}" type="audio/mp3">
+      Votre navigateur ne prend pas en charge la balise audio.
+    </audio>
+
+
     {% include 'partials/header.html' %}
     
     <div class="container">

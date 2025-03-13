@@ -94,6 +94,29 @@ footer {
   justify-content: space-between;
 }
 
+/* Animation de rebond */
+.pokemon-img {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.pokemon-img.opponent {
+  animation: bounce 2s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px); /* Déplacement vers le haut */
+  }
+  60% {
+    transform: translateY(-5px);  /* Déplacement légèrement vers le bas */
+  }
+}
+
+
 .hp-bar {
   background: #ddd;
   height: 12px;
@@ -143,6 +166,14 @@ footer {
     opacity: 0.6;
     animation: blink 1.5s infinite alternate;
 }
+
+.move-btn {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
 
 /* Effet de clignotement léger */
 @keyframes blink {
