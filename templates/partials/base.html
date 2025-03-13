@@ -38,10 +38,16 @@
 </head>
 <body>
 
-    <audio autoplay loop>
+    <audio id="audiogame" autoplay loop>
       <source src="{{ url_for('static', filename='sound/harpsichord-theorem-270273.mp3') }}" type="audio/mp3">
       Votre navigateur ne prend pas en charge la balise audio.
     </audio>
+    <script>
+      window.onload = function() {
+        let audio = document.getElementById("audiogame");
+        audio.volume = 0.15;
+      };
+    </script>
 
 
     {% include 'partials/header.html' %}

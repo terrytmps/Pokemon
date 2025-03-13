@@ -116,6 +116,9 @@ footer {
   }
 }
 
+.pokemon-types {
+    display: flex;
+}
 
 .hp-bar {
   background: #ddd;
