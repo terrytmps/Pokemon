@@ -7,8 +7,8 @@ class Pokemon:
     Classe that represent a pokemon with all its attributes and behavior
     """
 
-    def __init__(self, name, level, max_hp, sprite_url, xp_difficulty: XPDifficulty,
-                 first_type: PokemonType, second_type: PokemonType):
+    def __init__(self, name: str, level: int, max_hp: int, sprite_url: str, xp_difficulty: XPDifficulty,
+                 first_type: PokemonType, second_type: PokemonType, price: int):
 
         self.name = name
         self._level = level
@@ -20,6 +20,7 @@ class Pokemon:
         self.first_type = first_type
         self.second_type = second_type
         self._moves = [None] * 4
+        self.price = price
 
     @property
     def current_hp(self):

@@ -1,0 +1,85 @@
+.pc-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.shop-container, .team-container {
+    width: 80%;
+    text-align: center;
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.shop-screen, .team-screen {
+    background: black;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px cyan;
+}
+
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    justify-content: center;
+}
+
+.pokemon-slot {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    color: black;
+}
+
+.shop-slot {
+    background: linear-gradient(135deg, #ffcc00, #ff6600);
+    color: white;
+}
+
+.team-slot {
+    background: linear-gradient(135deg, #00ccff, #0066ff);
+    color: white;
+}
+
+.details-container {
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 250px;
+    background-color: white;
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+}
+
+.hidden {
+    display: none;
+}
+.team-grid {
+    justify-content: center;
+    text-align: center;
+}
+
+
+#buy-button {
+    background: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+h2 {
+    color: white;
+}
