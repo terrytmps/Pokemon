@@ -9,7 +9,10 @@ from models.pokemon import Pokemon
 
 game_controller = Blueprint("game_controller", __name__)
 
-@game_controller.route("/")
+"""
+Game endpoints handle the combat part
+"""
+@game_controller.route("/game")
 def game():
     player = Player()
     pokemon_self = Pokemon("Pikachu", 12, 57,
@@ -27,9 +30,18 @@ def game():
 
     player.add_pokemon(pokemon_self)
     player.add_pokemon(pokemon_2)
-    player.set_current_pokemon(1)
+    player.set_current_pokemon(0)
 
     pokemon_op = Pokemon("Salamèche", 10, 30, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
                          XPDifficulty.EASY, PokemonType.FIRE, PokemonType.NONE)
     pokemon_op.current_hp = 5
     return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
+
+
+"""
+Main menu  (where player buy pokemons, etc
+"""
+@game_controller.route("/")
+def menu():
+    player = Player()
+    return render_template("pages/menu.html", player=player)
