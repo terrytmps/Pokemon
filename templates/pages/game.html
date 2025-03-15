@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
     <div class="battle-container">
         <!-- Left Black Bar -->
         <div class="black-bar"></div>
@@ -23,13 +24,17 @@
 
 
             <!-- Action Menu -->
-            {% with pokemon=player.get_current_pokemon(), list_pokemon=player.pokemons, player=player%}
+            {% with pokemon=player.get_current_pokemon(), list_pokemon=player.pokemons, player=player %}
                 {% include "partials/action_panel.html" %}
             {% endwith %}
         </div>
 
         <!-- Right Black Bar -->
-        <div class="black-bar"></div>
+        <div class="black-bar">
+            <button class="pokemon-button abandonner-button">
+                Abandonner
+            </button>
+        </div>
     </div>
 
 

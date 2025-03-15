@@ -1,0 +1,50 @@
+/* Style du bouton */
+.pokemon-button {
+    background: linear-gradient(135deg, #ffcc00, #ff6600); /* Dégradé Pokémon (jaune à orange) */
+    color: white;
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 3px solid #ff6600; /* Bordure rouge-orangé pour un effet "Pokémon" */
+    border-radius: 25px; /* Bords arrondis */
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Ombre portée pour effet 3D */
+}
+
+.pokemon-button:focus {
+    outline: none; /* Retirer le contour au focus */
+}
+
+.pokemon-button:hover {
+
+    background: linear-gradient(135deg, #ff6600, #ffcc00); /* Inverser le dégradé au survol */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); /* Ombre plus marquée pour un effet de survol */
+}
+
+.pokemon-button:active {
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2); /* Ombre plus douce au clic */
+}
+
+/* Ajouter un effet de brillance */
+.pokemon-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.pokemon-button:hover::before {
+    opacity: 1; /* L'effet de brillance apparait au survol */
+}

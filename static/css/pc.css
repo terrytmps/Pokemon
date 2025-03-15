@@ -19,6 +19,8 @@
     padding: 15px;
     border-radius: 8px;
     box-shadow: inset 0 0 10px black;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .pokemon-grid {
@@ -40,11 +42,22 @@
     text-align: center;
     cursor: pointer;
     color: black;
+    transition: transform 0.3s ease-in-out;
+}
+
+.shop-grid {
+    gap: 20px;
 }
 
 .shop-slot {
-    background: linear-gradient(135deg, #ffcc00, #ff6600);
-    color: white;
+    background: #CCC;
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    border: 2px solid #888;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .team-slot {
@@ -54,6 +67,11 @@
     background-position: center;
 }
 
+.pokemon-slot:hover {
+    transform: scale(1.1);
+}
+
+
 .pokemon-name-team {
     margin-top: 10px;
 }
@@ -62,34 +80,88 @@
     font-size: 8px;
 }
 
+h2 {
+    color: white;
+}
+
+
+/* Webkit-based browsers (Chrome, Safari) */
+.shop-screen::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+.shop-screen::-webkit-scrollbar-track {
+    background: #333; /* Dark background for the track */
+    border-radius: 10px;
+}
+
+.shop-screen::-webkit-scrollbar-thumb {
+    background: #ffcc00; /* Pokémon yellow for the thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 3px solid #ff6600; /* Border color to make it pop */
+}
+
+.shop-screen::-webkit-scrollbar-thumb:hover {
+    background: #ff6600; /* Darker yellow on hover */
+}
+
+/* Optional: Customize the scrollbar when it's at the top or bottom */
+.shop-screen::-webkit-scrollbar-button {
+    background-color: #ffcc00;
+    border-radius: 5px;
+}
+
+
 .details-container {
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 250px;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
     background-color: white;
     position: absolute;
-    right: 10px;
-    top: 50px;
+    right: 5%;
+    top: 10%;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.details-container.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.pokemon-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+strong {
+    color: #333;
 }
 
 .hidden {
     display: none;
-}
-
-
-#buy-button {
-    background: #ff6600;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-h2 {
-    color: white;
 }

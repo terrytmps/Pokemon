@@ -33,6 +33,7 @@ footer {
     width: 20%;
     height: 80vh;
     background: black;
+    position: relative;
 }
 
 .battle-screen {
@@ -278,3 +279,13 @@ footer {
 .battle-message:empty {
     display: none;
 }
+
+
+.abandonner-button {
+    margin-top: 70vh;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.type-img-poke {}
