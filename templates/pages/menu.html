@@ -2,67 +2,76 @@
 
 {% block content %}
 
-<h1>PC Pokémon</h1>
-<div class="pc-container">
-    <!-- Shop Section -->
-    <div class="shop-container">
-        <h2>Pokémon Shop</h2>
-        <div class="shop-screen">
-            <div class="pokemon-grid shop-grid">
-                {% for poke in shop_pokemons %}
-                    <div class="pokemon-slot shop-slot" onclick="showDetails({{ poke }})">
-                        <img src="{{ poke._sprite_url }}" width="50" alt="{{ poke.name }}">
-                        <br>{{ poke.name }} - ${{ poke.price }}
-                    </div>
-                {% endfor %}
+    <div class="pc-container">
+        <!-- Shop Section -->
+        <div class="shop-container">
+            <h2>Magasin</h2>
+            <div class="shop-screen">
+                <div class="pokemon-grid shop-grid">
+                    {% for poke in shop_pokemons %}
+                        <div class="pokemon-slot shop-slot" onclick="showDetails({{ poke }})">
+                            <img src="{{ poke._sprite_url }}" width="50" alt="{{ poke.name }}">
+                            <br>{{ poke.name }} - ${{ poke.price }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
+        </div>
+
+        <!-- Player Pokémon Team (Max 6) -->
+        <div class="team-container">
+            <h2>Votre Équipe Pokémon</h2>
+            <div class="team-screen">
+                <div class="pokemon-flex">
+                    {% for poke in player.pokemons %}
+                        <div class="pokemon-slot">
+                            {% if poke %}
+                                <!-- Show player's Pokémon -->
+                                <img src="{{ poke._sprite_url }}" width="70" alt="{{ poke.name }}" class="team-slot">
+                                <br class="pokemon-name-team">{{ poke.name }}
+                                <br><span class="pokemon-level">(Lvl: {{ poke.level }})</span>
+                            {% else %}
+                                <!-- Show empty Poké Ball if slot is None -->
+                                <img src="{{ url_for('static', filename='img/pokeball.png') }}" width="70"
+                                     alt="Empty Slot">
+                                <br class="pokemon-name-team">Vide
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Details Panel -->
+        <div class="details-container hidden" id="details-container">
+            <h2 id="pokemon-name">Nom</h2>
+            <img id="pokemon-image" src="" alt="Pokémon" width="100">
+            <p><strong>Type:</strong> <span id="pokemon-type"></span></p>
+            <p><strong>Price:</strong> <span id="pokemon-price"></span></p>
+            <button id="buy-button" onclick="buyPokemon()">Acheter</button>
         </div>
     </div>
 
-    <!-- Player Pokémon Team (Max 6) -->
-    <div class="team-container">
-        <h2>Votre Équipe Pokémon</h2>
-        <div class="team-screen">
-            <div class="pokemon-grid team-grid">
-                {% for poke in player.pokemons[:6] %}
-                    <div class="pokemon-slot team-slot">
-                        <img src="{{ poke._sprite_url }}" width="50" alt="{{ poke.name }}">
-                        <br>{{ poke.name }}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    <script>
+        let selectedPokemon = null;
 
-    <!-- Details Panel -->
-    <div class="details-container hidden" id="details-container">
-        <h2 id="pokemon-name">Nom</h2>
-        <img id="pokemon-image" src="" alt="Pokémon" width="100">
-        <p><strong>Type:</strong> <span id="pokemon-type"></span></p>
-        <p><strong>Price:</strong> <span id="pokemon-price"></span></p>
-        <button id="buy-button" onclick="buyPokemon()">Acheter</button>
-    </div>
-</div>
+        function showDetails(pokemon) {
+            console.log('yo')
+            document.getElementById("pokemon-name").textContent = pokemon.name;
+            document.getElementById("pokemon-image").src = pokemon._sprite_url;
+            document.getElementById("pokemon-type").textContent = pokemon.price;
+            document.getElementById("pokemon-price").textContent = pokemon.price;
+            document.getElementById("details-container").classList.remove("hidden");
 
-<script>
-    let selectedPokemon = null;
-
-    function showDetails(pokemon) {
-        console.log('yo')
-        document.getElementById("pokemon-name").textContent = pokemon.name;
-        document.getElementById("pokemon-image").src = pokemon._sprite_url;
-        document.getElementById("pokemon-type").textContent = pokemon.price;
-        document.getElementById("pokemon-price").textContent = pokemon.price;
-        document.getElementById("details-container").classList.remove("hidden");
-
-    }
-
-    function buyPokemon() {
-        if (selectedPokemon) {
-            alert(`Vous avez acheté ${selectedPokemon.name} pour $${selectedPokemon.price}!`);
         }
-    }
-</script>
+
+        function buyPokemon() {
+            if (selectedPokemon) {
+                alert(`Vous avez acheté ${selectedPokemon.name} pour $${selectedPokemon.price}!`);
+            }
+        }
+    </script>
 
 
 {% endblock %}

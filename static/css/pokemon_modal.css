@@ -82,7 +82,6 @@
 .pokeball {
     width: 90px;
     height: 90px;
-    background-color: #fff;
     border-radius: 50%;
     position: relative;
     display: flex;
@@ -96,6 +95,13 @@
     cursor: pointer;
 }
 
+.pokeball_full {
+    background: url('/static/img/pokeball.png');
+    background-size: 80px 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 
 .pokeball.empty {
     background-color: transparent;
@@ -107,6 +113,13 @@
     height: 70px;
     border-radius: 50%;
 }
+
+.no_pokemon-in-ball {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
 
 .pokemon-name {
     font-size: 14px;

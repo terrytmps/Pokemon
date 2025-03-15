@@ -1,4 +1,5 @@
 .pc-container {
+    margin-top: 3%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,16 +10,15 @@
     width: 80%;
     text-align: center;
     background: #333;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .shop-screen, .team-screen {
-    background: black;
+    background: white;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: inset 0 0 10px cyan;
+    box-shadow: inset 0 0 10px black;
 }
 
 .pokemon-grid {
@@ -28,13 +28,17 @@
     justify-content: center;
 }
 
+.pokemon-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+}
+
 .pokemon-slot {
-    border: 1px solid #ccc;
     padding: 10px;
     text-align: center;
     cursor: pointer;
-    background-color: #f8f8f8;
-    border-radius: 5px;
     color: black;
 }
 
@@ -44,8 +48,18 @@
 }
 
 .team-slot {
-    background: linear-gradient(135deg, #00ccff, #0066ff);
-    color: white;
+    background: url('/static/img/pokeball.png');
+    background-size: 55px 55px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pokemon-name-team {
+    margin-top: 10px;
+}
+
+.pokemon-level {
+    font-size: 8px;
 }
 
 .details-container {
@@ -64,10 +78,6 @@
 
 .hidden {
     display: none;
-}
-.team-grid {
-    justify-content: center;
-    text-align: center;
 }
 
 
