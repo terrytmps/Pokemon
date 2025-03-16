@@ -10,6 +10,7 @@ body {
     flex-grow: 1;
 }
 
+
 footer {
     margin-top: auto;
 }
@@ -93,6 +94,10 @@ footer {
 .name-level {
     display: flex;
     justify-content: space-between;
+}
+
+.black-color {
+    color: black;
 }
 
 .pokemon-types {
