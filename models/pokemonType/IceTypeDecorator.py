@@ -1,5 +1,5 @@
 from models.pokemonType.TypeDecorator import TypeDecorator
-from models.pokemonType.pokemon_type import PokemonType
+from models.pokemonType.PokemonTypeEnum import PokemonType
 
 
 class IceTypeDecorator(TypeDecorator):
