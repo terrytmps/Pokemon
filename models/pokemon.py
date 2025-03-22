@@ -1,8 +1,9 @@
-from models.enum.pokemon_type import PokemonType
 from models.enum.xp_difficulty import XPDifficulty
+from models.Decorator.Component import Component
+from abc import abstractmethod
 
 
-class Pokemon:
+class Pokemon(Component):
     """
     Classe that represent a pokemon with all its attributes and behavior
     """
@@ -14,8 +15,6 @@ class Pokemon:
         max_hp: int,
         sprite_url: str,
         xp_difficulty: XPDifficulty,
-        first_type: PokemonType,
-        second_type: PokemonType,
         price: int,
     ):
 
@@ -26,8 +25,6 @@ class Pokemon:
         self._sprite_url = sprite_url
         self._xp_difficulty = xp_difficulty
         self._current_xp = 0
-        self.first_type = first_type
-        self.second_type = second_type
         self._moves = [None] * 4
         self.price = price
 
@@ -81,3 +78,21 @@ class Pokemon:
             return False
         self._moves[index] = move
         return True
+
+    def get_types(self):
+        """
+        Return the types of the pokemon
+        """
+        return []
+
+    def get_resistances(self):
+        """ "
+        Return the resistances of the pokemon
+        """
+        return []
+
+    def get_weaknesses(self):
+        """
+        Return the weaknesses of the pokemon
+        """
+        return []
