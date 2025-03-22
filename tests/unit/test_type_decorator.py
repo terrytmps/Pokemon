@@ -1,13 +1,26 @@
+from models import pokemon
 from models.Decorator.TypeDecorator import TypeDecorator
+from models.Decorator.TypeDecorators.BugTypeDecorator import BugTypeDecorator
+from models.Decorator.TypeDecorators.DarkTypeDecorator import DarkTypeDecorator
+from models.Decorator.TypeDecorators.DragonTypeDecorator import DragonTypeDecorator
 from models.Decorator.TypeDecorators.ElectricTypeDecorator import ElectricTypeDecorator
+from models.Decorator.TypeDecorators.FightingTypeDecorator import FightingTypeDecorator
+from models.Decorator.TypeDecorators.FlyingTypeDecorator import FlyingTypeDecorator
+from models.Decorator.TypeDecorators.GhostTypeDecorator import GhostTypeDecorator
 from models.Decorator.TypeDecorators.GrassTypeDecorator import GrassTypeDecorator
+from models.Decorator.TypeDecorators.GroundTypeDecorator import GroundTypeDecorator
+from models.Decorator.TypeDecorators.IceTypeDecorator import IceTypeDecorator
+from models.Decorator.TypeDecorators.PoisonTypeDecorator import PoisonTypeDecorator
 from models.Decorator.TypeDecorators.PsychicTypeDecorator import PsychicTypeDecorator
+from models.Decorator.TypeDecorators.RockTypeDecorator import RockTypeDecorator
+from models.Decorator.TypeDecorators.SteelTypeDecorator import SteelTypeDecorator
 from models.Decorator.TypeDecorators.WaterTypeDecorator import WaterTypeDecorator
 from models.pokemon import Pokemon
 from models.enum.xp_difficulty import XPDifficulty
 from models.Decorator.TypeDecorators.FireTypeDecorator import FireTypeDecorator
 from models.Decorator.TypeDecorators.NormalTypeDecorator import NormalTypeDecorator
 from models.enum.pokemon_type import PokemonType
+
 
 
 class TestTypeDecorator:
@@ -20,6 +33,7 @@ class TestTypeDecorator:
         assert pikachu.second_type is None
         assert pikachu.get_resistances() == []
         assert pikachu.get_weaknesses() == []
+        assert pikachu.get_immunity() == []
 
 
     def test_fire_type_decorator(self):
@@ -53,6 +67,34 @@ class TestTypeDecorator:
         for weakness in expected_weaknesses:
             assert weakness in weaknesses
         assert len(weaknesses) == 3
+
+    def test_type_solo_each(self):
+        def check_type_decorator(type_decorator: TypeDecorator):
+            assert type_decorator.get_types() == [type_decorator.first_type]
+            assert type_decorator.get_resistances() != [type_decorator.get_weaknesses()]
+            assert type_decorator.get_immunity() != [type_decorator.get_weaknesses()]
+
+
+        pikachu = Pokemon("Pikachu", 12, 57, "", XPDifficulty.EASY, 10)
+        # Test all types
+        check_type_decorator(BugTypeDecorator(pikachu))
+        check_type_decorator((DarkTypeDecorator(pikachu)))
+        check_type_decorator((DragonTypeDecorator(pikachu)))
+        check_type_decorator((ElectricTypeDecorator(pikachu)))
+        check_type_decorator((FightingTypeDecorator(pikachu)))
+        check_type_decorator((FireTypeDecorator(pikachu)))
+        check_type_decorator((FlyingTypeDecorator(pikachu)))
+        check_type_decorator((GhostTypeDecorator(pikachu)))
+        check_type_decorator((GrassTypeDecorator(pikachu)))
+        check_type_decorator((GroundTypeDecorator(pikachu)))
+        check_type_decorator((IceTypeDecorator(pikachu)))
+        check_type_decorator((NormalTypeDecorator(pikachu)))
+        check_type_decorator((PoisonTypeDecorator(pikachu)))
+        check_type_decorator((PsychicTypeDecorator(pikachu)))
+        check_type_decorator((RockTypeDecorator(pikachu)))
+        check_type_decorator((SteelTypeDecorator(pikachu)))
+        check_type_decorator((WaterTypeDecorator(pikachu)))
+
 
 
     def test_double_type_decorator(self):
