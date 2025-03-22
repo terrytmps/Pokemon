@@ -13,8 +13,15 @@ class FireTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend([PokemonType.FIRE, PokemonType.GRASS, PokemonType.ICE,
-                            PokemonType.BUG, PokemonType.STEEL])
+        resistances.extend(
+            [
+                PokemonType.FIRE,
+                PokemonType.GRASS,
+                PokemonType.ICE,
+                PokemonType.BUG,
+                PokemonType.STEEL,
+            ]
+        )
         return resistances
 
     def get_weaknesses(self):

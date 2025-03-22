@@ -13,7 +13,9 @@ class ElectricTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend([PokemonType.ELECTRIC, PokemonType.FLYING,PokemonType.STEEL])
+        resistances.extend(
+            [PokemonType.ELECTRIC, PokemonType.FLYING, PokemonType.STEEL]
+        )
         return resistances
 
     def get_weaknesses(self):

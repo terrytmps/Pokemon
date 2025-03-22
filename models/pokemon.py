@@ -4,7 +4,7 @@ from typing import List
 from models.Observer.LevelObserver import LevelObserver
 
 
-class Pokemon(Component, LevelObserver):
+class Pokemon(LevelObserver):
     """
     Classe that represent a pokemon with all its attributes and behavior
     """
@@ -49,6 +49,14 @@ class Pokemon(Component, LevelObserver):
     @property
     def level(self):
         return self._level
+
+    @property
+    def first_type(self):
+        return None
+
+    @property
+    def second_type(self):
+        return None
 
     """
     Try to add a move return boolean meaning success of operation

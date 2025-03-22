@@ -13,7 +13,9 @@ class WaterTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend([PokemonType.WATER, PokemonType.FIRE, PokemonType.ICE, PokemonType.STEEL])
+        resistances.extend(
+            [PokemonType.WATER, PokemonType.FIRE, PokemonType.ICE, PokemonType.STEEL]
+        )
         return resistances
 
     def get_weaknesses(self):

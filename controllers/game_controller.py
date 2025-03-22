@@ -6,6 +6,10 @@ from models.enum.xp_difficulty import XPDifficulty
 from models.move import Move
 from models.player import Player
 from models.pokemon import Pokemon
+from models.Decorator.TypeDecorators.FireTypeDecorator import FireTypeDecorator
+from models.Decorator.TypeDecorators.NormalTypeDecorator import NormalTypeDecorator
+from models.Decorator.TypeDecorators.GrassTypeDecorator import GrassTypeDecorator
+from models.Decorator.TypeDecorators.WaterTypeDecorator import WaterTypeDecorator
 
 game_controller = Blueprint("game_controller", __name__)
 
@@ -23,10 +27,10 @@ def game():
         57,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
         XPDifficulty.EASY,
-        PokemonType.ELECTRIC,
-        PokemonType.NORMAL,
         10,
     )
+    pokemon_self = FireTypeDecorator(NormalTypeDecorator(pokemon_self))
+
     pokemon_self.current_hp = 24
     pokemon_self.addMove(
         Move(
@@ -64,10 +68,11 @@ def game():
         221,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
         XPDifficulty.EASY,
-        PokemonType.WATER,
-        PokemonType.NONE,
         10,
     )
+
+    pokemon_2 = WaterTypeDecorator(pokemon_2)
+    pokemon_2 = GrassTypeDecorator(pokemon_2)
 
     player.add_pokemon(pokemon_self)
     player.add_pokemon(pokemon_2)
@@ -79,10 +84,11 @@ def game():
         30,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
         XPDifficulty.EASY,
-        PokemonType.FIRE,
-        PokemonType.NONE,
         10,
     )
+
+    pokemon_op = FireTypeDecorator(pokemon_op)
+
     pokemon_op.current_hp = 5
     return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
 
@@ -101,20 +107,22 @@ def menu():
         57,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
         XPDifficulty.EASY,
-        PokemonType.ELECTRIC,
-        PokemonType.NORMAL,
         10,
     )
+    pokemon_1 = FireTypeDecorator(pokemon_1)
+    pokemon_1 = NormalTypeDecorator(pokemon_1)
+
     pokemon_2 = Pokemon(
         "Tortank",
         54,
         221,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
         XPDifficulty.EASY,
-        PokemonType.WATER,
-        PokemonType.NONE,
         100,
     )
+
+    pokemon_2 = WaterTypeDecorator(pokemon_2)
+
     pokemons = [
         pokemon_1,
         pokemon_2,

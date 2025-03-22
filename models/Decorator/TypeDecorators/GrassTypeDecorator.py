@@ -13,12 +13,25 @@ class GrassTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend([PokemonType.WATER, PokemonType.ELECTRIC,
-                            PokemonType.GRASS, PokemonType.GROUND])
+        resistances.extend(
+            [
+                PokemonType.WATER,
+                PokemonType.ELECTRIC,
+                PokemonType.GRASS,
+                PokemonType.GROUND,
+            ]
+        )
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.extend([PokemonType.FIRE, PokemonType.ICE, PokemonType.POISON,
-                           PokemonType.FLYING, PokemonType.BUG])
+        weaknesses.extend(
+            [
+                PokemonType.FIRE,
+                PokemonType.ICE,
+                PokemonType.POISON,
+                PokemonType.FLYING,
+                PokemonType.BUG,
+            ]
+        )
         return weaknesses

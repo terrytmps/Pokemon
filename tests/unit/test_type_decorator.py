@@ -5,7 +5,6 @@ from models.Decorator.TypeDecorators.NormalTypeDecorator import NormalTypeDecora
 from models.enum.pokemon_type import PokemonType
 
 
-
 class TestTypeDecorator:
 
     def test_type_decorator(self):
@@ -22,8 +21,13 @@ class TestTypeDecorator:
 
         # Vérification des résistances
         resistances = fire_pikachu.get_resistances()
-        expected_resistances = [PokemonType.FIRE, PokemonType.GRASS, PokemonType.ICE,
-                                PokemonType.BUG, PokemonType.STEEL]
+        expected_resistances = [
+            PokemonType.FIRE,
+            PokemonType.GRASS,
+            PokemonType.ICE,
+            PokemonType.BUG,
+            PokemonType.STEEL,
+        ]
         for resistance in expected_resistances:
             assert resistance in resistances
         assert len(resistances) == 5
@@ -48,15 +52,25 @@ class TestTypeDecorator:
 
         # Vérification des résistances (combinaison des deux types)
         resistances = normal_then_fire.get_resistances()
-        expected_resistances = [PokemonType.FIRE, PokemonType.GRASS, PokemonType.ICE,
-                                PokemonType.BUG, PokemonType.STEEL]
+        expected_resistances = [
+            PokemonType.FIRE,
+            PokemonType.GRASS,
+            PokemonType.ICE,
+            PokemonType.BUG,
+            PokemonType.STEEL,
+        ]
         for resistance in expected_resistances:
             assert resistance in resistances
         assert len(resistances) == 5
 
         # Vérification des faiblesses (combinaison des deux types)
         weaknesses = normal_then_fire.get_weaknesses()
-        expected_weaknesses = [PokemonType.FIGHT, PokemonType.WATER, PokemonType.GROUND, PokemonType.ROCK]
+        expected_weaknesses = [
+            PokemonType.FIGHT,
+            PokemonType.WATER,
+            PokemonType.GROUND,
+            PokemonType.ROCK,
+        ]
         for weakness in expected_weaknesses:
             assert weakness in weaknesses
         assert len(weaknesses) == 4
