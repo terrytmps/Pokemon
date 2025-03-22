@@ -1,8 +1,8 @@
 from flask import render_template, Blueprint
 
 from models.enum.move_category import MoveCategory
-from models.enum.pokemon_type import PokemonType
-from models.enum.xp_difficulty import XPDifficulty
+from models.pokemonType.pokemon_type import PokemonType
+from models.xp_difficulty import XPDifficulty
 from models.move import Move
 from models.player import Player
 from models.pokemon import Pokemon

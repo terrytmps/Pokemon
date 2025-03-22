@@ -1,4 +1,4 @@
-from models.enum.xp_difficulty import XPDifficulty
+from models.xp_difficulty import XPDifficulty
 from models.level.LevelObservable import LevelObservable
 
 

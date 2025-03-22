@@ -15,10 +15,10 @@ from models.pokemonType.RockTypeDecorator import RockTypeDecorator
 from models.pokemonType.SteelTypeDecorator import SteelTypeDecorator
 from models.pokemonType.WaterTypeDecorator import WaterTypeDecorator
 from models.pokemon import Pokemon
-from models.enum.xp_difficulty import XPDifficulty
+from models.xp_difficulty import XPDifficulty
 from models.pokemonType.FireTypeDecorator import FireTypeDecorator
 from models.pokemonType.NormalTypeDecorator import NormalTypeDecorator
-from models.enum.pokemon_type import PokemonType
+from models.pokemonType.pokemon_type import PokemonType
 
 
 

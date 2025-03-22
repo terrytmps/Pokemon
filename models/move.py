@@ -1,7 +1,5 @@
-from sqlalchemy import Integer
-
 from models.enum.move_category import MoveCategory
-from models.enum.pokemon_type import PokemonType
+from models.pokemonType.pokemon_type import PokemonType
 
 
 class Move:

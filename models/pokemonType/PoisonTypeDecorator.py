@@ -1,5 +1,5 @@
 from models.pokemonType.TypeDecorator import TypeDecorator
-from models.enum.pokemon_type import PokemonType
+from models.pokemonType.pokemon_type import PokemonType
 
 
 class PoisonTypeDecorator(TypeDecorator):
