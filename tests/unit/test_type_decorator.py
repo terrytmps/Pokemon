@@ -1,7 +1,7 @@
 from models.pokemon import Pokemon
 from models.enum.xp_difficulty import XPDifficulty
-from models.Decorator.FireTypeDecorator import FireTypeDecorator
-from models.Decorator.NormalTypeDecorator import NormalTypeDecorator
+from models.Decorator.TypeDecorators.FireTypeDecorator import FireTypeDecorator
+from models.Decorator.TypeDecorators.NormalTypeDecorator import NormalTypeDecorator
 
 
 class TestTypeDecorator:
