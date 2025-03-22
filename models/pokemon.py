@@ -1,5 +1,4 @@
 from models.enum.xp_difficulty import XPDifficulty
-from models.Decorator.Component import Component
 from typing import List
 from models.Observer.LevelObserver import LevelObserver
 

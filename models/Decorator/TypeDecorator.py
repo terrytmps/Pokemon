@@ -1,6 +1,3 @@
-from models.Decorator.Component import Component
-from typing import List
-from models.Observer.LevelObserver import LevelObserver
 from models.pokemon import Pokemon
 
 
