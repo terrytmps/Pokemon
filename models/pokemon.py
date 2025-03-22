@@ -1,9 +1,10 @@
 from models.enum.xp_difficulty import XPDifficulty
 from models.Decorator.Component import Component
-from abc import abstractmethod
+from typing import List
+from models.Observer.LevelObserver import LevelObserver
 
 
-class Pokemon(Component):
+class Pokemon(Component, LevelObserver):
     """
     Classe that represent a pokemon with all its attributes and behavior
     """
@@ -27,6 +28,7 @@ class Pokemon(Component):
         self._current_xp = 0
         self._moves = [None] * 4
         self.price = price
+        self._level_observers: List[LevelObserver] = []
 
     @property
     def current_hp(self):
@@ -49,16 +51,6 @@ class Pokemon(Component):
         return self._level
 
     """
-    Handle all logic behind levelUp
-    """
-
-    def levelUp(self, value):
-        self._current_xp += value * self._xp_difficulty.value
-        while self._current_xp >= self._level:
-            self._current_xp -= self._level
-            self._level += 1
-
-    """
     Try to add a move return boolean meaning success of operation
     """
 
@@ -79,6 +71,8 @@ class Pokemon(Component):
         self._moves[index] = move
         return True
 
+    ## Decorator pattern methods
+
     def get_types(self):
         """
         Return the types of the pokemon
@@ -96,3 +90,36 @@ class Pokemon(Component):
         Return the weaknesses of the pokemon
         """
         return []
+
+    ## Observer pattern methods
+
+    def add_level_observer(self, observer: LevelObserver) -> None:
+        if observer not in self._level_observers:
+            self._level_observers.append(observer)
+
+    def remove_level_observer(self, observer: LevelObserver) -> None:
+        if observer in self._level_observers:
+            self._level_observers.remove(observer)
+
+    def notify_level_up(self, old_level: int, new_level: int) -> None:
+        for observer in self._level_observers:
+            observer.on_level_up(self, old_level, new_level)
+
+    """
+    Handle all logic behind levelUp
+    """
+
+    def levelUp(self, value):
+        self._current_xp += value * self._xp_difficulty.value
+        old_level = self._level
+
+        # Check if the pokemon has enough xp to level up
+        levels_gained = 0
+        while self._current_xp >= self._level:
+            self._current_xp -= self._level
+            self._level += 1
+            levels_gained += 1
+
+        # Check if the pokemon has leveled up
+        if levels_gained > 0:
+            self.notify_level_up(old_level, self._level)
