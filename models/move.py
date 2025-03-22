@@ -4,7 +4,7 @@ from models.enum.move_category import MoveCategory
 from models.enum.pokemon_type import PokemonType
 
 
-class Move():
+class Move:
     """
     Represent a move (attack or defense) that a pokemon can use
     """
@@ -13,8 +13,15 @@ class Move():
     accuracy: int between 0-100
     """
 
-    def __init__(self, name: str, description: str, power: int, accuracy: int, move_type: PokemonType,
-                 move_category: MoveCategory):
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        power: int,
+        accuracy: int,
+        move_type: PokemonType,
+        move_category: MoveCategory,
+    ):
         self.name = name
         self.description = description
         self.power = power

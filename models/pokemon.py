@@ -7,8 +7,17 @@ class Pokemon:
     Classe that represent a pokemon with all its attributes and behavior
     """
 
-    def __init__(self, name: str, level: int, max_hp: int, sprite_url: str, xp_difficulty: XPDifficulty,
-                 first_type: PokemonType, second_type: PokemonType, price: int):
+    def __init__(
+        self,
+        name: str,
+        level: int,
+        max_hp: int,
+        sprite_url: str,
+        xp_difficulty: XPDifficulty,
+        first_type: PokemonType,
+        second_type: PokemonType,
+        price: int,
+    ):
 
         self.name = name
         self._level = level
@@ -47,7 +56,7 @@ class Pokemon:
     """
 
     def levelUp(self, value):
-        self._current_xp += (value * self._xp_difficulty.value)
+        self._current_xp += value * self._xp_difficulty.value
         while self._current_xp >= self._level:
             self._current_xp -= self._level
             self._level += 1

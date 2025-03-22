@@ -34,7 +34,6 @@ class Player:
                 return True
         return False
 
-
     def replace_pokemon(self, index, pokemon):
         """
         Replace a pokemon in the team
