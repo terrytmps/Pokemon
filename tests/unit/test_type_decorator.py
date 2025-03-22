@@ -1,0 +1,58 @@
+from models.pokemon import Pokemon
+from models.enum.xp_difficulty import XPDifficulty
+from models.Decorator.FireTypeDecorator import FireTypeDecorator
+from models.Decorator.NormalTypeDecorator import NormalTypeDecorator
+
+
+class TestTypeDecorator:
+
+    def test_type_decorator(self):
+        pikachu = Pokemon("Pikachu", 12, 57, "", XPDifficulty.EASY, 10)
+
+        assert pikachu.get_types() == []
+        assert pikachu.get_resistances() == []
+        assert pikachu.get_weaknesses() == []
+
+        fire_pikachu = FireTypeDecorator(pikachu)
+
+        assert "Fire" in fire_pikachu.get_types()
+        assert len(fire_pikachu.get_types()) == 1
+
+        # Vérification des résistances
+        resistances = fire_pikachu.get_resistances()
+        expected_resistances = ["Fire", "Grass", "Ice", "Bug", "Steel"]
+        for resistance in expected_resistances:
+            assert resistance in resistances
+        assert len(resistances) == 5
+
+        # Vérification des faiblesses
+        weaknesses = fire_pikachu.get_weaknesses()
+        expected_weaknesses = ["Water", "Ground", "Rock"]
+        for weakness in expected_weaknesses:
+            assert weakness in weaknesses
+        assert len(weaknesses) == 3
+
+    def test_double_type_decorator(self):
+        flareon = Pokemon("Flareon", 20, 65, "", XPDifficulty.NORMAL, 25)
+
+        # Application de deux décorateurs: NormalTypeDecorator et FireTypeDecorator
+        normal_then_fire = FireTypeDecorator(NormalTypeDecorator(flareon))
+
+        normal_fire_types = normal_then_fire.get_types()
+        assert "Normal" in normal_fire_types
+        assert "Fire" in normal_fire_types
+        assert len(normal_fire_types) == 2
+
+        # Vérification des résistances (combinaison des deux types)
+        resistances = normal_then_fire.get_resistances()
+        expected_resistances = ["Fire", "Grass", "Ice", "Bug", "Steel"]
+        for resistance in expected_resistances:
+            assert resistance in resistances
+        assert len(resistances) == 5
+
+        # Vérification des faiblesses (combinaison des deux types)
+        weaknesses = normal_then_fire.get_weaknesses()
+        expected_weaknesses = ["Fighting", "Water", "Ground", "Rock"]
+        for weakness in expected_weaknesses:
+            assert weakness in weaknesses
+        assert len(weaknesses) == 4
