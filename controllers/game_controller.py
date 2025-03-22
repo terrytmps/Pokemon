@@ -6,10 +6,10 @@ from models.enum.xp_difficulty import XPDifficulty
 from models.move import Move
 from models.player import Player
 from models.pokemon import Pokemon
-from models.Decorator.TypeDecorators.FireTypeDecorator import FireTypeDecorator
-from models.Decorator.TypeDecorators.NormalTypeDecorator import NormalTypeDecorator
-from models.Decorator.TypeDecorators.GrassTypeDecorator import GrassTypeDecorator
-from models.Decorator.TypeDecorators.WaterTypeDecorator import WaterTypeDecorator
+from models.pokemonType.FireTypeDecorator import FireTypeDecorator
+from models.pokemonType.NormalTypeDecorator import NormalTypeDecorator
+from models.pokemonType.GrassTypeDecorator import GrassTypeDecorator
+from models.pokemonType.WaterTypeDecorator import WaterTypeDecorator
 
 game_controller = Blueprint("game_controller", __name__)
 

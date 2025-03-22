@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import MagicMock
 from models.pokemon import Pokemon
 from models.enum.xp_difficulty import XPDifficulty
-from models.Levels.LevelObserver import LevelObserver
+from models.level.LevelObserver import LevelObserver
 
 
 class TestPokemonLevelUpObserver(unittest.TestCase):

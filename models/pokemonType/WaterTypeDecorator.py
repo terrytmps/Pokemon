@@ -1,4 +1,4 @@
-from models.PokemonType.TypeDecorator import TypeDecorator
+from models.pokemonType.TypeDecorator import TypeDecorator
 from models.enum.pokemon_type import PokemonType
 
 
