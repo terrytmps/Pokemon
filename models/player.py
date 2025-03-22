@@ -18,7 +18,6 @@ class Player:
         return self._pokemons[self.current_pokemon]
 
     def set_current_pokemon(self, index):
-        print("set" + str(index))
         assert 0 <= index < 6
         self.current_pokemon = index
 

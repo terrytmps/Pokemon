@@ -14,7 +14,7 @@ class TestPokemonLevelUpObserver(unittest.TestCase):
         self.mock_observer = MagicMock(spec=LevelObserver)
 
         # Adding the mock observer to the Pokemon instance
-        self.pikachu.add_level_observer(self.mock_observer)
+        self.pikachu.subscribe_level_observer(self.mock_observer)
 
     def test_level_up_notification(self):
         # Simulate a level up
@@ -37,10 +37,11 @@ class TestPokemonLevelUpObserver(unittest.TestCase):
         # Check if the observer's on_level_up method was called
         self.assertGreater(self.pikachu.level, 7)
 
-        self.mock_observer.on_level_up.assert_called_once()
+        # assert call more than once
+        self.assertGreater(self.mock_observer.on_level_up.call_count, 1)
 
     def test_remove_observer(self):
-        self.pikachu.remove_level_observer(self.mock_observer)
+        self.pikachu.unsubscribe_level_observer(self.mock_observer)
 
         self.pikachu.levelUp(10)
 
