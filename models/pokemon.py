@@ -96,6 +96,12 @@ class Pokemon(LevelObservable):
         """
         return []
 
+    def get_immunity(self):
+        """
+        Return the immunities of the pokemon
+        """
+        return []
+
     """
     Handle all logic behind levelUp
     """

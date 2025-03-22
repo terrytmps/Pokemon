@@ -22,3 +22,7 @@ class WaterTypeDecorator(TypeDecorator):
         weaknesses = self._component.get_weaknesses()
         weaknesses.extend([PokemonType.ELECTRIC, PokemonType.GRASS])
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        return immunities

@@ -22,3 +22,7 @@ class ElectricTypeDecorator(TypeDecorator):
         weaknesses = self._component.get_weaknesses()
         weaknesses.append(PokemonType.GROUND)
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        return immunities

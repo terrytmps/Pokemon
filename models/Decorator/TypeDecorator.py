@@ -24,6 +24,9 @@ class TypeDecorator(Pokemon):
     def get_weaknesses(self):
         return self._component.get_weaknesses()
 
+    def get_immunity(self):
+        return self._component.get_immunity()
+
     @property
     def first_type(self):
         types = self.get_types()

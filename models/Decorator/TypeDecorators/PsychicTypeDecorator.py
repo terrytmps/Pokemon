@@ -20,3 +20,7 @@ class PsychicTypeDecorator(TypeDecorator):
         weaknesses = self._component.get_weaknesses()
         weaknesses.extend([PokemonType.BUG, PokemonType.GHOST, PokemonType.DARK])
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        return immunities

@@ -1,3 +1,8 @@
+from models.Decorator.TypeDecorator import TypeDecorator
+from models.Decorator.TypeDecorators.ElectricTypeDecorator import ElectricTypeDecorator
+from models.Decorator.TypeDecorators.GrassTypeDecorator import GrassTypeDecorator
+from models.Decorator.TypeDecorators.PsychicTypeDecorator import PsychicTypeDecorator
+from models.Decorator.TypeDecorators.WaterTypeDecorator import WaterTypeDecorator
 from models.pokemon import Pokemon
 from models.enum.xp_difficulty import XPDifficulty
 from models.Decorator.TypeDecorators.FireTypeDecorator import FireTypeDecorator
@@ -7,7 +12,17 @@ from models.enum.pokemon_type import PokemonType
 
 class TestTypeDecorator:
 
-    def test_type_decorator(self):
+    def test_type_decorator_empty(self):
+        pikachu = TypeDecorator(Pokemon("Pikachu", 12, 57, "", XPDifficulty.EASY, 10))
+
+        assert pikachu.get_types() == []
+        assert pikachu.first_type is None
+        assert pikachu.second_type is None
+        assert pikachu.get_resistances() == []
+        assert pikachu.get_weaknesses() == []
+
+
+    def test_fire_type_decorator(self):
         pikachu = Pokemon("Pikachu", 12, 57, "", XPDifficulty.EASY, 10)
 
         assert pikachu.get_types() == []
@@ -39,6 +54,7 @@ class TestTypeDecorator:
             assert weakness in weaknesses
         assert len(weaknesses) == 3
 
+
     def test_double_type_decorator(self):
         flareon = Pokemon("Flareon", 20, 65, "", XPDifficulty.NORMAL, 25)
 
@@ -49,6 +65,8 @@ class TestTypeDecorator:
         assert PokemonType.NORMAL in normal_fire_types
         assert PokemonType.FIRE in normal_fire_types
         assert len(normal_fire_types) == 2
+        assert normal_then_fire.first_type == PokemonType.NORMAL
+        assert normal_then_fire.second_type == PokemonType.FIRE
 
         # Vérification des résistances (combinaison des deux types)
         resistances = normal_then_fire.get_resistances()

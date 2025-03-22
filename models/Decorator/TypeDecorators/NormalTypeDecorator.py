@@ -21,3 +21,9 @@ class NormalTypeDecorator(TypeDecorator):
         weaknesses.append(PokemonType.FIGHT)
 
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        immunities.append(PokemonType.GHOST)
+        return immunities
+
