@@ -1,4 +1,5 @@
 from models.Decorator.TypeDecorator import TypeDecorator
+from models.enum.pokemon_type import PokemonType
 
 
 class ElectricTypeDecorator(TypeDecorator):
@@ -7,15 +8,15 @@ class ElectricTypeDecorator(TypeDecorator):
 
     def get_types(self):
         types = self._component.get_types()
-        types.append("Electric")
+        types.append(PokemonType.ELECTRIC)
         return types
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(["Electric", "Flying", "Steel"])
+        resistances.extend([PokemonType.ELECTRIC, PokemonType.FLYING,PokemonType.STEEL])
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.append("Ground")
+        weaknesses.append(PokemonType.GROUND)
         return weaknesses

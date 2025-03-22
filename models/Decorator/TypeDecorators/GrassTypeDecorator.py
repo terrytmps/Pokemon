@@ -1,4 +1,5 @@
 from models.Decorator.TypeDecorator import TypeDecorator
+from models.enum.pokemon_type import PokemonType
 
 
 class GrassTypeDecorator(TypeDecorator):
@@ -7,15 +8,17 @@ class GrassTypeDecorator(TypeDecorator):
 
     def get_types(self):
         types = self._component.get_types()
-        types.append("Grass")
+        types.append(PokemonType.GRASS)
         return types
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(["Water", "Electric", "Grass", "Ground"])
+        resistances.extend([PokemonType.WATER, PokemonType.ELECTRIC,
+                            PokemonType.GRASS, PokemonType.GROUND])
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.extend(["Fire", "Ice", "Poison", "Flying", "Bug"])
+        weaknesses.extend([PokemonType.FIRE, PokemonType.ICE, PokemonType.POISON,
+                           PokemonType.FLYING, PokemonType.BUG])
         return weaknesses

@@ -1,4 +1,5 @@
 from models.Decorator.TypeDecorator import TypeDecorator
+from models.enum.pokemon_type import PokemonType
 
 
 class PsychicTypeDecorator(TypeDecorator):
@@ -7,15 +8,15 @@ class PsychicTypeDecorator(TypeDecorator):
 
     def get_types(self):
         types = self._component.get_types()
-        types.append("Psychic")
+        types.append(PokemonType.PSYCHIC)
         return types
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(["Fighting", "Psychic"])
+        resistances.extend([PokemonType.FIGHT, PokemonType.PSYCHIC])
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.extend(["Bug", "Ghost", "Dark"])
+        weaknesses.extend([PokemonType.BUG, PokemonType.GHOST, PokemonType.DARK])
         return weaknesses
