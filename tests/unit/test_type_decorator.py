@@ -1,5 +1,4 @@
-from models import pokemon
-from models.Decorator.TypeDecorator import TypeDecorator
+from models.PokemonType.TypeDecorator import TypeDecorator
 from models.Decorator.TypeDecorators.BugTypeDecorator import BugTypeDecorator
 from models.Decorator.TypeDecorators.DarkTypeDecorator import DarkTypeDecorator
 from models.Decorator.TypeDecorators.DragonTypeDecorator import DragonTypeDecorator

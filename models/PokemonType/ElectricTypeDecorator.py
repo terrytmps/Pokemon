@@ -1,26 +1,26 @@
-from models.Decorator.TypeDecorator import TypeDecorator
+from models.PokemonType.TypeDecorator import TypeDecorator
 from models.enum.pokemon_type import PokemonType
 
 
-class BugTypeDecorator(TypeDecorator):
+class ElectricTypeDecorator(TypeDecorator):
     def __init__(self, component):
         super().__init__(component)
 
     def get_types(self):
         types = self._component.get_types()
-        types.append(PokemonType.BUG)
+        types.append(PokemonType.ELECTRIC)
         return types
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
         resistances.extend(
-            [PokemonType.FIGHT, PokemonType.GROUND, PokemonType.GRASS]
+            [PokemonType.ELECTRIC, PokemonType.FLYING, PokemonType.STEEL]
         )
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.append([PokemonType.FIRE, PokemonType.FLYING, PokemonType.ROCK])
+        weaknesses.append(PokemonType.GROUND)
         return weaknesses
 
     def get_immunity(self):

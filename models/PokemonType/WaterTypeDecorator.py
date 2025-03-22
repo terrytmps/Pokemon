@@ -1,24 +1,26 @@
-from models.Decorator.TypeDecorator import TypeDecorator
+from models.PokemonType.TypeDecorator import TypeDecorator
 from models.enum.pokemon_type import PokemonType
 
 
-class PsychicTypeDecorator(TypeDecorator):
+class WaterTypeDecorator(TypeDecorator):
     def __init__(self, component):
         super().__init__(component)
 
     def get_types(self):
         types = self._component.get_types()
-        types.append(PokemonType.PSYCHIC)
+        types.append(PokemonType.WATER)
         return types
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend([PokemonType.FIGHT, PokemonType.PSYCHIC])
+        resistances.extend(
+            [PokemonType.WATER, PokemonType.FIRE, PokemonType.ICE, PokemonType.STEEL]
+        )
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.extend([PokemonType.BUG, PokemonType.GHOST, PokemonType.DARK])
+        weaknesses.extend([PokemonType.ELECTRIC, PokemonType.GRASS])
         return weaknesses
 
     def get_immunity(self):

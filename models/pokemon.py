@@ -1,5 +1,5 @@
 from models.enum.xp_difficulty import XPDifficulty
-from models.Observer.LevelObservable import LevelObservable
+from models.Levels.LevelObservable import LevelObservable
 
 
 class Pokemon(LevelObservable):
