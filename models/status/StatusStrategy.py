@@ -1,16 +1,37 @@
+from abc import abstractmethod
+
+from models.status.StatusEnum import StatusEnum
+
+"""
+StatusStrategy is an interface for the Strategy pattern.
+It allow status effect on pokemon to change dynamically and behavior to be modified.
+"""
 class StatusStrategy:
+    """
+    Get the status of the pokemon
+    """
+    @abstractmethod
+    def get_status(self) -> StatusEnum:
+        pass
 
-    def get_status(self):
-        return self.status
+    """
+    Modify the stats of the pokemon while he has status effect 
+    """
+    @abstractmethod
+    def stat_change(self):
+        pass
 
-    def set_status(self, status):
-        self.status = status
 
-    def get_status_message(self):
-        return self.status.get_status_message()
+    """
+    Modify the behavior of the pokemon while he attack
+    """
+    @abstractmethod
+    def attack(self) -> None:
+        pass
 
-    def get_status_code(self):
-        return self.status.get_status_code()
-
-    def get_status_type(self):
-        return self.status.get_status_type()
+    """
+    Modify the behavior of the pokemon while it's his end of the turn
+    """
+    @abstractmethod
+    def end_turn(self) -> None:
+        pass

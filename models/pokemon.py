@@ -1,5 +1,6 @@
-from models.xp_difficulty import XPDifficulty
 from models.level.LevelObservable import LevelObservable
+from models.status.StatusEnum import StatusEnum
+from models.xp_difficulty import XPDifficulty
 
 
 class Pokemon(LevelObservable):
@@ -17,8 +18,9 @@ class Pokemon(LevelObservable):
         price: int,
     ):
         super().__init__()
+        self._status = StatusEnum.NORMAL
         self.name = name
-        self._level = level
+        self.__level = level
         self.max_hp = max_hp
         self._current_hp = max_hp
         self._sprite_url = sprite_url
@@ -45,7 +47,7 @@ class Pokemon(LevelObservable):
 
     @property
     def level(self):
-        return self._level
+        return self.__level
 
     @property
     def first_type(self):
@@ -54,6 +56,13 @@ class Pokemon(LevelObservable):
     @property
     def second_type(self):
         return None
+
+    @property
+    def status(self):
+        return self._status
+
+    def set_status(self, status: StatusEnum):
+        self._status = status
 
     """
     Try to add a move return boolean meaning success of operation
@@ -108,10 +117,10 @@ class Pokemon(LevelObservable):
 
     def levelUp(self, value):
         self._current_xp += value * self._xp_difficulty.value
-        old_level = self._level
+        old_level = self.__level
 
         # Check if the pokemon has enough xp to level up
-        while self._current_xp >= self._level:
-            self._current_xp -= self._level
-            self._level += 1
-            self.notify_level_up(old_level, self._level)
+        while self._current_xp >= self.__level:
+            self._current_xp -= self.__level
+            self.__level += 1
+            self.notify_level_up(old_level, self.__level)

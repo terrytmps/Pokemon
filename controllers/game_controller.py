@@ -1,7 +1,9 @@
 from flask import render_template, Blueprint
 
 from models.enum.move_category import MoveCategory
-from models.pokemonType.pokemon_type import PokemonType
+from models.pokemonType.PokemonTypeEnum import PokemonType
+from models.status.BurnStatusStrategy import BurnStatusStrategy
+from models.status.StatusEnum import StatusEnum
 from models.xp_difficulty import XPDifficulty
 from models.move import Move
 from models.player import Player
@@ -21,7 +23,7 @@ Game endpoints handle the combat part
 @game_controller.route("/game")
 def game():
     player = Player()
-    pokemon_self = Pokemon(
+    _pokemon_self = Pokemon(
         "Pikachu",
         12,
         57,
@@ -29,8 +31,9 @@ def game():
         XPDifficulty.EASY,
         10,
     )
-    pokemon_self = FireTypeDecorator(NormalTypeDecorator(pokemon_self))
 
+    pokemon_self = FireTypeDecorator(NormalTypeDecorator(_pokemon_self))
+    pokemon_self.set_status(StatusEnum.SLEEP)
     pokemon_self.current_hp = 24
     pokemon_self.addMove(
         Move(
@@ -78,7 +81,7 @@ def game():
     player.add_pokemon(pokemon_2)
     player.set_current_pokemon(0)
 
-    pokemon_op = Pokemon(
+    _pokemon_op = Pokemon(
         "Salamèche",
         10,
         30,
@@ -87,9 +90,10 @@ def game():
         10,
     )
 
-    pokemon_op = FireTypeDecorator(pokemon_op)
-
+    pokemon_op = FireTypeDecorator(_pokemon_op)
+    pokemon_op.set_status(StatusEnum.POISON)
     pokemon_op.current_hp = 5
+
     return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
 
 

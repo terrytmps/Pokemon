@@ -3,7 +3,7 @@
 <div id="pokemon-joueur" class="player-container">
     <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img player"/>
     <div class="pokemon-info player-info">
-        <strong>{{ pokemon.name }}</strong> <br>
+        <strong>{{ pokemon.name }}</strong> {{ pokemon.status.value[1] }}<br>
         <span class="level">Lv. {{ pokemon.level }}</span>
         <!-- Affichage des types de Pokémon -->
         <div class="pokemon-types">
