@@ -14,8 +14,8 @@ from models.pokemonType.PsychicTypeDecorator import PsychicTypeDecorator
 from models.pokemonType.RockTypeDecorator import RockTypeDecorator
 from models.pokemonType.SteelTypeDecorator import SteelTypeDecorator
 from models.pokemonType.WaterTypeDecorator import WaterTypeDecorator
-from models.pokemon import Pokemon
-from models.level.xp_difficulty import XPDifficulty
+from models.Pokemon import Pokemon
+from models.level.XpDifficulty import XPDifficulty
 from models.pokemonType.FireTypeDecorator import FireTypeDecorator
 from models.pokemonType.NormalTypeDecorator import NormalTypeDecorator
 from models.pokemonType.PokemonTypeEnum import PokemonType

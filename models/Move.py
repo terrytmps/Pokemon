@@ -1,4 +1,4 @@
-from models.enum.move_category import MoveCategory
+from models.enum.MoveCategory import MoveCategory
 from models.pokemonType.PokemonTypeEnum import PokemonType
 
 

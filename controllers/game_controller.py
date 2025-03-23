@@ -1,14 +1,14 @@
 from flask import render_template, Blueprint
 
-from models.enum.move_category import MoveCategory
+from models.enum.MoveCategory import MoveCategory
 from models.level.Level import Level
 from models.level.Stats import Stat
 from models.pokemonType.PokemonTypeEnum import PokemonType
 from models.status.StatusEnum import StatusEnum
-from models.level.xp_difficulty import XPDifficulty
-from models.move import Move
-from models.player import Player
-from models.pokemon import Pokemon
+from models.level.XpDifficulty import XPDifficulty
+from models.Move import Move
+from models.Player import Player
+from models.Pokemon import Pokemon
 from models.pokemonType.FireTypeDecorator import FireTypeDecorator
 from models.pokemonType.NormalTypeDecorator import NormalTypeDecorator
 from models.pokemonType.GrassTypeDecorator import GrassTypeDecorator

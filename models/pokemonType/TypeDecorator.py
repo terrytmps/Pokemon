@@ -1,4 +1,4 @@
-from models.pokemon import Pokemon
+from models.Pokemon import Pokemon
 
 """
 Decorator that allow to add multiple type to a pokemon wihtout the need to change the code of pokemon for each possible type
