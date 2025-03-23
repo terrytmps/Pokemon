@@ -1,4 +1,6 @@
+from models.level.Level import Level
 from models.level.LevelObservable import LevelObservable
+from models.level.Stats import Stat
 from models.status.StatusEnum import StatusEnum
 from models.xp_difficulty import XPDifficulty
 
@@ -9,37 +11,24 @@ class Pokemon(LevelObservable):
     """
 
     def __init__(
-        self,
-        name: str,
-        level: int,
-        max_hp: int,
-        sprite_url: str,
-        xp_difficulty: XPDifficulty,
-        price: int,
+            self,
+            name: str,
+            sprite_url: str,
+            price: int,
+            level: Level,
+            stat: Stat
     ):
         super().__init__()
         self._status = StatusEnum.NORMAL
         self.name = name
         self.__level = level
-        self.max_hp = max_hp
-        self._current_hp = max_hp
+        self.__stat = stat
         self._sprite_url = sprite_url
-        self._xp_difficulty = xp_difficulty
-        self._current_xp = 0
         self._moves = [None] * 4
         self.price = price
 
-    @property
-    def current_hp(self):
-        return self._current_hp
-
-    @current_hp.setter
-    def current_hp(self, value):
-        self._current_hp = value
-        if self._current_hp < 0:
-            self._current_hp = 0
-        if self._current_hp > self.max_hp:
-            self._current_hp = self.max_hp
+    def get_current_hp(self):
+        return self.__stat.current_hp
 
     @property
     def sprite_url(self):
@@ -47,7 +36,7 @@ class Pokemon(LevelObservable):
 
     @property
     def level(self):
-        return self.__level
+        return self.__level.level
 
     @property
     def first_type(self):
@@ -64,22 +53,27 @@ class Pokemon(LevelObservable):
     def set_status(self, status: StatusEnum):
         self._status = status
 
-    """
-    Try to add a move return boolean meaning success of operation
-    """
+    def gain_experience(self, xp: int):
+        """
+        Gain X amount of experience at the end of the fight
+        """
+        self.__level.gain_experience(xp)
 
     def addMove(self, move) -> bool:
+        """
+        Try to add a move return boolean meaning success of operation
+        """
         for i in range(4):
             if self._moves[i] is None:
                 self._moves[i] = move
                 return True
         return False
 
-    """
-    Try to replace a move return boolean meaning success of operation
-    """
-
     def replaceMove(self, move, index) -> bool:
+        """
+        Try to replace a move return boolean meaning success of operation
+        """
+
         if index < 0 or index > 3:
             return False
         self._moves[index] = move
@@ -110,17 +104,3 @@ class Pokemon(LevelObservable):
         Return the immunities of the pokemon
         """
         return []
-
-    """
-    Handle all logic behind levelUp
-    """
-
-    def levelUp(self, value):
-        self._current_xp += value * self._xp_difficulty.value
-        old_level = self.__level
-
-        # Check if the pokemon has enough xp to level up
-        while self._current_xp >= self.__level:
-            self._current_xp -= self.__level
-            self.__level += 1
-            self.notify_level_up(old_level, self.__level)

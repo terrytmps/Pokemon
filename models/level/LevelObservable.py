@@ -1,5 +1,5 @@
 from abc import ABC
-from models.level.LevelObserver import LevelObserver
+from models.level.Stats import LevelObserver
 from typing import List
 
 """
