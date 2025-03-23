@@ -27,12 +27,25 @@ class Pokemon(LevelObservable):
         self._moves = [None] * 4
         self.price = price
 
+    def max_hp(self):
+        return self.__stat.current_max_hp
+
     def get_current_hp(self):
         return self.__stat.current_hp
+
+    def get_current_max_hp(self):
+        return self.__stat.current_max_hp
+
+    def get_level_object(self):
+        return self.__level
 
     @property
     def sprite_url(self):
         return self._sprite_url
+
+    @property
+    def stat(self):
+        return self.__stat
 
     @property
     def level(self):

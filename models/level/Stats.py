@@ -1,3 +1,5 @@
+from math import floor
+
 from models.level.LevelObserver import LevelObserver
 
 """"
@@ -27,12 +29,12 @@ class Stat(LevelObserver):
 
     """
     Calculate the stats of a pokemon with current level
-    basic linear interopolation formula
+    basic linear interopolation formula with floor 
     """
     def __set_stat(self, level_current: int):
-        linear_interpolation = lambda level, base, max_value: base + (max_value - base) * level / 100
+        linear_interpolation = lambda level, base, max_value: floor(base + (max_value - base) * level / 100)
         self.current_max_hp = linear_interpolation(level_current, self.__base_hp, self.__max_hp)
-        self.current_hp = self.current_max_hp
+        self._current_hp = self.current_max_hp
         self.current_attack = linear_interpolation(level_current, self.__base_attack, self.__max_attack)
         self.current_attack_special = linear_interpolation(level_current, self.__base_attack_special, self.__max_attack_special)
         self.current_defense = linear_interpolation(level_current, self.__base_defense, self.__max_defense)
@@ -50,7 +52,7 @@ class Stat(LevelObserver):
     """
     @property
     def current_hp(self):
-        return self.current_hp
+        return self._current_hp
 
 
     @current_hp.setter

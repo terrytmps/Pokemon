@@ -8,11 +8,10 @@ class TypeDecorator(Pokemon):
     def __init__(self, pokemon: Pokemon):
         super().__init__(
             pokemon.name,
-            pokemon.level,
-            pokemon.max_hp,
             pokemon.sprite_url,
-            pokemon._xp_difficulty,
             pokemon.price,
+            pokemon.get_level_object(),
+            pokemon.stat,
         )
         self._component = pokemon
 

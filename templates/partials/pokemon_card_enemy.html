@@ -1,4 +1,4 @@
-{% set pokemon_hp_percentage = (pokemon.current_hp / pokemon.max_hp) * 100 %}
+{% set pokemon_hp_percentage = (pokemon.get_current_hp() / pokemon.get_current_max_hp()) * 100 %}
 
 <div id="pokemon-adversaire" class="opponent-container">
     <div class="pokemon-info opponent-info">
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <small>HP: {{ pokemon.current_hp }} / {{ pokemon.max_hp }}</small>
+        <small>HP: {{ pokemon.get_current_hp() }} / {{ pokemon.get_current_max_hp() }}</small>
         <img src="{{ pokemon.sprite_url }}" alt="{{ pokemon.name }}" class="pokemon-img opponent"/>
 
     </div>

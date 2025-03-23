@@ -1,6 +1,8 @@
 from flask import render_template, Blueprint
 
 from models.enum.move_category import MoveCategory
+from models.level.Level import Level
+from models.level.Stats import Stat
 from models.pokemonType.PokemonTypeEnum import PokemonType
 from models.status.BurnStatusStrategy import BurnStatusStrategy
 from models.status.StatusEnum import StatusEnum
@@ -23,13 +25,14 @@ Game endpoints handle the combat part
 @game_controller.route("/game")
 def game():
     player = Player()
+    level = Level(14, XPDifficulty.EASY)
     _pokemon_self = Pokemon(
         "Pikachu",
-        12,
-        57,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-        XPDifficulty.EASY,
         10,
+        level,
+        Stat(1, 1, 1, 1, 1, 1,
+             100, 100, 100, 100, 100, 100, level.level)
     )
 
     pokemon_self = FireTypeDecorator(NormalTypeDecorator(_pokemon_self))
@@ -65,13 +68,15 @@ def game():
             MoveCategory.STATUS,
         )
     )
+    level = Level(50, XPDifficulty.HARD)
     pokemon_2 = Pokemon(
         "Tortank",
-        54,
-        221,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
-        XPDifficulty.EASY,
-        10,
+        221,
+        level,
+        Stat(1, 1, 1, 1, 1, 1,
+             100, 100, 100, 100, 100, 100, level.level)
+
     )
 
     pokemon_2 = WaterTypeDecorator(pokemon_2)
@@ -81,13 +86,14 @@ def game():
     player.add_pokemon(pokemon_2)
     player.set_current_pokemon(0)
 
+    level = Level(30, XPDifficulty.HARD)
     _pokemon_op = Pokemon(
         "Salamèche",
-        10,
-        30,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-        XPDifficulty.EASY,
-        10,
+        20,
+        level,
+        Stat(1, 1, 1, 1, 1, 1,
+             100, 100, 100, 100, 100, 100, level.level)
     )
 
     pokemon_op = FireTypeDecorator(_pokemon_op)
@@ -105,24 +111,27 @@ Main menu  (where player buy pokemons, etc
 @game_controller.route("/")
 def menu():
     player = Player()
+    level = Level(14, XPDifficulty.EASY)
     pokemon_1 = Pokemon(
         "Pikachu",
-        12,
-        57,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-        XPDifficulty.EASY,
         10,
+        level,
+        Stat(1, 1, 1, 1, 1, 1,
+             100, 100, 100, 100, 100, 100, level.level)
     )
     pokemon_1 = FireTypeDecorator(pokemon_1)
     pokemon_1 = NormalTypeDecorator(pokemon_1)
 
+    level = Level(50, XPDifficulty.HARD)
     pokemon_2 = Pokemon(
         "Tortank",
-        54,
-        221,
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
-        XPDifficulty.EASY,
-        100,
+        221,
+        level,
+        Stat(1, 1, 1, 1, 1, 1,
+             100, 100, 100, 100, 100, 100, level.level)
+
     )
 
     pokemon_2 = WaterTypeDecorator(pokemon_2)
