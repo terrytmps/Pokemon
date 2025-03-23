@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 from models.pokemon import Pokemon
-from models.xp_difficulty import XPDifficulty
+from models.level.xp_difficulty import XPDifficulty
 from models.level.Stats import LevelObserver
 
 

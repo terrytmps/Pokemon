@@ -4,9 +4,8 @@ from models.enum.move_category import MoveCategory
 from models.level.Level import Level
 from models.level.Stats import Stat
 from models.pokemonType.PokemonTypeEnum import PokemonType
-from models.status.BurnStatusStrategy import BurnStatusStrategy
 from models.status.StatusEnum import StatusEnum
-from models.xp_difficulty import XPDifficulty
+from models.level.xp_difficulty import XPDifficulty
 from models.move import Move
 from models.player import Player
 from models.pokemon import Pokemon

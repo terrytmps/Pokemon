@@ -2,7 +2,6 @@ from models.level.Level import Level
 from models.level.LevelObservable import LevelObservable
 from models.level.Stats import Stat
 from models.status.StatusEnum import StatusEnum
-from models.xp_difficulty import XPDifficulty
 
 
 class Pokemon(LevelObservable):

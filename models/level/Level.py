@@ -1,5 +1,5 @@
 from models.level.LevelObservable import LevelObservable
-from models.xp_difficulty import XPDifficulty
+from models.level.xp_difficulty import XPDifficulty
 
 """
 Handle logic behing levelUp
