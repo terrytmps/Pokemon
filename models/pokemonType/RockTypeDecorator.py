@@ -1,5 +1,5 @@
 from models.pokemonType.TypeDecorator import TypeDecorator
-from models.pokemonType.PokemonTypeEnum import PokemonType
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 
 
 class RockTypeDecorator(TypeDecorator):

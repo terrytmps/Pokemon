@@ -1,12 +1,16 @@
 from models.level.Level import Level
 from models.level.LevelObservable import LevelObservable
 from models.level.Stats import Stat
+from models.level.XpDifficulty import XPDifficulty
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 from models.status.StatusEnum import StatusEnum
 
 
 class Pokemon(LevelObservable):
     """
-    Classe that represent a pokemon with all its attributes and behavior
+    Class that represent a pokemon with all its attributes and behavior
+    with stats and level logic separated status also
+    and a builder to make the initialisation easy
     """
 
     def __init__(
@@ -17,6 +21,9 @@ class Pokemon(LevelObservable):
             level: Level,
             stat: Stat
     ):
+        """
+        Not recommend use the builder
+        """
         super().__init__()
         self._status = StatusEnum.NORMAL
         self.name = name
@@ -116,3 +123,79 @@ class Pokemon(LevelObservable):
         Return the immunities of the pokemon
         """
         return []
+
+    class Builder:
+        """
+        Builder for pokemon
+        """
+
+        def __init__(self):
+            self.stat = None
+            self.level = None
+            self.price = None
+            self.sprite_url = None
+            self.name = None
+            self.types = []
+            self.moves = [None] * 4
+
+        def set_name(self, name: str):
+            self.name = name
+            return self
+        
+        def set_img(self, sprite_url: str):
+            self.sprite_url = sprite_url
+            return self
+
+        def set_price(self, price: int):
+            self.price = price
+            return self
+
+        def set_level(self, level: int, xp_difficulty: XPDifficulty):
+            self.level = Level(level, xp_difficulty)
+            return self
+
+        def set_stat(self, stat: Stat):
+            self.stat = stat
+            return self
+
+        def set_type(self, pokemon_type: PokemonType):
+            """ Allow only 2 types """
+            if len(self.types) < 2:
+                self.types.append(pokemon_type)
+            return self
+
+        def set_moves(self, move):
+            """ Allow only 4 moves """
+            for i in range(4):
+                if self.moves[i] is None:
+                    self.moves[i] = move
+                    return self
+            return self
+
+
+        def build(self):
+            """
+            Build the pokemon with the given attributes
+            """
+            from models.pokemonType.utils.PokemonTypeDict import dict_from_enum_to_decorator
+
+            assert self.level is not None
+            assert self.price is not None
+            assert self.sprite_url is not None
+            assert self.name is not None
+            assert self.stat is not None
+            self.level.subscribe_level_observer(self.stat)
+            pokemon = Pokemon(self.name, self.sprite_url, self.price, self.level, self.stat)
+            # sort the order of the types if there is 2
+            if len(self.types) == 2:
+                self.types.sort()
+
+            for pokemon_type in self.types:
+                if pokemon_type is not None:
+                    pokemon = dict_from_enum_to_decorator.get(pokemon_type)(pokemon)
+
+            for move in self.moves:
+                if move is not None:
+                    pokemon.addMove(move)
+
+            return pokemon

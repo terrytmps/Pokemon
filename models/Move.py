@@ -1,5 +1,5 @@
 from models.enum.MoveCategory import MoveCategory
-from models.pokemonType.PokemonTypeEnum import PokemonType
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 
 
 class Move:

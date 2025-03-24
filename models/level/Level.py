@@ -11,6 +11,7 @@ class Level(LevelObservable):
         self.__xp_difficulty = xp_difficulty
         self.__current_xp = 0
 
+
     def gain_experience(self, value):
         self.__current_xp += value * self.__xp_difficulty.value
         old_level = self._level

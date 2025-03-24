@@ -3,7 +3,7 @@ from flask import render_template, Blueprint
 from models.enum.MoveCategory import MoveCategory
 from models.level.Level import Level
 from models.level.Stats import Stat
-from models.pokemonType.PokemonTypeEnum import PokemonType
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 from models.status.StatusEnum import StatusEnum
 from models.level.XpDifficulty import XPDifficulty
 from models.Move import Move
@@ -16,57 +16,48 @@ from models.pokemonType.WaterTypeDecorator import WaterTypeDecorator
 
 game_controller = Blueprint("game_controller", __name__)
 
-"""
-Game endpoints handle the combat part
-"""
-
 
 @game_controller.route("/game")
 def game():
+    """
+    Game endpoints handle the combat part
+    """
+
     player = Player()
-    level = Level(14, XPDifficulty.EASY)
-    _pokemon_self = Pokemon(
-        "Pikachu",
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-        10,
-        level,
-        Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100, level.level)
+    stat = Stat(10, 1, 1, 1, 1, 1,
+                100, 100, 100, 100, 100, 100)
+    tonnerreMove = Move(
+        "Tonnerre",
+        "A strong electric attack",
+        90,
+        100,
+        PokemonType.ELECTRIC,
+        MoveCategory.SPECIAL,
+    )
+    viveAttaqueMove = Move(
+        "Vive-Attaque",
+        "A fast attack",
+        40,
+        100,
+        PokemonType.NORMAL,
+        MoveCategory.PHYSICAL,
     )
 
-    pokemon_self = FireTypeDecorator(NormalTypeDecorator(_pokemon_self))
+    pokemon_self = Pokemon.Builder() \
+        .set_name("Pikachu") \
+        .set_img(
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png") \
+        .set_level(10, XPDifficulty.EASY) \
+        .set_stat(stat) \
+        .set_price(10) \
+        .set_type(PokemonType.ELECTRIC) \
+        .set_moves(tonnerreMove) \
+        .set_moves(viveAttaqueMove) \
+        .build()
+
     pokemon_self.set_status(StatusEnum.SLEEP)
     pokemon_self.current_hp = 24
-    pokemon_self.addMove(
-        Move(
-            "Tonnerre",
-            "A strong electric attack",
-            90,
-            100,
-            PokemonType.ELECTRIC,
-            MoveCategory.SPECIAL,
-        )
-    )
-    pokemon_self.addMove(
-        Move(
-            "Vive-Attaque",
-            "A fast attack",
-            40,
-            100,
-            PokemonType.NORMAL,
-            MoveCategory.PHYSICAL,
-        )
-    )
-    pokemon_self.addMove(
-        Move(
-            "Fouet",
-            "A status move that lower the defense of the opponent",
-            0,
-            100,
-            PokemonType.DARK,
-            MoveCategory.STATUS,
-        )
-    )
+
     level = Level(50, XPDifficulty.HARD)
     pokemon_2 = Pokemon(
         "Tortank",
@@ -74,7 +65,7 @@ def game():
         221,
         level,
         Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100, level.level)
+             100, 100, 100, 100, 100, 100)
 
     )
 
@@ -92,7 +83,7 @@ def game():
         20,
         level,
         Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100, level.level)
+             100, 100, 100, 100, 100, 100)
     )
 
     pokemon_op = FireTypeDecorator(_pokemon_op)
@@ -102,13 +93,11 @@ def game():
     return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
 
 
-"""
-Main menu  (where player buy pokemons, etc
-"""
-
-
 @game_controller.route("/")
 def menu():
+    """
+    Main menu  (where player buy pokemons, etc
+    """
     player = Player()
     level = Level(14, XPDifficulty.EASY)
     pokemon_1 = Pokemon(
@@ -117,7 +106,7 @@ def menu():
         10,
         level,
         Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100, level.level)
+             100, 100, 100, 100, 100, 100)
     )
     pokemon_1 = FireTypeDecorator(pokemon_1)
     pokemon_1 = NormalTypeDecorator(pokemon_1)
@@ -129,7 +118,7 @@ def menu():
         221,
         level,
         Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100, level.level)
+             100, 100, 100, 100, 100, 100)
 
     )
 

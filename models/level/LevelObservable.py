@@ -5,6 +5,8 @@ from typing import List
 """
 Allow a observable to notify observer when important event happen to him like level up or death
 """
+
+
 class LevelObservable(ABC):
     def __init__(self):
         self._level_observers: List[LevelObserver] = []

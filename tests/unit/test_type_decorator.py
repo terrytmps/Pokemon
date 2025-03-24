@@ -18,7 +18,7 @@ from models.Pokemon import Pokemon
 from models.level.XpDifficulty import XPDifficulty
 from models.pokemonType.FireTypeDecorator import FireTypeDecorator
 from models.pokemonType.NormalTypeDecorator import NormalTypeDecorator
-from models.pokemonType.PokemonTypeEnum import PokemonType
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 
 
 
