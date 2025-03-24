@@ -188,7 +188,7 @@ class Pokemon(LevelObservable):
             pokemon = Pokemon(self.name, self.sprite_url, self.price, self.level, self.stat)
             # sort the order of the types if there is 2
             if len(self.types) == 2:
-                self.types.sort()
+                self.types = sorted(self.types, key=lambda x: x.value)
 
             for pokemon_type in self.types:
                 if pokemon_type is not None:

@@ -58,35 +58,36 @@ def game():
     pokemon_self.set_status(StatusEnum.SLEEP)
     pokemon_self.current_hp = 24
 
-    level = Level(50, XPDifficulty.HARD)
-    pokemon_2 = Pokemon(
-        "Tortank",
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
-        221,
-        level,
-        Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100)
-
-    )
-
-    pokemon_2 = WaterTypeDecorator(pokemon_2)
-    pokemon_2 = GrassTypeDecorator(pokemon_2)
+    stat = Stat(1, 1, 1, 1, 1, 1,
+                100, 100, 100, 100, 100, 100)
+    pokemon_2 = Pokemon.Builder() \
+        .set_name("Tortank") \
+        .set_img(
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png") \
+        .set_level(35, XPDifficulty.HARD) \
+        .set_stat(stat) \
+        .set_price(110) \
+        .set_type(PokemonType.WATER) \
+        .set_type(PokemonType.NORMAL) \
+        .set_moves(viveAttaqueMove) \
+        .build()
 
     player.add_pokemon(pokemon_self)
     player.add_pokemon(pokemon_2)
     player.set_current_pokemon(0)
 
-    level = Level(30, XPDifficulty.HARD)
-    _pokemon_op = Pokemon(
-        "Salamèche",
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-        20,
-        level,
-        Stat(1, 1, 1, 1, 1, 1,
-             100, 100, 100, 100, 100, 100)
-    )
+    pokemon_op = Pokemon.Builder() \
+        .set_name("Salamèche") \
+        .set_img(
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png") \
+        .set_level(23, XPDifficulty.HARD) \
+        .set_stat(stat) \
+        .set_price(20) \
+        .set_type(PokemonType.FIRE) \
+        .set_type(PokemonType.DRAGON) \
+        .build()
 
-    pokemon_op = FireTypeDecorator(_pokemon_op)
+
     pokemon_op.set_status(StatusEnum.POISON)
     pokemon_op.current_hp = 5
 
