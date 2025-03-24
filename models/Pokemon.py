@@ -6,7 +6,7 @@ from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 from models.status.StatusEnum import StatusEnum
 
 
-class Pokemon(LevelObservable):
+class Pokemon:
     """
     Class that represent a pokemon with all its attributes and behavior
     with stats and level logic separated status also
