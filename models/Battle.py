@@ -1,0 +1,153 @@
+from typing import List, Optional
+import random
+
+from models.Pokemon import Pokemon
+from models.Move import Move
+from models.enum.MoveCategory import MoveCategory
+
+
+class Battle:
+    def __init__(self, player_pokemon: Pokemon, opponent_pokemon: Pokemon):
+        """
+        Initialize a battle between two Pokemon
+        """
+        self.player_pokemon = player_pokemon
+        self.opponent_pokemon = opponent_pokemon
+        self.turn_count = 0
+        self.battle_log: List[str] = []
+
+    def calculate_damage(self, attacker: Pokemon, defender: Pokemon, move: Move) -> int:
+        """
+        Calculate damage based on Pokemon battle mechanics
+        """
+
+        # Base damage calculation
+        base_damage = move.power
+
+        # Attack and defense stat consideration
+        if move.move_category == MoveCategory.PHYSICAL:
+            attack_stat = attacker.stat.current_attack
+            defense_stat = defender.stat.current_defense
+        else:  # Special moves
+            attack_stat = attacker.stat.current_attack_special
+            defense_stat = defender.stat.current_defense_special
+
+        # Damage calculation formula (simplified)
+        damage = (
+            (2 * attacker.level / 5 + 2) * base_damage * (attack_stat / defense_stat)
+        ) / 50 + 2
+
+        # Type effectiveness
+        type_multiplier = 1.0
+
+        # Critical hit chance
+        critical_chance = attacker.stat.current_speed / 512
+        if random.random() < critical_chance:
+            damage *= 1.5
+            self.battle_log.append(f"Critical hit!")
+
+        damage *= type_multiplier
+        damage *= random.uniform(0.85, 1.0)
+
+        return max(1, int(damage))
+
+    def check_accuracy(self, move: Move) -> bool:
+        """
+        Determine if a move hits based on its accuracy
+        """
+        return random.random() * 100 <= move.accuracy
+
+    def apply_move_effects(self, attacker: Pokemon, defender: Pokemon, move: Move):
+        """
+        Apply special move effects beyond damage
+        """
+        # Status moves implementation
+        if move.move_category == MoveCategory.STATUS:
+            pass
+
+    def perform_attack(self, attacker: Pokemon, defender: Pokemon, move: Move) -> dict:
+        """
+        Execute a single attack
+        """
+        # Check if the attack hits
+        if not self.check_accuracy(move):
+            self.battle_log.append(f"{attacker.name}'s {move.name} missed!")
+            return {"hit": False, "damage": 0}
+
+        # Calculate and apply damage
+        damage = self.calculate_damage(attacker, defender, move)
+
+        # Reduce defender's HP
+        defender.stat._current_hp = max(0, defender.stat._current_hp - damage)
+
+        # Log the attack
+        self.battle_log.append(
+            f"{attacker.name} used {move.name} and dealt {damage} damage!"
+        )
+
+        # Apply any additional move effects
+        self.apply_move_effects(attacker, defender, move)
+
+        return {"hit": True, "damage": damage}
+
+    def is_battle_over(self) -> bool:
+        """
+        Check if the battle has ended
+        """
+        return (
+            self.player_pokemon.get_current_hp() <= 0
+            or self.opponent_pokemon.get_current_hp() <= 0
+        )
+
+    def get_battle_winner(self) -> Optional[Pokemon]:
+        """
+        Determine the winner of the battle
+        """
+        if self.player_pokemon.get_current_hp() <= 0:
+            self.battle_log.append(f"{self.opponent_pokemon.name} wins!")
+            return self.opponent_pokemon
+        elif self.opponent_pokemon.get_current_hp() <= 0:
+            self.battle_log.append(f"{self.player_pokemon.name} wins!")
+            return self.player_pokemon
+        return None
+
+    def battle_turn(self, player_move: Move, opponent_move: Move):
+        """
+        Execute a single battle turn
+        """
+        self.turn_count += 1
+
+        # Determine turn order based on speed
+        if (
+            self.player_pokemon.stat.current_speed
+            >= self.opponent_pokemon.stat.current_speed
+        ):
+            first_attacker, first_move = self.player_pokemon, player_move
+            second_attacker, second_move = self.opponent_pokemon, opponent_move
+        else:
+            first_attacker, first_move = self.opponent_pokemon, opponent_move
+            second_attacker, second_move = self.player_pokemon, player_move
+
+        # First Pokemon's attack
+        first_result = self.perform_attack(first_attacker, second_attacker, first_move)
+        self.battle_log.append(first_result)
+
+        # Check if battle is over after first attack
+        if self.is_battle_over():
+            return self.get_battle_winner()
+
+        # Second Pokemon's attack
+        if second_attacker.get_current_hp() > 0:
+            second_result = self.perform_attack(
+                second_attacker, first_attacker, second_move
+            )
+            self.battle_log.append(second_result)
+
+        # Return winner if battle is over
+        return self.get_battle_winner()
+
+    def get_battle_log(self) -> List[str]:
+        """
+        Retrieve the battle log
+        """
+        return self.battle_log
