@@ -13,9 +13,7 @@ class GroundTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(
-            [PokemonType.POISON, PokemonType.ROCK]
-        )
+        resistances.extend([PokemonType.POISON, PokemonType.ROCK])
         return resistances
 
     def get_weaknesses(self):

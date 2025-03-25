@@ -14,13 +14,26 @@ class RockTypeDecorator(TypeDecorator):
     def get_resistances(self):
         resistances = self._component.get_resistances()
         resistances.extend(
-            [PokemonType.NORMAL, PokemonType.FLYING, PokemonType.POISON, PokemonType.FIRE]
+            [
+                PokemonType.NORMAL,
+                PokemonType.FLYING,
+                PokemonType.POISON,
+                PokemonType.FIRE,
+            ]
         )
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.append([PokemonType.WATER, PokemonType.GRASS, PokemonType.FIGHT, PokemonType.GROUND, PokemonType.STEEL])
+        weaknesses.append(
+            [
+                PokemonType.WATER,
+                PokemonType.GRASS,
+                PokemonType.FIGHT,
+                PokemonType.GROUND,
+                PokemonType.STEEL,
+            ]
+        )
         return weaknesses
 
     def get_immunity(self):

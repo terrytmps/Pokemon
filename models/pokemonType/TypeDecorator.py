@@ -3,6 +3,8 @@ from models.Pokemon import Pokemon
 """
 Decorator that allow to add multiple type to a pokemon wihtout the need to change the code of pokemon for each possible type
 """
+
+
 class TypeDecorator(Pokemon):
 
     def __init__(self, pokemon: Pokemon):

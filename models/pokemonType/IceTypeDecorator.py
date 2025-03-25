@@ -13,14 +13,14 @@ class IceTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(
-            [PokemonType.ICE]
-        )
+        resistances.extend([PokemonType.ICE])
         return resistances
 
     def get_weaknesses(self):
         weaknesses = self._component.get_weaknesses()
-        weaknesses.append([PokemonType.STEEL, PokemonType.FIRE, PokemonType.FIGHT, PokemonType.ROCK])
+        weaknesses.append(
+            [PokemonType.STEEL, PokemonType.FIRE, PokemonType.FIGHT, PokemonType.ROCK]
+        )
         return weaknesses
 
     def get_immunity(self):

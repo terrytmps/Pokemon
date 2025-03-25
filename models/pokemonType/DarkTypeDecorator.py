@@ -13,9 +13,7 @@ class DarkTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(
-            [PokemonType.DARK, PokemonType.GHOST]
-        )
+        resistances.extend([PokemonType.DARK, PokemonType.GHOST])
         return resistances
 
     def get_weaknesses(self):

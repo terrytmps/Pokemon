@@ -19,8 +19,7 @@ def game():
     pokemon_self.set_status(StatusEnum.SLEEP)
     pokemon_self.current_hp = 24
 
-    stat = Stat(1, 1, 1, 1, 1, 1,
-                100, 100, 100, 100, 100, 100)
+    stat = Stat(1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100)
     pokemon_2 = PokemonFactory.created_leviator()
 
     player.add_pokemon(pokemon_self)

@@ -14,12 +14,7 @@ class Pokemon:
     """
 
     def __init__(
-            self,
-            name: str,
-            sprite_url: str,
-            price: int,
-            level: Level,
-            stat: Stat
+        self, name: str, sprite_url: str, price: int, level: Level, stat: Stat
     ):
         """
         Not recommend use the builder
@@ -141,7 +136,7 @@ class Pokemon:
         def set_name(self, name: str):
             self.name = name
             return self
-        
+
         def set_img(self, sprite_url: str):
             self.sprite_url = sprite_url
             return self
@@ -159,25 +154,26 @@ class Pokemon:
             return self
 
         def set_type(self, pokemon_type: PokemonType):
-            """ Allow only 2 types """
+            """Allow only 2 types"""
             if len(self.types) < 2:
                 self.types.append(pokemon_type)
             return self
 
         def set_moves(self, move):
-            """ Allow only 4 moves """
+            """Allow only 4 moves"""
             for i in range(4):
                 if self.moves[i] is None:
                     self.moves[i] = move
                     return self
             return self
 
-
         def build(self):
             """
             Build the pokemon with the given attributes
             """
-            from models.pokemonType.utils.PokemonTypeDict import dict_from_enum_to_decorator
+            from models.pokemonType.utils.PokemonTypeDict import (
+                dict_from_enum_to_decorator,
+            )
 
             assert self.level is not None
             assert self.price is not None
@@ -185,7 +181,9 @@ class Pokemon:
             assert self.name is not None
             assert self.stat is not None
             self.level.subscribe_level_observer(self.stat)
-            pokemon = Pokemon(self.name, self.sprite_url, self.price, self.level, self.stat)
+            pokemon = Pokemon(
+                self.name, self.sprite_url, self.price, self.level, self.stat
+            )
             # sort the order of the types if there is 2
             if len(self.types) == 2:
                 self.types = sorted(self.types, key=lambda x: x.value)

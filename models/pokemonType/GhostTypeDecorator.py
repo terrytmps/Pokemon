@@ -13,9 +13,7 @@ class GhostTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(
-            [PokemonType.POISON, PokemonType.BUG]
-        )
+        resistances.extend([PokemonType.POISON, PokemonType.BUG])
         return resistances
 
     def get_weaknesses(self):

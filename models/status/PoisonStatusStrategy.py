@@ -5,18 +5,19 @@ from models.status.StatusStrategy import StatusStrategy
 Status poison effect
 
 """
+
+
 class PoisonStatusStrategy(StatusStrategy):
-    
     """
     6% health damage beginning
     """
+
     _damage = 6
 
     """
     40% max health damage
     """
     _max_damage = 48
-
 
     def get_status(self) -> StatusEnum:
         return StatusEnum.POISON

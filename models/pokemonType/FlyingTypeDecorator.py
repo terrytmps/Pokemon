@@ -13,9 +13,7 @@ class FlyingTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(
-            [PokemonType.BUG, PokemonType.FIGHT, PokemonType.GRASS]
-        )
+        resistances.extend([PokemonType.BUG, PokemonType.FIGHT, PokemonType.GRASS])
         return resistances
 
     def get_weaknesses(self):

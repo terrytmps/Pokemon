@@ -29,45 +29,57 @@ class TestTypeDecorator(unittest.TestCase):
     def setUp(self):
         stat = Stat(35, 55, 50, 40, 50, 90, 330, 250, 220, 120, 180, 250)
 
-        self.electric = Pokemon.Builder() \
-            .set_name("Pikachu") \
+        self.electric = (
+            Pokemon.Builder()
+            .set_name("Pikachu")
             .set_img(
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png") \
-            .set_level(1, XPDifficulty.EASY) \
-            .set_stat(stat) \
-            .set_price(10) \
-            .set_type(PokemonType.ELECTRIC) \
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            )
+            .set_level(1, XPDifficulty.EASY)
+            .set_stat(stat)
+            .set_price(10)
+            .set_type(PokemonType.ELECTRIC)
             .build()
+        )
 
-        self.no_type = Pokemon.Builder() \
-            .set_name("Pikachu") \
+        self.no_type = (
+            Pokemon.Builder()
+            .set_name("Pikachu")
             .set_img(
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png") \
-            .set_level(1, XPDifficulty.EASY) \
-            .set_stat(stat) \
-            .set_price(10) \
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            )
+            .set_level(1, XPDifficulty.EASY)
+            .set_stat(stat)
+            .set_price(10)
             .build()
+        )
 
-        self.fire = Pokemon.Builder() \
-            .set_name("Pikachu") \
+        self.fire = (
+            Pokemon.Builder()
+            .set_name("Pikachu")
             .set_img(
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png") \
-            .set_level(1, XPDifficulty.EASY) \
-            .set_stat(stat) \
-            .set_price(10) \
-            .set_type(PokemonType.FIRE) \
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            )
+            .set_level(1, XPDifficulty.EASY)
+            .set_stat(stat)
+            .set_price(10)
+            .set_type(PokemonType.FIRE)
             .build()
+        )
 
-        self.normal_fire = Pokemon.Builder() \
-            .set_name("Pikachu") \
+        self.normal_fire = (
+            Pokemon.Builder()
+            .set_name("Pikachu")
             .set_img(
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png") \
-            .set_level(1, XPDifficulty.EASY) \
-            .set_stat(stat) \
-            .set_price(10) \
-            .set_type(PokemonType.FIRE) \
-            .set_type(PokemonType.NORMAL) \
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            )
+            .set_level(1, XPDifficulty.EASY)
+            .set_stat(stat)
+            .set_price(10)
+            .set_type(PokemonType.FIRE)
+            .set_type(PokemonType.NORMAL)
             .build()
+        )
 
     def test_type_decorator_empty(self):
         assert self.no_type.get_types() == []

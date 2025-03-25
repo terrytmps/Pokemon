@@ -6,6 +6,8 @@ Represent the status of a Pokemon when it is frozen
 When attack is called, the Pokemon does nothing 
 20% chance to defrost at the end of the turn
 """
+
+
 class FreezeStatusStrategy(StatusStrategy):
 
     def get_status(self) -> StatusEnum:

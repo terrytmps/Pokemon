@@ -13,13 +13,7 @@ class FightingTypeDecorator(TypeDecorator):
 
     def get_resistances(self):
         resistances = self._component.get_resistances()
-        resistances.extend(
-            [
-                PokemonType.BUG,
-                PokemonType.DARK,
-                PokemonType.ROCK
-            ]
-        )
+        resistances.extend([PokemonType.BUG, PokemonType.DARK, PokemonType.ROCK])
         return resistances
 
     def get_weaknesses(self):

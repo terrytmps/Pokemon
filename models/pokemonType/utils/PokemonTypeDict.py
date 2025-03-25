@@ -1,6 +1,7 @@
 """
 Dictionary of all Pokemon types into the decorator pattern
 """
+
 from models.pokemonType.BugTypeDecorator import BugTypeDecorator
 from models.pokemonType.DarkTypeDecorator import DarkTypeDecorator
 from models.pokemonType.DragonTypeDecorator import DragonTypeDecorator
@@ -39,5 +40,3 @@ dict_from_enum_to_decorator = {
     PokemonType.STEEL: SteelTypeDecorator,
     PokemonType.WATER: WaterTypeDecorator,
 }
-
-

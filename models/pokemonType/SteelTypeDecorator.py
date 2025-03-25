@@ -38,4 +38,3 @@ class SteelTypeDecorator(TypeDecorator):
         immunities = self._component.get_immunity()
         immunities.append(PokemonType.POISON)
         return immunities
-

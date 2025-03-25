@@ -18,38 +18,76 @@ class TestPokemonBuilder(unittest.TestCase):
         self.pokemon_builder = Pokemon.Builder()
 
     def test_pokemon_builder_name(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         self.assertEqual(pokemon.name, self.name)
 
     def test_pokemon_builder_sprite_url(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         self.assertEqual(pokemon.sprite_url, self.sprite_url)
 
     def test_pokemon_builder_price(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         self.assertEqual(pokemon.price, self.price)
 
     def test_pokemon_builder_level(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         self.assertEqual(pokemon.get_level_object().level, 5)
 
     def test_pokemon_builder_stat(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         self.assertEqual(pokemon.stat, self.stat)
 
     def test_pokemon_builder_add_types(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).set_type(PokemonType.ELECTRIC).set_type(PokemonType.FIRE).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .set_type(PokemonType.ELECTRIC)
+            .set_type(PokemonType.FIRE)
+            .build()
+        )
 
         self.assertEqual(len(pokemon.get_types()), 2)
         self.assertIn(PokemonType.ELECTRIC, pokemon.get_types())
@@ -57,21 +95,40 @@ class TestPokemonBuilder(unittest.TestCase):
 
     def test_pokemon_builder_add_moves(self):
         move = "Thunderbolt"
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).set_moves(move).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .set_moves(move)
+            .build()
+        )
 
         self.assertIn(move, pokemon._moves)
 
     def test_pokemon_builder_max_hp(self):
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         self.assertEqual(pokemon.max_hp(), self.stat.current_max_hp)
 
     def test_pokemon_builder_invalid_move_addition(self):
         # Test if adding more than 4 moves fails
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .build()
+        )
 
         # Add 5 moves
         for i in range(5):
@@ -82,12 +139,21 @@ class TestPokemonBuilder(unittest.TestCase):
 
     def test_pokemon_builder_invalid_type_addition(self):
         # Test if adding more than 2 types fails
-        pokemon = self.pokemon_builder.set_name(self.name).set_img(self.sprite_url).set_price(self.price) \
-            .set_level(5, XPDifficulty.NORMAL).set_stat(self.stat).set_type(PokemonType.ELECTRIC) \
-            .set_type(PokemonType.FIRE).set_type(PokemonType.WATER).build()
+        pokemon = (
+            self.pokemon_builder.set_name(self.name)
+            .set_img(self.sprite_url)
+            .set_price(self.price)
+            .set_level(5, XPDifficulty.NORMAL)
+            .set_stat(self.stat)
+            .set_type(PokemonType.ELECTRIC)
+            .set_type(PokemonType.FIRE)
+            .set_type(PokemonType.WATER)
+            .build()
+        )
 
         # Ensure only 2 types are added
         self.assertEqual(len(pokemon.get_types()), 2)
+
 
 if __name__ == "__main__":
     unittest.main()
