@@ -1,5 +1,5 @@
-from models.Decorator.TypeDecorator import TypeDecorator
-from models.enum.pokemon_type import PokemonType
+from models.pokemonType.TypeDecorator import TypeDecorator
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 
 
 class WaterTypeDecorator(TypeDecorator):
@@ -22,3 +22,7 @@ class WaterTypeDecorator(TypeDecorator):
         weaknesses = self._component.get_weaknesses()
         weaknesses.extend([PokemonType.ELECTRIC, PokemonType.GRASS])
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        return immunities

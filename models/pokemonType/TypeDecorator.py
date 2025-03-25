@@ -1,16 +1,17 @@
-from models.pokemon import Pokemon
+from models.Pokemon import Pokemon
 
-
+"""
+Decorator that allow to add multiple type to a pokemon wihtout the need to change the code of pokemon for each possible type
+"""
 class TypeDecorator(Pokemon):
 
     def __init__(self, pokemon: Pokemon):
         super().__init__(
             pokemon.name,
-            pokemon.level,
-            pokemon.max_hp,
             pokemon.sprite_url,
-            pokemon._xp_difficulty,
             pokemon.price,
+            pokemon.get_level_object(),
+            pokemon.stat,
         )
         self._component = pokemon
 
@@ -23,6 +24,9 @@ class TypeDecorator(Pokemon):
 
     def get_weaknesses(self):
         return self._component.get_weaknesses()
+
+    def get_immunity(self):
+        return self._component.get_immunity()
 
     @property
     def first_type(self):

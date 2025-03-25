@@ -1,5 +1,5 @@
-from models.Decorator.TypeDecorator import TypeDecorator
-from models.enum.pokemon_type import PokemonType
+from models.pokemonType.TypeDecorator import TypeDecorator
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 
 
 class NormalTypeDecorator(TypeDecorator):
@@ -21,3 +21,9 @@ class NormalTypeDecorator(TypeDecorator):
         weaknesses.append(PokemonType.FIGHT)
 
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        immunities.append(PokemonType.GHOST)
+        return immunities
+

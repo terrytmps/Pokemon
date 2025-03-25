@@ -1,5 +1,5 @@
-from models.Decorator.TypeDecorator import TypeDecorator
-from models.enum.pokemon_type import PokemonType
+from models.pokemonType.TypeDecorator import TypeDecorator
+from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 
 
 class PsychicTypeDecorator(TypeDecorator):
@@ -20,3 +20,7 @@ class PsychicTypeDecorator(TypeDecorator):
         weaknesses = self._component.get_weaknesses()
         weaknesses.extend([PokemonType.BUG, PokemonType.GHOST, PokemonType.DARK])
         return weaknesses
+
+    def get_immunity(self):
+        immunities = self._component.get_immunity()
+        return immunities

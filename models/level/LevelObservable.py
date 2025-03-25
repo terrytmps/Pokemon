@@ -1,6 +1,10 @@
 from abc import ABC
-from models.Observer.LevelObserver import LevelObserver
+from models.level.Stats import LevelObserver
 from typing import List
+
+"""
+Allow a observable to notify observer when important event happen to him like level up or death
+"""
 
 
 class LevelObservable(ABC):

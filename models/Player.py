@@ -1,4 +1,4 @@
-from models.pokemon import Pokemon
+from models.Pokemon import Pokemon
 
 
 class Player:
