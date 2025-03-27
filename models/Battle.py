@@ -30,19 +30,26 @@ class Battle:
 
         # Base damage calculation
         base_damage = move.power
+        # if the type of the moves is one of the type of the attacker pokemon get bonus
+        if move.move_type in [attacker.first_type, attacker.second_type]:
+            base_damage *= 1.5
+
+        # apply stat changes for status
+        stat_attacker = attacker.status_strategy.stat_change(attacker)
+        stat_defender = defender.status_strategy.stat_change(defender)
 
         # Attack and defense stat consideration
         if move.move_category == MoveCategory.PHYSICAL:
-            attack_stat = attacker.stat.current_attack
-            defense_stat = defender.stat.current_defense
+            attack_stat = stat_attacker.current_attack
+            defense_stat = stat_defender.current_defense
         else:  # Special moves
-            attack_stat = attacker.stat.current_attack_special
-            defense_stat = defender.stat.current_defense_special
+            attack_stat = stat_attacker.current_attack_special
+            defense_stat = stat_defender.current_defense_special
 
         # Damage calculation formula (simplified)
         damage = (
-            (2 * attacker.level / 5 + 2) * base_damage * (attack_stat / defense_stat)
-        ) / 50 + 2
+            base_damage * (attack_stat / defense_stat)
+        )
 
         # Type effectiveness
         type_multiplier = 1.0
@@ -69,8 +76,6 @@ class Battle:
             self.battle_log.append(f"Critical hit!")
 
         damage *= type_multiplier
-        damage *= attacker.attack_multiplier # depending the effect on the Pokemon
-        damage *= random.uniform(0.85, 1.0)
 
         return max(1, int(damage))
 
@@ -96,8 +101,7 @@ class Battle:
             }
             
             defender.status_strategy = status_strategies.get(move.move_effect, NormalStatusStrategy())
-            
-            defender.set_status(move.move_effect)
+
             self.battle_log.append(f"{defender.name} is now {move.move_effect.name}!")
 
     def perform_attack(self, attacker: Pokemon, defender: Pokemon, move: Move) -> dict:
@@ -112,8 +116,12 @@ class Battle:
         # Calculate and apply damage
         damage = self.calculate_damage(attacker, defender, move)
 
+        if not attacker.status_strategy.attack():
+            self.battle_log.append(f"{attacker.name} cant attack because of his status!")
+            return {"hit": False, "damage": 0}
+
         # Reduce defender's HP
-        defender.stat._current_hp = max(0, defender.stat._current_hp - damage)
+        defender.take_damage(damage)
 
         # Log the attack
         self.battle_log.append(
@@ -129,6 +137,7 @@ class Battle:
         """
         Check if the battle has ended
         """
+        # Probably not used but used by observer
         return (
             self.player_pokemon.get_current_hp() <= 0
             or self.opponent_pokemon.get_current_hp() <= 0
@@ -145,32 +154,16 @@ class Battle:
             self.battle_log.append(f"{self.player_pokemon.name} wins!")
             return self.player_pokemon
         return None
-    
-    def apply_status_stat_changes(self, pokemon: Pokemon):
-        """
-        Appliquer les changements de stats dus aux statuts
-        """
-        if pokemon.status != StatusEnum.NORMAL and pokemon.status_strategy:
-            pokemon.status_strategy.stat_change()
 
-    def can_pokemon_attack(self, pokemon: Pokemon) -> bool:
-        """
-        Déterminer si un Pokémon peut attaquer en fonction de son statut
-        """
-        if pokemon.status != StatusEnum.NORMAL and pokemon.status_strategy:
-            attack_result = pokemon.status_strategy.attack()
-            return attack_result
-        return True
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """
         Gérer les effets de fin de tour pour un Pokémon
         """
-        if pokemon.status != StatusEnum.NORMAL and pokemon.status_strategy:
-            pokemon.status_strategy.end_turn()
-            
-            if pokemon.get_current_hp() <= 0:
-                self.battle_log.append(f"{pokemon.name} is KO")
+        pokemon.status_strategy.end_turn(pokemon)
+        if pokemon.get_current_hp() <= 0:
+            self.battle_log.append(f"{pokemon.name} is KO")
+
 
     def battle_turn(self, player_move: Move, opponent_move: Move):
         """
@@ -178,13 +171,10 @@ class Battle:
         """
         self.turn_count += 1
 
-        self.apply_status_stat_changes(self.player_pokemon)
-        self.apply_status_stat_changes(self.opponent_pokemon)
-
         # Determine turn order based on speed
         if (
-            self.player_pokemon.stat.current_speed
-            >= self.opponent_pokemon.stat.current_speed
+            self.player_pokemon.status_strategy.stat_change(self.player_pokemon).current_speed
+            >= self.opponent_pokemon.status_strategy.stat_change(self.opponent_pokemon).current_speed
         ):
             first_attacker, first_move = self.player_pokemon, player_move
             second_attacker, second_move = self.opponent_pokemon, opponent_move
@@ -192,24 +182,19 @@ class Battle:
             first_attacker, first_move = self.opponent_pokemon, opponent_move
             second_attacker, second_move = self.player_pokemon, player_move
 
-        
-        # Vérifier si un Pokémon peut attaquer en fonction de son statut
-        if self.can_pokemon_attack(first_attacker):
-            first_result = self.perform_attack(first_attacker, second_attacker, first_move)
-            self.battle_log.append(first_result)
-        else:
-            self.battle_log.append(f"{first_attacker.name} cant attack because of his status!")
+
+        first_result = self.perform_attack(first_attacker, second_attacker, first_move)
+        self.battle_log.append(str(first_result))
 
         # Check if battle is over after first attack
         if self.is_battle_over():
             return self.get_battle_winner()
 
         # Second Pokemon's attack
-        if second_attacker.get_current_hp() > 0 and self.can_pokemon_attack(second_attacker):
-            second_result = self.perform_attack(
+        second_result = self.perform_attack(
                 second_attacker, first_attacker, second_move
             )
-            self.battle_log.append(second_result)
+        self.battle_log.append(str(second_result))
 
         # Gérer les effets de fin de tour pour chaque Pokémon
         self.handle_end_of_turn(self.player_pokemon)
