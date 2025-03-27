@@ -89,7 +89,7 @@ class Pokemon:
         """
         self.__level.gain_experience(xp)
 
-    def addMove(self, move) -> bool:
+    def add_move(self, move) -> bool:
         """
         Try to add a move return boolean meaning success of operation
         """
@@ -99,7 +99,7 @@ class Pokemon:
                 return True
         return False
 
-    def replaceMove(self, move, index) -> bool:
+    def replace_move(self, move, index) -> bool:
         """
         Try to replace a move return boolean meaning success of operation
         """
@@ -210,6 +210,6 @@ class Pokemon:
 
             for move in self.moves:
                 if move is not None:
-                    pokemon.addMove(move)
+                    pokemon.add_move(move)
 
             return pokemon
