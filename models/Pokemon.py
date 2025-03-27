@@ -65,11 +65,11 @@ class Pokemon:
         return None
     
     @property
-    def strategy(self):
+    def status_strategy(self):
         return self._status_strategy
     
-    @strategy.setter
-    def strategy(self, strategy: StatusStrategy):
+    @status_strategy.setter
+    def status_strategy(self, strategy: StatusStrategy):
         assert strategy is not None
         self._status_strategy = strategy
 

@@ -95,7 +95,7 @@ class Battle:
                 StatusEnum.NORMAL: NormalStatusStrategy()
             }
             
-            defender.strategy = status_strategies.get(move.move_effect, NormalStatusStrategy())
+            defender.status_strategy = status_strategies.get(move.move_effect, NormalStatusStrategy())
             
             defender.set_status(move.move_effect)
             self.battle_log.append(f"{defender.name} is now {move.move_effect.name}!")
@@ -150,15 +150,15 @@ class Battle:
         """
         Appliquer les changements de stats dus aux statuts
         """
-        if pokemon.status != StatusEnum.NORMAL and pokemon.strategy:
-            pokemon.strategy.stat_change()
+        if pokemon.status != StatusEnum.NORMAL and pokemon.status_strategy:
+            pokemon.status_strategy.stat_change()
 
     def can_pokemon_attack(self, pokemon: Pokemon) -> bool:
         """
         Déterminer si un Pokémon peut attaquer en fonction de son statut
         """
-        if pokemon.status != StatusEnum.NORMAL and pokemon.strategy:
-            attack_result = pokemon.strategy.attack()
+        if pokemon.status != StatusEnum.NORMAL and pokemon.status_strategy:
+            attack_result = pokemon.status_strategy.attack()
             return attack_result
         return True
 
@@ -166,8 +166,8 @@ class Battle:
         """
         Gérer les effets de fin de tour pour un Pokémon
         """
-        if pokemon.status != StatusEnum.NORMAL and pokemon.strategy:
-            pokemon.strategy.end_turn()
+        if pokemon.status != StatusEnum.NORMAL and pokemon.status_strategy:
+            pokemon.status_strategy.end_turn()
             
             if pokemon.get_current_hp() <= 0:
                 self.battle_log.append(f"{pokemon.name} is KO")

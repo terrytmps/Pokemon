@@ -29,11 +29,11 @@ def game():
     player.set_current_pokemon(1)
 
     pokemon_2.current_hp = 24
-    pokemon_2.strategy = SleepStatusStrategy()
+    pokemon_2.status_strategy = SleepStatusStrategy()
 
     pokemon_op = PokemonFactory.created_dracaufeu()
 
-    pokemon_op.strategy = PoisonStatusStrategy()
+    pokemon_op.status_strategy = PoisonStatusStrategy()
 
     """ # Create battle
     battle = Battle(pokemon_self, pokemon_2)
