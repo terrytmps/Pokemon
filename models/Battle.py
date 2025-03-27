@@ -4,6 +4,13 @@ import random
 from models.Pokemon import Pokemon
 from models.Move import Move
 from models.enum.MoveCategory import MoveCategory
+from models.status.BurnStatusStrategy import BurnStatusStrategy
+from models.status.FreezeStatusStrategy import FreezeStatusStrategy
+from models.status.NormalStatusStrategy import NormalStatusStrategy
+from models.status.ParalysisStatusStrategy import ParalysisStatusStrategy
+from models.status.PoisonStatusStrategy import PoisonStatusStrategy
+from models.status.SleepStatusStrategy import SleepStatusStrategy
+from models.status.StatusEnum import StatusEnum
 
 
 class Battle:
@@ -74,10 +81,23 @@ class Battle:
 
     def apply_move_effects(self, attacker: Pokemon, defender: Pokemon, move: Move):
         """
-        Apply special move effects beyond damage
+        Appliquer les effets spéciaux de mouvement au-delà des dégâts
         """
-        pass
-
+        # Vérifier si le mouvement a un effet de statut
+        if move.move_effect != StatusEnum.NORMAL:
+            status_strategies = {
+                StatusEnum.POISON: PoisonStatusStrategy(),
+                StatusEnum.SLEEP: SleepStatusStrategy(),
+                StatusEnum.BURN: BurnStatusStrategy(),
+                StatusEnum.FREEZE: FreezeStatusStrategy(),
+                StatusEnum.PARALYSIS: ParalysisStatusStrategy(),
+                StatusEnum.NORMAL: NormalStatusStrategy()
+            }
+            
+            defender.strategy = status_strategies.get(move.move_effect, NormalStatusStrategy())
+            
+            defender.set_status(move.move_effect)
+            self.battle_log.append(f"{defender.name} is now {move.move_effect.name}!")
 
     def perform_attack(self, attacker: Pokemon, defender: Pokemon, move: Move) -> dict:
         """
