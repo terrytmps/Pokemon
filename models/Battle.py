@@ -11,9 +11,9 @@ class Battle:
         """
         Initialize a battle between two Pokemon
         """
-        self.player_pokemon = player_pokemon
-        self.opponent_pokemon = opponent_pokemon
-        self.turn_count = 0
+        self.player_pokemon: Pokemon = player_pokemon
+        self.opponent_pokemon: Pokemon = opponent_pokemon
+        self.turn_count: int = 0
         self.battle_log: List[str] = []
 
     def calculate_damage(self, attacker: Pokemon, defender: Pokemon, move: Move) -> int:
@@ -39,6 +39,21 @@ class Battle:
 
         # Type effectiveness
         type_multiplier = 1.0
+
+        # Check for immunities
+        if move.move_type in defender.get_immunity():
+            type_multiplier = 0.0
+            self.battle_log.append(f"{defender.name} is immune to {move.move_type}!")
+        else:
+            # Check for weaknesses
+            if move.move_type in defender.get_weaknesses():
+                type_multiplier *= 2.0
+                self.battle_log.append(f"It's super effective!")
+
+            # Check for resistances
+            if move.move_type in defender.get_resistances():
+                type_multiplier *= 0.5
+                self.battle_log.append(f"It's not very effective.")
 
         # Critical hit chance
         critical_chance = attacker.stat.current_speed / 512
