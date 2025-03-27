@@ -1,3 +1,6 @@
+import copy
+
+from models.level.Stats import Stat
 from models.status.StatusEnum import StatusEnum
 from models.status.StatusStrategy import StatusStrategy
 
@@ -11,14 +14,19 @@ class BurnStatusStrategy(StatusStrategy):
     def get_status(self) -> StatusEnum:
         return StatusEnum.BURN
 
-    def stat_change(self):
-        # reduce attack stat by 1/3
-        self._pokemon.attack_multiplier = 2/3
+    def stat_change(self, pokemon) -> Stat:
+        # reduce attack by 1/3
+        stat = copy.copy(pokemon.stat())
+        stat.attack = stat.attack // 3
+        return stat
 
-    def end_turn(self) -> None:
+
+    def end_turn(self, pokemon) -> None:
         # take 6% health damage
-        pass
+        damage_percent = 6 * pokemon.stat.current_max_hp // 100
+        pokemon.take_damage(damage_percent)
 
-    def attack(self) -> None:
+
+    def attack(self) -> bool:
         # nothing
-        pass
+        return True

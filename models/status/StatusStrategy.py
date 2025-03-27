@@ -1,5 +1,6 @@
 from abc import abstractmethod
 
+from models.level.Stats import Stat
 from models.status.StatusEnum import StatusEnum
 
 """
@@ -22,7 +23,7 @@ class StatusStrategy:
     """
 
     @abstractmethod
-    def stat_change(self):
+    def stat_change(self, pokemon) -> Stat:
         pass
 
     """
@@ -30,7 +31,7 @@ class StatusStrategy:
     """
 
     @abstractmethod
-    def attack(self) -> None:
+    def attack(self) -> bool:
         pass
 
     """
@@ -38,5 +39,5 @@ class StatusStrategy:
     """
 
     @abstractmethod
-    def end_turn(self) -> None:
+    def end_turn(self, pokemon) -> None:
         pass

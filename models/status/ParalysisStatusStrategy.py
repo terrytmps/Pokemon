@@ -1,10 +1,12 @@
 """
 Paralysis status strategy class
 """
+import copy
+import random
 
+from models.level.Stats import Stat
 from models.status.StatusEnum import StatusEnum
 from models.status.StatusStrategy import StatusStrategy
-import random
 
 """
 Paralysis status strategy class
@@ -16,17 +18,19 @@ class ParalysisStatusStrategy(StatusStrategy):
     def get_status(self) -> StatusEnum:
         return StatusEnum.PARALYSIS
 
-    def stat_change(self):
+    def stat_change(self, pokemon) -> Stat:
         # reduce speed by half
-        pass
+        stat = copy.copy(pokemon.stat)
+        stat.speed = stat.speed // 2
+        return stat
 
-    def attack(self) -> None:
+    def attack(self) -> bool:
         # 25% chance of not being able to attack
         if random.random() < 0.25:
-            self._pokemon.attack_multiplier = 0.0
+            return False
         else:
-            self._pokemon.attack_multiplier = 1.0
+            return True
 
-    def end_turn(self) -> None:
+    def end_turn(self, pokemon) -> None:
         # nothing
         pass

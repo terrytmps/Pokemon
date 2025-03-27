@@ -28,7 +28,6 @@ class Pokemon:
         self._moves = [None] * 4
         self.price = price
         self._strategy = NormalStatusStrategy()
-        self._attack_multiplier : float = 1.0
 
     def max_hp(self):
         return self.__stat.current_max_hp
@@ -74,13 +73,13 @@ class Pokemon:
         assert strategy is not None
         self._strategy = strategy
 
-    @property
-    def attack_multiplier(self):
-        return self._attack_multiplier
-    
-    @attack_multiplier.setter
-    def attack_multiplier(self, attack_multiplier: float):
-        self._attack_multiplier = attack_multiplier
+    def take_damage(self, amount: int):
+        """
+        Take damage from the pokemon
+        """
+        self.__stat.current_hp = max(0, amount)
+        if self.__stat.current_hp == 0:
+            self.__level.notify_dead()
 
 
     def gain_experience(self, xp: int):
