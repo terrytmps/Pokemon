@@ -10,8 +10,7 @@ Sleep status strategy class effect:
 
 class SleepStatusStrategy(StatusStrategy):
     def get_status(self) -> StatusEnum:
-        # nothing happens
-        pass
+        return StatusEnum.SLEEP
 
     def stat_change(self):
         # nothing happens

@@ -1,8 +1,8 @@
 from models.level.Level import Level
-from models.level.LevelObservable import LevelObservable
 from models.level.Stats import Stat
 from models.level.XpDifficulty import XPDifficulty
 from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from models.status.NormalStatusStrategy import NormalStatusStrategy
 from models.status.StatusEnum import StatusEnum
 from models.status.StatusStrategy import StatusStrategy
 
@@ -21,14 +21,13 @@ class Pokemon:
         Not recommend use the builder
         """
         super().__init__()
-        self._status = StatusEnum.NORMAL
         self.name = name
         self.__level = level
         self.__stat = stat
         self._sprite_url = sprite_url
         self._moves = [None] * 4
         self.price = price
-        self._strategy : StatusStrategy = None
+        self._strategy = NormalStatusStrategy()
         self._attack_multiplier : float = 1.0
 
     def max_hp(self):
@@ -42,6 +41,9 @@ class Pokemon:
 
     def get_level_object(self):
         return self.__level
+
+    def get_status(self) -> StatusEnum:
+        return self._strategy.get_status()
 
     @property
     def sprite_url(self):
@@ -62,10 +64,6 @@ class Pokemon:
     @property
     def second_type(self):
         return None
-
-    @property
-    def status(self):
-        return self._status
     
     @property
     def strategy(self):
@@ -73,6 +71,7 @@ class Pokemon:
     
     @strategy.setter
     def strategy(self, strategy: StatusStrategy):
+        assert strategy is not None
         self._strategy = strategy
 
     @property
@@ -83,8 +82,6 @@ class Pokemon:
     def attack_multiplier(self, attack_multiplier: float):
         self._attack_multiplier = attack_multiplier
 
-    def set_status(self, status: StatusEnum):
-        self._status = status
 
     def gain_experience(self, xp: int):
         """

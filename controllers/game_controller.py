@@ -20,23 +20,19 @@ def game():
 
     player = Player()
     pokemon_self = PokemonFactory.created_pikachu()
-    pokemon_self.set_status(StatusEnum.SLEEP)
     pokemon_self.current_hp = 24
 
-    stat = Stat(1, 1, 1, 1, 1, 1, 100, 100, 100, 100, 100, 100)
     pokemon_2 = PokemonFactory.created_leviator()
 
     player.add_pokemon(pokemon_self)
     player.add_pokemon(pokemon_2)
     player.set_current_pokemon(1)
 
-    pokemon_2.set_status(StatusEnum.SLEEP)
     pokemon_2.current_hp = 24
     pokemon_2.strategy = SleepStatusStrategy()
 
     pokemon_op = PokemonFactory.created_dracaufeu()
 
-    pokemon_op.set_status(StatusEnum.POISON)
     pokemon_op.strategy = PoisonStatusStrategy()
 
     """ # Create battle
