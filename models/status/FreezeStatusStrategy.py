@@ -14,8 +14,7 @@ class FreezeStatusStrategy(StatusStrategy):
         return StatusEnum.FREEZE
 
     def attack(self) -> None:
-        # Attack is disabled
-        pass
+        return False
 
     def stat_change(self):
         # nothing happens

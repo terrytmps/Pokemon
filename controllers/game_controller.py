@@ -34,12 +34,11 @@ def game():
     pokemon_2.current_hp = 24
     pokemon_2.strategy = SleepStatusStrategy()
 
-    """ pokemon_op = PokemonFactory.created_dracaufeu()
+    pokemon_op = PokemonFactory.created_dracaufeu()
 
     pokemon_op.set_status(StatusEnum.POISON)
-    pokemon_op.strategy = PoisonStatusStrategy() """
+    pokemon_op.strategy = PoisonStatusStrategy()
 
-    
     """ # Create battle
     battle = Battle(pokemon_self, pokemon_2)
 
@@ -54,7 +53,7 @@ def game():
     for log in battle_log:
         print(log) """
 
-    return render_template("pages/game.html", player=player, pokemon_op=pokemon_2)
+    return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
 
 
 @game_controller.route("/")

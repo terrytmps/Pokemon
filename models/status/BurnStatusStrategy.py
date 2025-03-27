@@ -13,7 +13,7 @@ class BurnStatusStrategy(StatusStrategy):
 
     def stat_change(self):
         # reduce attack stat by 1/3
-        pass
+        self._pokemon.attack_multiplier = 2/3
 
     def end_turn(self) -> None:
         # take 6% health damage

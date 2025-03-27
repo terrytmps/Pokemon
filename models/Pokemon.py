@@ -29,6 +29,7 @@ class Pokemon:
         self._moves = [None] * 4
         self.price = price
         self._strategy : StatusStrategy = None
+        self._attack_multiplier : float = 1.0
 
     def max_hp(self):
         return self.__stat.current_max_hp
@@ -73,6 +74,14 @@ class Pokemon:
     @strategy.setter
     def strategy(self, strategy: StatusStrategy):
         self._strategy = strategy
+
+    @property
+    def attack_multiplier(self):
+        return self._attack_multiplier
+    
+    @attack_multiplier.setter
+    def attack_multiplier(self, attack_multiplier: float):
+        self._attack_multiplier = attack_multiplier
 
     def set_status(self, status: StatusEnum):
         self._status = status

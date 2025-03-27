@@ -18,8 +18,7 @@ class SleepStatusStrategy(StatusStrategy):
         pass
 
     def attack(self) -> None:
-        # attack cancel because pokemon sleeping
-        pass
+        return False
 
     def end_turn(self) -> None:
         # 50% chance to wake up

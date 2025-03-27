@@ -4,6 +4,7 @@ Paralysis status strategy class
 
 from models.status.StatusEnum import StatusEnum
 from models.status.StatusStrategy import StatusStrategy
+import random
 
 """
 Paralysis status strategy class
@@ -21,7 +22,10 @@ class ParalysisStatusStrategy(StatusStrategy):
 
     def attack(self) -> None:
         # 25% chance of not being able to attack
-        pass
+        if random.random() < 0.25:
+            self._pokemon.attack_multiplier = 0.0
+        else:
+            self._pokemon.attack_multiplier = 1.0
 
     def end_turn(self) -> None:
         # nothing
