@@ -27,7 +27,7 @@ class Pokemon:
         self._sprite_url = sprite_url
         self._moves = [None] * 4
         self.price = price
-        self._strategy = NormalStatusStrategy()
+        self._status_strategy = NormalStatusStrategy()
 
     def max_hp(self):
         return self.__stat.current_max_hp
@@ -42,7 +42,7 @@ class Pokemon:
         return self.__level
 
     def get_status(self) -> StatusEnum:
-        return self._strategy.get_status()
+        return self._status_strategy.get_status()
 
     @property
     def sprite_url(self):
@@ -66,12 +66,12 @@ class Pokemon:
     
     @property
     def strategy(self):
-        return self._strategy
+        return self._status_strategy
     
     @strategy.setter
     def strategy(self, strategy: StatusStrategy):
         assert strategy is not None
-        self._strategy = strategy
+        self._status_strategy = strategy
 
     def take_damage(self, amount: int):
         """
