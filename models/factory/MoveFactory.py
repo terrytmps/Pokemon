@@ -1,6 +1,7 @@
 from models.Move import Move
 from models.enum.MoveCategory import MoveCategory
 from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from models.status.StatusEnum import StatusEnum
 
 
 class MoveFactory:
@@ -16,6 +17,7 @@ class MoveFactory:
             100,
             PokemonType.ELECTRIC,
             MoveCategory.SPECIAL,
+            StatusEnum.SLEEP
         ),
         "Flammèche": Move(
             "Flammèche",
@@ -208,6 +210,7 @@ class MoveFactory:
             85,
             PokemonType.FIRE,
             MoveCategory.SPECIAL,
+            StatusEnum.BURN
         ),
         "Requiem Sombre": Move(
             "Requiem Sombre",

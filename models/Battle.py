@@ -76,9 +76,8 @@ class Battle:
         """
         Apply special move effects beyond damage
         """
-        # Status moves implementation
-        if move.move_category == MoveCategory.STATUS:
-            pass
+        pass
+
 
     def perform_attack(self, attacker: Pokemon, defender: Pokemon, move: Move) -> dict:
         """

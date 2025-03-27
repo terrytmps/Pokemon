@@ -3,6 +3,8 @@ from flask import render_template, Blueprint
 from models.Player import Player
 from models.factory.PokemonFactory import PokemonFactory
 from models.level.Stats import Stat
+from models.status.PoisonStatusStrategy import PoisonStatusStrategy
+from models.status.SleepStatusStrategy import SleepStatusStrategy
 from models.status.StatusEnum import StatusEnum
 from models.Battle import Battle
 from models.factory.MoveFactory import MoveFactory
@@ -28,14 +30,19 @@ def game():
     player.add_pokemon(pokemon_2)
     player.set_current_pokemon(1)
 
-    pokemon_op = PokemonFactory.created_dracaufeu()
+    pokemon_2.set_status(StatusEnum.SLEEP)
+    pokemon_2.current_hp = 24
+    pokemon_2.strategy = SleepStatusStrategy()
+
+    """ pokemon_op = PokemonFactory.created_dracaufeu()
 
     pokemon_op.set_status(StatusEnum.POISON)
-    pokemon_op.current_hp = 5
+    pokemon_op.strategy = PoisonStatusStrategy() """
 
-    # Create battle
+    
+    """ # Create battle
     battle = Battle(pokemon_self, pokemon_2)
-    """ 
+
     # Perform a turn
     battle.battle_turn(
         player_move=MoveFactory.get_move("Éclair"),
@@ -47,7 +54,7 @@ def game():
     for log in battle_log:
         print(log) """
 
-    return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
+    return render_template("pages/game.html", player=player, pokemon_op=pokemon_2)
 
 
 @game_controller.route("/")

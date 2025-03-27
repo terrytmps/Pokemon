@@ -4,6 +4,7 @@ from models.level.Stats import Stat
 from models.level.XpDifficulty import XPDifficulty
 from models.pokemonType.utils.PokemonTypeEnum import PokemonType
 from models.status.StatusEnum import StatusEnum
+from models.status.StatusStrategy import StatusStrategy
 
 
 class Pokemon:
@@ -27,6 +28,7 @@ class Pokemon:
         self._sprite_url = sprite_url
         self._moves = [None] * 4
         self.price = price
+        self._strategy : StatusStrategy = None
 
     def max_hp(self):
         return self.__stat.current_max_hp
@@ -63,6 +65,14 @@ class Pokemon:
     @property
     def status(self):
         return self._status
+    
+    @property
+    def strategy(self):
+        return self._strategy
+    
+    @strategy.setter
+    def strategy(self, strategy: StatusStrategy):
+        self._strategy = strategy
 
     def set_status(self, status: StatusEnum):
         self._status = status

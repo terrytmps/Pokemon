@@ -1,5 +1,6 @@
 from models.enum.MoveCategory import MoveCategory
 from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from models.status.StatusEnum import StatusEnum
 
 
 class Move:
@@ -19,6 +20,7 @@ class Move:
         accuracy: int,
         move_type: PokemonType,
         move_category: MoveCategory,
+        move_effect: StatusEnum = StatusEnum.NORMAL
     ):
         self.name = name
         self.description = description
@@ -26,3 +28,4 @@ class Move:
         self.accuracy = accuracy
         self.move_type = move_type
         self.move_category = move_category
+        self.move_effect = move_effect
