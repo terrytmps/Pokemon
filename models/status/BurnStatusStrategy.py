@@ -16,8 +16,8 @@ class BurnStatusStrategy(StatusStrategy):
 
     def stat_change(self, pokemon) -> Stat:
         # reduce attack by 1/3
-        stat = copy.copy(pokemon.stat())
-        stat.attack = stat.attack // 3
+        stat = copy.copy(pokemon.stat)
+        stat.current_attack = stat.current_attack // 3
         return stat
 
 

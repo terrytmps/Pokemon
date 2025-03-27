@@ -77,7 +77,7 @@ class Pokemon:
         """
         Take damage from the pokemon
         """
-        self.__stat.current_hp = max(0, amount)
+        self.__stat.current_hp = max(0, self.__stat.current_hp - amount)
         if self.__stat.current_hp == 0:
             self.__level.notify_dead()
 

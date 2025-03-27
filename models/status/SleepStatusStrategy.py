@@ -27,4 +27,4 @@ class SleepStatusStrategy(StatusStrategy):
     def end_turn(self, pokemon) -> None:
         # 50% chance to wake up
         if random.random() < 0.5:
-            pokemon.status = NormalStatusStrategy()
+            pokemon.status_strategy = NormalStatusStrategy()

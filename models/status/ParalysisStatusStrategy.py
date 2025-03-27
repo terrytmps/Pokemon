@@ -21,7 +21,7 @@ class ParalysisStatusStrategy(StatusStrategy):
     def stat_change(self, pokemon) -> Stat:
         # reduce speed by half
         stat = copy.copy(pokemon.stat)
-        stat.speed = stat.speed // 2
+        stat.current_speed = stat.current_speed // 2
         return stat
 
     def attack(self) -> bool:

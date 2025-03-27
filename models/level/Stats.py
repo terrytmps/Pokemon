@@ -37,6 +37,7 @@ class Stat(LevelObserver):
         self.__max_defense_special = max_defense_special
         self.__max_speed = max_speed
         self.__set_stat(1)
+        self.__current_hp = self.__base_hp
 
     def __set_stat(self, level_current: int):
         """
@@ -49,7 +50,7 @@ class Stat(LevelObserver):
         self.current_max_hp = linear_interpolation(
             level_current, self.__base_hp, self.__max_hp
         )
-        self._current_hp = self.current_max_hp
+        self.__current_hp = self.current_max_hp
         self.current_attack = linear_interpolation(
             level_current, self.__base_attack, self.__max_attack
         )
@@ -83,12 +84,25 @@ class Stat(LevelObserver):
         """
         Return the current max hp of pokemon
         """
-        return self._current_hp
+        return self.__current_hp
 
     @current_hp.setter
     def current_hp(self, value):
-        self.current_hp = value
+        self.__current_hp = value
         if self.current_hp < 0:
-            self.current_hp = 0
+            self.__current_hp = 0
         if self.current_hp > self.current_max_hp:
-            self.current_hp = self.current_max_hp
+            self.__current_hp = self.current_max_hp
+
+    def equals(self, stat):
+        """
+        Compare two stats
+        """
+        return (
+            self.current_max_hp == stat.current_max_hp
+            and self.current_attack == stat.current_attack
+            and self.current_attack_special == stat.current_attack_special
+            and self.current_defense == stat.current_defense
+            and self.current_defense_special == stat.current_defense_special
+            and self.current_speed == stat.current_speed
+        )

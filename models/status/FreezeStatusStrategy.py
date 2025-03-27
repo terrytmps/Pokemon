@@ -27,4 +27,4 @@ class FreezeStatusStrategy(StatusStrategy):
     def end_turn(self, pokemon) -> None:
         # 20% chance to defrost and go back to normal
         if random.random() < 0.2:
-            pokemon.status = NormalStatusStrategy()
+            pokemon.status_strategy = NormalStatusStrategy()
