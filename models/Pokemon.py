@@ -88,6 +88,12 @@ class Pokemon:
         """
         self.__level.gain_experience(xp)
 
+    def level_up_to(self, level: int):
+        """
+        Level up the pokemon to the given level
+        """
+        self.__level.level_up_to(level)
+
     def add_move(self, move) -> bool:
         """
         Try to add a move return boolean meaning success of operation

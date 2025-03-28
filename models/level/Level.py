@@ -23,6 +23,11 @@ class Level(LevelObservable):
             self._level += 1
             self.notify_level_up(old_level, self._level)
 
+    def level_up_to(self, level: int):
+        while self._level < level:
+            self._level += 1
+            self.notify_level_up(self._level - 1, self._level)
+
     @property
     def level(self):
         return self._level
