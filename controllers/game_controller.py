@@ -58,42 +58,5 @@ def menu():
     Main menu  (where player buy pokemons, etc
     """
     player = Player()
-
-    pokemon_1 = PokemonFactory.create_pikachu()
-    pokemon_2 = PokemonFactory.create_leviator()
-    pokemon_3 = PokemonFactory.create_dracaufeu()
-
-    pokemons = [
-        pokemon_1,
-        pokemon_2,
-        pokemon_1,
-        pokemon_1,
-        pokemon_2,
-        pokemon_3,
-        pokemon_3,
-        pokemon_2,
-        pokemon_1,
-        pokemon_3,
-        pokemon_2,
-        pokemon_3,
-        pokemon_1,
-        pokemon_2,
-        pokemon_1,
-        pokemon_1,
-        pokemon_2,
-        pokemon_3,
-        pokemon_1,
-        pokemon_2,
-        pokemon_1,
-        pokemon_3,
-        pokemon_2,
-        pokemon_2,
-        pokemon_1,
-        pokemon_3,
-        pokemon_1,
-        pokemon_1,
-        pokemon_2,
-        pokemon_3,
-    ]
-    player.add_pokemon(pokemon_1)
+    pokemons = PokemonFactory.get_shop_pokemons()
     return render_template("pages/menu.html", player=player, shop_pokemons=pokemons)

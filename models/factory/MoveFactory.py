@@ -13,11 +13,11 @@ class MoveFactory:
         "Éclair": Move(
             "Éclair",
             "Une attaque électrique puissante",
-            90,
+            85,
             100,
             PokemonType.ELECTRIC,
             MoveCategory.SPECIAL,
-            StatusEnum.SLEEP
+            StatusEnum.PARALYSIS
         ),
         "Flammèche": Move(
             "Flammèche",
@@ -207,7 +207,7 @@ class MoveFactory:
             "Lance-Flamme",
             "Une attaque de feu très puissante ",
             110,
-            85,
+            75,
             PokemonType.FIRE,
             MoveCategory.SPECIAL,
             StatusEnum.BURN
@@ -308,11 +308,29 @@ class MoveFactory:
             PokemonType.ICE,
             MoveCategory.STATUS,
         ),
+        "Morsure": Move(
+            "Morsure",
+            "Une attaque de type ténèbres",
+            60,
+            100,
+            PokemonType.DARK,
+            MoveCategory.PHYSICAL,
+        ),
+        "Griffe": Move(
+            "Griffe",
+            "Une attaque de type normal",
+            40,
+            100,
+            PokemonType.NORMAL,
+            MoveCategory.PHYSICAL,
+        ),
     }
 
     @staticmethod
     def get_move(name: str):
         """
-        Return the move if name matched else None
+        Return the move if name matched else None and print
         """
+        if name not in MoveFactory.__moves_dict:
+            print(f"Move {name} not found in the factory")
         return MoveFactory.__moves_dict.get(name, None)
