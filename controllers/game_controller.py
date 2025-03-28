@@ -19,10 +19,10 @@ def game():
     """
 
     player = Player()
-    pokemon_self = PokemonFactory.created_pikachu()
+    pokemon_self = PokemonFactory.create_pikachu()
     pokemon_self.current_hp = 24
 
-    pokemon_2 = PokemonFactory.created_leviator()
+    pokemon_2 = PokemonFactory.create_leviator()
 
     player.add_pokemon(pokemon_self)
     player.add_pokemon(pokemon_2)
@@ -31,7 +31,7 @@ def game():
     pokemon_2.current_hp = 24
     pokemon_2.status_strategy = SleepStatusStrategy()
 
-    pokemon_op = PokemonFactory.created_dracaufeu()
+    pokemon_op = PokemonFactory.create_dracaufeu()
 
     pokemon_op.status_strategy = PoisonStatusStrategy()
 
@@ -59,9 +59,9 @@ def menu():
     """
     player = Player()
 
-    pokemon_1 = PokemonFactory.created_pikachu()
-    pokemon_2 = PokemonFactory.created_leviator()
-    pokemon_3 = PokemonFactory.created_dracaufeu()
+    pokemon_1 = PokemonFactory.create_pikachu()
+    pokemon_2 = PokemonFactory.create_leviator()
+    pokemon_3 = PokemonFactory.create_dracaufeu()
 
     pokemons = [
         pokemon_1,

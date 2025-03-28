@@ -11,7 +11,7 @@ class PokemonFactory:
     """
 
     @staticmethod
-    def created_pikachu():
+    def create_pikachu():
         stat = Stat(35, 55, 50, 40, 50, 90, 330, 250, 220, 120, 180, 250)
         return (
             Pokemon.Builder()
@@ -31,7 +31,7 @@ class PokemonFactory:
         )
 
     @staticmethod
-    def created_dracaufeu():
+    def create_dracaufeu():
         stat = Stat(78, 84, 109, 78, 85, 100, 328, 280, 325, 250, 290, 315)
         return (
             Pokemon.Builder()
@@ -51,7 +51,7 @@ class PokemonFactory:
         )
 
     @staticmethod
-    def created_leviator():
+    def create_leviator():
         stat = Stat(95, 75, 60, 79, 100, 81, 350, 270, 260, 210, 250, 270)
         return (
             Pokemon.Builder()

@@ -9,7 +9,7 @@ from models.level.Stats import LevelObserver
 class TestPokemonLevelUpObserver(unittest.TestCase):
 
     def setUp(self):
-        self.pikachu = PokemonFactory.created_pikachu()
+        self.pikachu = PokemonFactory.create_pikachu()
         # Mocking the LevelObserver
         self.mock_observer = MagicMock(spec=LevelObserver)
 

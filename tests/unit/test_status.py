@@ -12,7 +12,7 @@ from models.status.StatusEnum import StatusEnum
 class TestPokemonStatus(unittest.TestCase):
 
     def setUp(self):
-        self.pikachu = PokemonFactory.created_pikachu()
+        self.pikachu = PokemonFactory.create_pikachu()
 
     def test_status_normal(self):
         assert self.pikachu.status_strategy.get_status() == StatusEnum.NORMAL
