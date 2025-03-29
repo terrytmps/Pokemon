@@ -88,3 +88,6 @@ class RoundGenerator:
             return pokemon
         return None
 
+    def reset(self):
+        """Reset the index"""
+        self.__index = 0

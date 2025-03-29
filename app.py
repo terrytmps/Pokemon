@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from models.Database import DatabaseSingleton
 from controllers.game_controller import game_controller
+from controllers.shop_controller import shop_controller
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -13,6 +14,7 @@ with app.app_context():
     db.create_all()
 
 app.register_blueprint(game_controller)
+app.register_blueprint(shop_controller)
 
 
 # Gestion des erreurs 404 et 500

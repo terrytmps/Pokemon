@@ -1,6 +1,7 @@
 from flask import render_template, Blueprint
 
 from models.Player import Player
+from models.RoundGenerator import RoundGenerator
 from models.factory.PokemonFactory import PokemonFactory
 from models.level.Stats import Stat
 from models.status.PoisonStatusStrategy import PoisonStatusStrategy
@@ -20,20 +21,9 @@ def game():
 
     player = Player()
     pokemon_self = PokemonFactory.create_pikachu()
-    pokemon_self.current_hp = 24
-
-    pokemon_2 = PokemonFactory.create_leviator()
-
     player.add_pokemon(pokemon_self)
-    player.add_pokemon(pokemon_2)
-    player.set_current_pokemon(1)
 
-    pokemon_2.current_hp = 24
-    pokemon_2.status_strategy = SleepStatusStrategy()
-
-    pokemon_op = PokemonFactory.create_dracaufeu()
-
-    pokemon_op.status_strategy = PoisonStatusStrategy()
+    RoundGenerator.generate_round()
 
     """ # Create battle
     battle = Battle(pokemon_self, pokemon_2)
@@ -52,11 +42,3 @@ def game():
     return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
 
 
-@game_controller.route("/")
-def menu():
-    """
-    Main menu  (where player buy pokemons, etc
-    """
-    player = Player()
-    pokemons = PokemonFactory.get_shop_pokemons()
-    return render_template("pages/menu.html", player=player, shop_pokemons=pokemons)
