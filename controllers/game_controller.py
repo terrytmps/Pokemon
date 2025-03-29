@@ -3,12 +3,6 @@ from flask import render_template, Blueprint
 from models.Player import Player
 from models.RoundGenerator import RoundGenerator
 from models.factory.PokemonFactory import PokemonFactory
-from models.level.Stats import Stat
-from models.status.PoisonStatusStrategy import PoisonStatusStrategy
-from models.status.SleepStatusStrategy import SleepStatusStrategy
-from models.status.StatusEnum import StatusEnum
-from models.Battle import Battle
-from models.factory.MoveFactory import MoveFactory
 
 game_controller = Blueprint("game_controller", __name__)
 
@@ -23,8 +17,7 @@ def game():
     pokemon_self = PokemonFactory.create_pikachu()
     player.add_pokemon(pokemon_self)
 
-    RoundGenerator.generate_round()
-
+    pokemon_op = RoundGenerator.get_instance().generate_round()
     """ # Create battle
     battle = Battle(pokemon_self, pokemon_2)
 

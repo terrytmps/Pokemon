@@ -1,10 +1,9 @@
-from flask import render_template
-from flask.sansio.blueprints import Blueprint
+from flask import render_template, Blueprint
 
 from models.Player import Player
 from models.factory.PokemonFactory import PokemonFactory
 
-shop_controller = Blueprint("game_controller", __name__)
+shop_controller = Blueprint("shop_controller", __name__)
 
 
 @shop_controller.route("/")

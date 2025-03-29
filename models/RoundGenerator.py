@@ -1,12 +1,28 @@
 from models.Pokemon import Pokemon
 from models.factory.PokemonFactory import PokemonFactory
+import threading
 
 
 class RoundGenerator:
-    """Generates all 100 round with pokemon and the level of the pokemon"""
+    """Generates all 100 rounds with a specific Pokémon and level.
+    Implements the Singleton pattern in a thread-safe way.
+    """
 
-    def __init__(self):
-        """All rounds with the pokemon and the level of the pokemon"""
+    _instance = None
+    _lock = threading.Lock()  # protect from multi-threading
+
+    def __new__(cls):
+        with cls._lock:  # Lock access
+            if cls._instance is None:
+                cls._instance = super(RoundGenerator, cls).__new__(cls)
+                cls._instance._initialize()
+        return cls._instance
+
+    def _initialize(self):
+        """Unique initialization method."""
+        if hasattr(self, "__rounds"):
+            return
+
         self.__rounds = [
             (PokemonFactory.create_salameche(), 1),
             (PokemonFactory.create_pikachu(), 1),
@@ -58,7 +74,6 @@ class RoundGenerator:
             (PokemonFactory.create_lucario(), 94),
             (PokemonFactory.create_tartard(), 96),
             (PokemonFactory.create_blizzaroi(), 98),
-            # De plus en plus de Pokémon puissants vers la fin
             (PokemonFactory.create_leviator(), 100),
             (PokemonFactory.create_metalosse(), 102),
             (PokemonFactory.create_voltali(), 104),
@@ -79,15 +94,19 @@ class RoundGenerator:
         self.__index = 0
 
     def generate_round(self) -> Pokemon | None:
-        """Generate the next round"""
+        """Generate the next round."""
         if self.__index < len(self.__rounds):
-            current_round = self.__rounds[self.__index]
+            pokemon, level = self.__rounds[self.__index]
             self.__index += 1
-            pokemon = current_round[0]
-            pokemon.level = current_round[1]
+            pokemon.level_up_to(level)
             return pokemon
         return None
 
     def reset(self):
-        """Reset the index"""
+        """Reset the round generator."""
         self.__index = 0
+
+    @classmethod
+    def get_instance(cls):
+        """Retrieve the singleton instance."""
+        return cls.__new__(cls)

@@ -36,8 +36,8 @@ class Stat(LevelObserver):
         self.__max_defense = max_defense
         self.__max_defense_special = max_defense_special
         self.__max_speed = max_speed
-        self.__set_stat(1)
         self.__current_hp = self.__base_hp
+        self.__set_stat(1)
 
     def __set_stat(self, level_current: int):
         """
