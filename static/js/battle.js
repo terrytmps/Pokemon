@@ -20,6 +20,12 @@ function changePokemonBack(pokemonId) {
         .then(data => {
             modal.classList.remove('show');
             update_display_pokemon(data[0])
+            updateButtonFromJson(0, data[0]['first_move'])
+            updateButtonFromJson(1, data[0]['second_move'])
+            updateButtonFromJson(2, data[0]['third_move'])
+            updateButtonFromJson(3, data[0]['fourth_move'])
+            get_battle_log()
+            attaqueAdversaire()
             update_display_pokemon(data[1], 'op')
         })
         .catch(error => console.error("Erreur:", error));

@@ -29,3 +29,15 @@ class Move:
         self.move_type = move_type
         self.move_category = move_category
         self.move_effect = move_effect
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "description": self.description,
+            "power": self.power,
+            "accuracy": self.accuracy,
+            "move_type": self.move_type.name,
+            "move_color": self.move_type.color,
+            "move_category": self.move_category.name,
+            "move_effect": self.move_effect.name
+        }

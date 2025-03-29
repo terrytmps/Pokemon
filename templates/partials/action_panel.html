@@ -6,7 +6,7 @@
                 <div class="col-6">
                     {% if move %}
                         <!-- Bouton avec infos au survol -->
-                        <button class="btn move-btn w-100 bouton-attaque"
+                        <button id="attaque_button{{ loop.index0 }}" class="btn move-btn w-100 bouton-attaque"
                                 style="background-color: {{ move.move_type.color }};"
                                 data-name="{{ move.name }}"
                                 data-description="{{ move.description }}"
@@ -21,7 +21,7 @@
                         </button>
                     {% else %}
                         <!-- Bouton désactivé pour les slots vides -->
-                        <button class="btn btn-disabled move-btn w-100" disabled>
+                        <button id="attaque_button{{ loop.index0 }}" class="btn btn-disabled move-btn w-100" disabled>
                             Libre
                         </button>
                     {% endif %}

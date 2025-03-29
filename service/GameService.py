@@ -31,7 +31,6 @@ def game_perform_attack(attack: int):
 def game_perform_change(position: int):
     """ change the pokemon of the player and return the pokemon new stats"""
     # get player in database
-    print(position)
     player.set_current_pokemon(int(position) - 1)
     battle.player_pokemon = player.get_current_pokemon()
     battle.battle_turn(None, battle.opponent_pokemon.get_moves()[0]) # TODO : select specific attack

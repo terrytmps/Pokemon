@@ -148,15 +148,33 @@ class Pokemon:
 
     def to_dict(self):
         """Convertit le Pokémon en dictionnaire sérialisable en JSON. seulement informations utiles"""
+        first_move = self._moves[0]
+        second_move = self._moves[1]
+        third_move = self._moves[2]
+        fourth_move = self._moves[3]
+        if first_move is not None:
+            first_move = first_move.to_dict()
+        if second_move is not None:
+            second_move = second_move.to_dict()
+        if third_move is not None:
+            third_move = third_move.to_dict()
+        if fourth_move is not None:
+            fourth_move = fourth_move.to_dict()
+
+
         return {
             "name": self.name,
             "sprite_url": self._sprite_url,
             "level": self.__level.level,
             "hp_max": self.__stat.current_max_hp,
             "hp_current": self.__stat.current_hp,
-            "status": self.get_status().value[1] if self.get_status() else None,
+            "status": str(self.get_status().value[1] if self.get_status() else None),
             "first_type": self.first_type.value if self.first_type else None,
             "second_type": self.second_type.value if self.second_type else None,
+            "first_move": first_move,
+            "second_move": second_move,
+            "third_move": third_move,
+            "fourth_move": fourth_move
         }
 
     class Builder:
