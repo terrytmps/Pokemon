@@ -207,4 +207,6 @@ class Battle:
         """
         Retrieve the battle log
         """
-        return self.battle_log
+        logs = self.battle_log
+        self.battle_log = []
+        return logs

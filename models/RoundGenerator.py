@@ -106,6 +106,10 @@ class RoundGenerator:
         """Reset the round generator."""
         self.__index = 0
 
+    def get_price(self) -> int:
+        """Get the price for all cleared round"""
+        return self.__index * 2
+
     @classmethod
     def get_instance(cls):
         """Retrieve the singleton instance."""

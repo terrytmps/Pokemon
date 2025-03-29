@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 
-from controllers.game_controller import game_controller
-from controllers.shop_controller import shop_controller
+from controllers.GameController import game_controller
+from controllers.ShopController import shop_controller
 from models.Database import DatabaseSingleton
 
 app = Flask(__name__)

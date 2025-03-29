@@ -1,11 +1,13 @@
 from flask import render_template, Blueprint
 
+from models.Battle import Battle
 from models.Player import Player
 from models.RoundGenerator import RoundGenerator
 from models.factory.PokemonFactory import PokemonFactory
 
 game_controller = Blueprint("game_controller", __name__)
 
+battle: Battle
 
 @game_controller.route("/game")
 def game():
@@ -18,20 +20,19 @@ def game():
     player.add_pokemon(pokemon_self)
 
     pokemon_op = RoundGenerator.get_instance().generate_round()
-    """ # Create battle
-    battle = Battle(pokemon_self, pokemon_2)
+    # create a battle instance that saved for other call
+    global battle
+    battle = Battle(player.get_current_pokemon(), pokemon_op)
 
-    # Perform a turn
-    battle.battle_turn(
-        player_move=MoveFactory.get_move("Éclair"),
-        opponent_move=MoveFactory.get_move("Lance-Flamme"),
-    )
-
-    # Get battle log
-    battle_log = battle.get_battle_log()
-    for log in battle_log:
-        print(log) """
 
     return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
 
 
+"""
+Perform a attack choose by the player return the update pokemon_opponent
+"""
+@game_controller.route("/attack/<attack_id>")
+def attack(attack_id):
+    global battle
+
+    possible_winner = battle.battle_turn()
