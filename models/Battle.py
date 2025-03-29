@@ -18,10 +18,22 @@ class Battle:
         """
         Initialize a battle between two Pokemon
         """
-        self.player_pokemon: Pokemon = player_pokemon
+        self._player_pokemon: Pokemon = player_pokemon
         self.opponent_pokemon: Pokemon = opponent_pokemon
         self.turn_count: int = 0
         self.battle_log: List[str] = []
+
+
+    @property
+    def player_pokemon(self) -> Pokemon:
+        return self._player_pokemon
+
+    @player_pokemon.setter
+    def player_pokemon(self, pokemon: Pokemon):
+        self.battle_log.append(
+            f"Player's {self._player_pokemon.name} has been replaced by {pokemon.name}!"
+        )
+        self._player_pokemon = pokemon
 
     def calculate_damage(self, attacker: Pokemon, defender: Pokemon, move: Move) -> int:
         """
@@ -48,7 +60,7 @@ class Battle:
 
         # Damage calculation formula (simplified)
         damage = (
-            base_damage * (attack_stat / defense_stat)
+            base_damage * (attack_stat / defense_stat) * 0.3
         )
 
         # Type effectiveness
@@ -149,12 +161,18 @@ class Battle:
         """
         if self.player_pokemon.get_current_hp() <= 0:
             self.battle_log.append(f"{self.opponent_pokemon.name} wins!")
+            self.handle_end_combat(False)
             return self.opponent_pokemon
         elif self.opponent_pokemon.get_current_hp() <= 0:
             self.battle_log.append(f"{self.player_pokemon.name} wins!")
+            self.handle_end_combat(True)
             return self.player_pokemon
         return None
 
+    def handle_end_combat(self, winner: bool):
+        """
+        True if player wins, False if opponent wins
+        """
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """
@@ -165,14 +183,16 @@ class Battle:
             self.battle_log.append(f"{pokemon.name} is KO")
 
 
-    def battle_turn(self, player_move: Move, opponent_move: Move):
+    def battle_turn(self, player_move: Move | None, opponent_move: Move):
         """
         Execute a single battle turn
         """
         self.turn_count += 1
-
-        # Determine turn order based on speed
-        if (
+        if player_move is None:
+             """only opponent attack"""
+             first_attacker, first_move = self.opponent_pokemon, opponent_move
+             second_attacker, second_move = self.player_pokemon, player_move
+        elif ( # determined by speed
             self.player_pokemon.status_strategy.stat_change(self.player_pokemon).current_speed
             >= self.opponent_pokemon.status_strategy.stat_change(self.opponent_pokemon).current_speed
         ):
@@ -190,11 +210,12 @@ class Battle:
         if self.is_battle_over():
             return self.get_battle_winner()
 
-        # Second Pokemon's attack
-        second_result = self.perform_attack(
-                second_attacker, first_attacker, second_move
-            )
-        self.battle_log.append(str(second_result))
+        if player_move is not None:
+            # Second Pokemon's attack
+            second_result = self.perform_attack(
+                    second_attacker, first_attacker, second_move
+                )
+            self.battle_log.append(str(second_result))
 
         # Gérer les effets de fin de tour pour chaque Pokémon
         self.handle_end_of_turn(self.player_pokemon)

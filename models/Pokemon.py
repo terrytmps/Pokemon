@@ -114,6 +114,12 @@ class Pokemon:
         self._moves[index] = move
         return True
 
+    def get_moves(self) -> list:
+        """
+        Return the moves of the pokemon
+        """
+        return self._moves
+
     ## Decorator pattern methods
 
     def get_types(self):
@@ -139,6 +145,19 @@ class Pokemon:
         Return the immunities of the pokemon
         """
         return []
+
+    def to_dict(self):
+        """Convertit le Pokémon en dictionnaire sérialisable en JSON. seulement informations utiles"""
+        return {
+            "name": self.name,
+            "sprite_url": self._sprite_url,
+            "level": self.__level.level,
+            "hp_max": self.__stat.current_max_hp,
+            "hp_current": self.__stat.current_hp,
+            "status": self.get_status().name if self.get_status() else None,
+            "first_type": self.first_type.name if self.first_type else None,
+            "second_type": self.second_type.name if self.second_type else None,
+        }
 
     class Builder:
         """

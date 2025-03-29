@@ -1,133 +1,39 @@
-<!-- Action Menu -->
-<div class="action-box" id="display-parent-move">
-    <h5>Choisit une action:</h5>
-    <div class="row">
-        {% for move in pokemon._moves %}
-            <div class="col-6">
-                {% if move %}
-                    <!-- Bouton avec infos au survol -->
-                    <button class="btn move-btn w-100 bouton-attaque"
-                            style="background-color: {{ move.move_type.color }};"
-                            data-name="{{ move.name }}"
-                            data-description="{{ move.description }}"
-                            data-power="{{ move.power }}"
-                            data-accuracy="{{ move.accuracy }}"
-                            data-type="{{ move.move_type.name }}"
-                            onmouseover="startTooltip(this)"
-                            onmouseout="hideTooltip()">
-                        {{ move.name }}
-                    </button>
-                {% else %}
-                    <!-- Bouton désactivé pour les slots vides -->
-                    <button class="btn btn-disabled move-btn w-100" disabled>
-                        Libre
-                    </button>
-                {% endif %}
+    <!-- Action Menu -->
+    <div class="action-box" id="display-parent-move">
+        <h5>Choisit une action:</h5>
+        <div class="row">
+            {% for move in pokemon._moves %}
+                <div class="col-6">
+                    {% if move %}
+                        <!-- Bouton avec infos au survol -->
+                        <button class="btn move-btn w-100 bouton-attaque"
+                                style="background-color: {{ move.move_type.color }};"
+                                data-name="{{ move.name }}"
+                                data-description="{{ move.description }}"
+                                data-power="{{ move.power }}"
+                                data-accuracy="{{ move.accuracy }}"
+                                data-type="{{ move.move_type.name }}"
+                                onmouseover="startTooltip(this)"
+                                onmouseout="hideTooltip()"
+                            onclick="lancerAttaque({{ loop.index0 }}, '{{ pokemon.name }}', this.dataset.name)">
+
+                            {{ move.name }}
+                        </button>
+                    {% else %}
+                        <!-- Bouton désactivé pour les slots vides -->
+                        <button class="btn btn-disabled move-btn w-100" disabled>
+                            Libre
+                        </button>
+                    {% endif %}
+                </div>
+                {% if loop.index is even %}</div>
+                    <div class="row mt-2"> {% endif %}
+            {% endfor %}
+            {% with list_pokemon=list_pokemon, player=player %}
+                {% include "partials/pokemon_modal.html" %}
+            {% endwith %}
             </div>
-            {% if loop.index is even %}</div>
-                <div class="row mt-2"> {% endif %}
-        {% endfor %}
-        {% with list_pokemon=list_pokemon, player=player %}
-            {% include "partials/pokemon_modal.html" %}
-        {% endwith %}
-        </div>
 
-    <!-- Tooltip (Invisible au départ) -->
-    <div id="move-tooltip" class="tooltip-box" style="display: none;"></div>
-
-    <script>
-        let tooltipTimeout;
-        const boutonsAttaque = document.querySelectorAll('.bouton-attaque');
-
-        // Parcourt chaque bouton et ajoute un écouteur d'événement
-        boutonsAttaque.forEach(bouton => {
-            bouton.addEventListener('click', lancerAttaque.bind(null, "{{ pokemon.name }}", bouton.dataset.name));
-        });
-
-
-        function startTooltip(button) {
-            tooltipTimeout = setTimeout(() => {
-                const tooltip = document.getElementById("move-tooltip");
-
-                // Set the tooltip content
-                tooltip.innerHTML = `
-                <strong>${button.dataset.name}</strong> <br>
-                <span>Type: ${button.dataset.type}</span> <br>
-                ⚡ <b>Power:</b> ${button.dataset.power} <br>
-                🎯 <b>Accuracy:</b> ${button.dataset.accuracy}% <br>
-                <em>${button.dataset.description}</em>
-            `;
-
-                // Position the tooltip in the center of the screen
-                tooltip.style.position = "fixed";
-                tooltip.style.left = "50%";
-                tooltip.style.top = "50%";
-                tooltip.style.transform = "translate(-50%, -50%)"; // Center the tooltip
-
-                // Make sure the tooltip is visible
-                tooltip.style.display = "block"; // Show the tooltip
-                tooltip.style.opacity = "1"; // Ensure opacity is set to 1 (fully visible)
-                tooltip.style.transition = "opacity 0.3s ease-in-out"; // Smooth transition
-
-                // Optional animation for fade-in effect
-                tooltip.style.animation = "fadeIn 0.2s ease-in-out";
-            }, 1000); // Wait 1 second before showing the tooltip
-        }
-
-        function hideTooltip() {
-            clearTimeout(tooltipTimeout); // Clear the timeout if mouse leaves before 1 second
-            const tooltip = document.getElementById("move-tooltip");
-            tooltip.style.display = "none"; // Hide the tooltip
-            tooltip.style.opacity = "0"; // Set opacity to 0 to hide
-        }
-
-        function lancerAttaque(pokemonName, moveName) {
-            hideTooltip();
-            const joueur = document.getElementById('pokemon-joueur');
-            const adversaire = document.getElementById('pokemon-adversaire');
-
-            // Animation du Pokémon du joueur
-            joueur.classList.add('attaque');
-            // Retirer l'animation après son exécution
-            joueur.addEventListener('animationend', () => {
-                joueur.classList.remove('attaque');
-            });
-
-            // Animation du Pokémon adversaire avec un léger délai
-            setTimeout(() => {
-                adversaire.classList.add('degats');
-            }, 250);
-
-            // Retirer l'animation après son exécution
-            adversaire.addEventListener('animationend', () => {
-                adversaire.classList.remove('degats');
-            });
-            afficherMessage(pokemonName + " utilise " + moveName + "!");
-        }
-
-        function attaqueAdversaire(pokemonName, moveName) {
-            const adversaire = document.getElementById('pokemon-adversaire');
-            const joueur = document.getElementById('pokemon-joueur');
-
-            // Animation du Pokémon adversaire
-            adversaire.classList.add('attaque-adversaire');
-
-            // Retirer l'animation après son exécution
-            adversaire.addEventListener('animationend', () => {
-                adversaire.classList.remove('attaque-adversaire');
-            });
-
-            // Animation du Pokémon du joueur avec un léger délai
-            setTimeout(() => {
-                joueur.classList.add('degats-joueur');
-            }, 250);
-
-            // Retirer l'animation après son exécution
-            joueur.addEventListener('animationend', () => {
-                joueur.classList.remove('degats-joueur');
-            });
-            afficherMessage(pokemonName + " utilise " + moveName + "!");
-        }
-
-
-    </script>
+        <!-- Tooltip (Invisible au départ) -->
+        <div id="move-tooltip" class="tooltip-box" style="display: none;"></div>
+        <script src="{{ url_for('static', filename='js/action_panel.js') }}"></script>

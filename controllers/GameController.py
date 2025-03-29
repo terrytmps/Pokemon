@@ -1,38 +1,37 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, redirect, url_for, jsonify
 
-from models.Battle import Battle
-from models.Player import Player
-from models.RoundGenerator import RoundGenerator
-from models.factory.PokemonFactory import PokemonFactory
+from service.GameService import game_perform_attack, game_perform_change, player, create_battle, forfet
 
 game_controller = Blueprint("game_controller", __name__)
 
-battle: Battle
 
 @game_controller.route("/game")
 def game():
     """
     Game endpoints handle the combat part
     """
-
-    player = Player()
-    pokemon_self = PokemonFactory.create_pikachu()
-    player.add_pokemon(pokemon_self)
-
-    pokemon_op = RoundGenerator.get_instance().generate_round()
-    # create a battle instance that saved for other call
-    global battle
-    battle = Battle(player.get_current_pokemon(), pokemon_op)
-
-
-    return render_template("pages/game.html", player=player, pokemon_op=pokemon_op)
+    battle_created = create_battle()
+    return render_template("pages/game.html", player=player, pokemon_op=battle_created.opponent_pokemon)
 
 
 """
 Perform a attack choose by the player return the update pokemon_opponent
 """
-@game_controller.route("/attack/<attack_id>")
-def attack(attack_id):
-    global battle
+@game_controller.route("/attack/<attack_id>", methods=["POST"])
+def attack_pokemon(attack_id):
+    return game_perform_attack(int(attack_id))
 
-    possible_winner = battle.battle_turn()
+"""
+Perform a change of pokemon choose by the player
+"""
+@game_controller.route("/change/<pokemon_id>", methods=["POST"] )
+def change_pokemon(pokemon_id):
+    return game_perform_change(int(pokemon_id))
+
+"""
+Forfeit the game
+"""
+@game_controller.route("/forfeit", methods=["POST"])
+def forfeit():
+    forfet()
+    return jsonify({"redirect": url_for("shop_controller.menu")})
