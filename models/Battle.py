@@ -186,6 +186,7 @@ class Battle:
     def battle_turn(self, player_move: Move | None, opponent_move: Move):
         """
         Execute a single battle turn
+        return pokemon that attacked first
         """
         self.turn_count += 1
         if player_move is None:
@@ -208,7 +209,7 @@ class Battle:
 
         # Check if battle is over after first attack
         if self.is_battle_over():
-            return self.get_battle_winner()
+            return first_attacker == self.player_pokemon
 
         if player_move is not None:
             # Second Pokemon's attack
@@ -222,7 +223,7 @@ class Battle:
         self.handle_end_of_turn(self.opponent_pokemon)
 
         # Return winner if battle is over
-        return self.get_battle_winner()
+        return first_attacker == self.player_pokemon
 
     def get_battle_log(self) -> List[str]:
         """

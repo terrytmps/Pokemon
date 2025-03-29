@@ -154,9 +154,9 @@ class Pokemon:
             "level": self.__level.level,
             "hp_max": self.__stat.current_max_hp,
             "hp_current": self.__stat.current_hp,
-            "status": self.get_status().name if self.get_status() else None,
-            "first_type": self.first_type.name if self.first_type else None,
-            "second_type": self.second_type.name if self.second_type else None,
+            "status": self.get_status().value[1] if self.get_status() else None,
+            "first_type": self.first_type.value if self.first_type else None,
+            "second_type": self.second_type.value if self.second_type else None,
         }
 
     class Builder:
