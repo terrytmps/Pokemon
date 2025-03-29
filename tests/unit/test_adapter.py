@@ -2,6 +2,7 @@ import pytest
 from flask import Flask
 from models.Database import DatabaseSingleton
 from models.Player import Player
+from models.factory.PlayerFactory import PlayerFactory
 from models.player_adapter import PlayerDBAdapter
 from models.factory.PokemonFactory import PokemonFactory
 
@@ -29,16 +30,13 @@ class TestPlayerDBAdapter:
         self.adapter = PlayerDBAdapter()
 
     def test_save_and_load_player(self):
-        player = Player()
-        player.money = 100
-        player.record_round = 5
-        player.current_pokemon = 0
+        player = PlayerFactory().create_player_2()
 
-        factory = PokemonFactory()
+        factory_pokemon = PokemonFactory()
 
         player._pokemons = [None] * 6
-        player._pokemons[0] = factory.created_pikachu()
-        player._pokemons[1] = factory.created_dracaufeu()
+        player._pokemons[0] = factory_pokemon.created_pikachu()
+        player._pokemons[1] = factory_pokemon.created_dracaufeu()
 
         player_id = self.adapter.save_player(player)
         assert (
@@ -46,6 +44,9 @@ class TestPlayerDBAdapter:
         ), "L'identifiant du joueur sauvegardé ne doit pas être None"
 
         loaded_player = self.adapter.load_player(player_id)
+
+        assert loaded_player
+
         assert loaded_player is not None, "Le joueur chargé ne doit pas être None"
         assert loaded_player.money == 100, "La somme d'argent doit être identique"
         assert (
