@@ -17,7 +17,6 @@ class MoveFactory:
             100,
             PokemonType.ELECTRIC,
             MoveCategory.SPECIAL,
-            StatusEnum.PARALYSIS
         ),
         "Flammèche": Move(
             "Flammèche",
@@ -106,6 +105,7 @@ class MoveFactory:
             90,
             PokemonType.POISON,
             MoveCategory.STATUS,
+            StatusEnum.POISON
         ),
         "Paralysie": Move(
             "Paralysie",
@@ -114,6 +114,7 @@ class MoveFactory:
             90,
             PokemonType.ELECTRIC,
             MoveCategory.STATUS,
+            StatusEnum.PARALYSIS
         ),
         "Mèche Enflammée": Move(
             "Mèche Enflammée",
@@ -122,6 +123,7 @@ class MoveFactory:
             75,
             PokemonType.FIRE,
             MoveCategory.STATUS,
+            StatusEnum.BURN
         ),
         "Tacle": Move(
             "Tacle",
@@ -210,7 +212,6 @@ class MoveFactory:
             75,
             PokemonType.FIRE,
             MoveCategory.SPECIAL,
-            StatusEnum.BURN
         ),
         "Requiem Sombre": Move(
             "Requiem Sombre",
@@ -291,6 +292,7 @@ class MoveFactory:
             100,
             PokemonType.POISON,
             MoveCategory.STATUS,
+            StatusEnum.POISON
         ),
         "Hypnose": Move(
             "Hypnose",
@@ -299,6 +301,7 @@ class MoveFactory:
             60,
             PokemonType.PSYCHIC,
             MoveCategory.STATUS,
+            StatusEnum.SLEEP
         ),
         "Gel": Move(
             "Gel",
@@ -307,6 +310,7 @@ class MoveFactory:
             100,
             PokemonType.ICE,
             MoveCategory.STATUS,
+            StatusEnum.FREEZE
         ),
         "Morsure": Move(
             "Morsure",

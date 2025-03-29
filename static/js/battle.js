@@ -1,5 +1,31 @@
+function get_battle_log() {
+    fetch('/battle_log')
+        .then(response => response.json())
+        .then(data => {
+            if (data !== '') {  // Si le log n'est pas vide
+                console.log(data);
+                afficherMessage(data);
+                setTimeout(get_battle_log, 5000);
+            }
+        })
+        .catch(error => console.error("Erreur:", error));
+}
+
+function changePokemonBack(pokemonId) {
+    fetch(`/change/${pokemonId}`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"}
+    })
+        .then(response => response.json())  // Convertit la réponse en JSON
+        .then(data => {
+            modal.classList.remove('show');
+            update_display_pokemon(data[0])
+            update_display_pokemon(data[1], 'op')
+        })
+        .catch(error => console.error("Erreur:", error));
+}
+
 function attackPokemon(attackId) {
-    console.log(attackId)
     fetch(`/attack/${attackId}`, {
         method: "POST",
         headers: {"Content-Type": "application/json"}
@@ -9,24 +35,30 @@ function attackPokemon(attackId) {
             // update data displayed
             // if data[0] is true the player attacked first
             // if data[0] is false the opponent attacked first
-            if (data[0]) {
+            if (data[1]) {
                 // player attacked first
                 attaquePlayer()
-                update_display_pokemon(data[2], 'op')
+                update_display_pokemon(data[3], 'op')
+                get_battle_log()
+                if (data[0]) return
                 // wait 2 seconds before updating the opponent
                 setTimeout(() => {
                     attaqueAdversaire()
-                    update_display_pokemon(data[1])
-                }, 2000)
+                    update_display_pokemon(data[2])
+                    get_battle_log()
+                }, 4000)
             } else {
                 // opponent attacked first
                 attaqueAdversaire()
-                update_display_pokemon(data[1])
+                update_display_pokemon(data[2])
+                get_battle_log()
+                    if (data[0]) return
                 // wait 2 seconds before updating the player
                 setTimeout(() => {
                     attaquePlayer()
-                    update_display_pokemon(data[2], 'op')
-                }, 2000)
+                    update_display_pokemon(data[3], 'op')
+                    get_battle_log()
+                }, 4000)
             }
         })
         .catch(error => console.error("Erreur:", error));
@@ -49,6 +81,11 @@ function forfet() {
         .catch(error => console.error("Erreur:", error));
 
 }
+
+function check_ending() {
+
+}
+
 
 function update_display_pokemon(pokemonJson, player = 'self') {
     const first_type = document.getElementById('pokemon_' + player + '_first_type');
