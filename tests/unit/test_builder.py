@@ -132,7 +132,7 @@ class TestPokemonBuilder(unittest.TestCase):
 
         # Add 5 moves
         for i in range(5):
-            pokemon.addMove(f"Move {i+1}")
+            pokemon.add_move(f"Move {i + 1}")
 
         # Ensure only 4 moves are added
         self.assertEqual(pokemon._moves.count(None), 0)  # No None means 4 moves added

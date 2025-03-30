@@ -12,7 +12,7 @@ class Player:
     def pokemons(self):
         return self._pokemons
 
-    def get_current_pokemon(self):
+    def get_current_pokemon(self) -> Pokemon | None:
         if self.current_pokemon == -1:
             return None
         return self._pokemons[self.current_pokemon]

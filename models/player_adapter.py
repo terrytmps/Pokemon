@@ -72,9 +72,9 @@ class PlayerDBAdapter:
         for pokemon_model in pokemon_models:
             # Créer un Pokémon en fonction du nom
             if pokemon_model.name == "Pikachu":
-                pokemon = factory.created_pikachu()
+                pokemon = factory.create_pikachu()
             else:
-                pokemon = factory.created_dracaufeu()
+                pokemon = factory.create_dracaufeu()
 
             player._pokemons[pokemon_model.position] = pokemon
 

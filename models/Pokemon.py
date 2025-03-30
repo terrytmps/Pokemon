@@ -1,9 +1,10 @@
 from models.level.Level import Level
-from models.level.LevelObservable import LevelObservable
 from models.level.Stats import Stat
 from models.level.XpDifficulty import XPDifficulty
 from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from models.status.NormalStatusStrategy import NormalStatusStrategy
 from models.status.StatusEnum import StatusEnum
+from models.status.StatusStrategy import StatusStrategy
 
 
 class Pokemon:
@@ -20,13 +21,13 @@ class Pokemon:
         Not recommend use the builder
         """
         super().__init__()
-        self._status = StatusEnum.NORMAL
         self.name = name
         self.__level = level
         self.__stat = stat
         self._sprite_url = sprite_url
         self._moves = [None] * 4
         self.price = price
+        self._status_strategy = NormalStatusStrategy()
 
     def max_hp(self):
         return self.__stat.current_max_hp
@@ -39,6 +40,9 @@ class Pokemon:
 
     def get_level_object(self):
         return self.__level
+
+    def get_status(self) -> StatusEnum:
+        return self._status_strategy.get_status()
 
     @property
     def sprite_url(self):
@@ -61,11 +65,27 @@ class Pokemon:
         return None
 
     @property
-    def status(self):
-        return self._status
+    def status_strategy(self):
+        return self._status_strategy
 
-    def set_status(self, status: StatusEnum):
-        self._status = status
+    @status_strategy.setter
+    def status_strategy(self, strategy: StatusStrategy):
+        assert strategy is not None
+        self._status_strategy = strategy
+
+    def take_damage(self, amount: int):
+        """
+        Take damage from the pokemon
+        """
+        self.__stat.current_hp = max(0, self.__stat.current_hp - amount)
+        if self.__stat.current_hp == 0:
+            self.__level.notify_dead()
+
+    def get_experience(self):
+        """
+        Return the experience of the pokemon
+        """
+        return self.__level.level * 2
 
     def gain_experience(self, xp: int):
         """
@@ -73,7 +93,13 @@ class Pokemon:
         """
         self.__level.gain_experience(xp)
 
-    def addMove(self, move) -> bool:
+    def level_up_to(self, level: int):
+        """
+        Level up the pokemon to the given level
+        """
+        self.__level.level_up_to(level)
+
+    def add_move(self, move) -> bool:
         """
         Try to add a move return boolean meaning success of operation
         """
@@ -83,7 +109,7 @@ class Pokemon:
                 return True
         return False
 
-    def replaceMove(self, move, index) -> bool:
+    def replace_move(self, move, index) -> bool:
         """
         Try to replace a move return boolean meaning success of operation
         """
@@ -92,6 +118,12 @@ class Pokemon:
             return False
         self._moves[index] = move
         return True
+
+    def get_moves(self) -> list:
+        """
+        Return the moves of the pokemon
+        """
+        return self._moves
 
     ## Decorator pattern methods
 
@@ -118,6 +150,36 @@ class Pokemon:
         Return the immunities of the pokemon
         """
         return []
+
+    def to_dict(self):
+        """Convertit le Pokémon en dictionnaire sérialisable en JSON. seulement informations utiles"""
+        first_move = self._moves[0]
+        second_move = self._moves[1]
+        third_move = self._moves[2]
+        fourth_move = self._moves[3]
+        if first_move is not None:
+            first_move = first_move.to_dict()
+        if second_move is not None:
+            second_move = second_move.to_dict()
+        if third_move is not None:
+            third_move = third_move.to_dict()
+        if fourth_move is not None:
+            fourth_move = fourth_move.to_dict()
+
+        return {
+            "name": self.name,
+            "sprite_url": self._sprite_url,
+            "level": self.level,
+            "hp_max": self.__stat.current_max_hp,
+            "hp_current": self.__stat.current_hp,
+            "status": str(self.get_status().value[1] if self.get_status() else None),
+            "first_type": self.first_type.value if self.first_type else None,
+            "second_type": self.second_type.value if self.second_type else None,
+            "first_move": first_move,
+            "second_move": second_move,
+            "third_move": third_move,
+            "fourth_move": fourth_move,
+        }
 
     class Builder:
         """
@@ -194,6 +256,6 @@ class Pokemon:
 
             for move in self.moves:
                 if move is not None:
-                    pokemon.addMove(move)
+                    pokemon.add_move(move)
 
             return pokemon

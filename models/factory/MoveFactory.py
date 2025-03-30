@@ -1,6 +1,7 @@
 from models.Move import Move
 from models.enum.MoveCategory import MoveCategory
 from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from models.status.StatusEnum import StatusEnum
 
 
 class MoveFactory:
@@ -12,7 +13,7 @@ class MoveFactory:
         "Éclair": Move(
             "Éclair",
             "Une attaque électrique puissante",
-            90,
+            85,
             100,
             PokemonType.ELECTRIC,
             MoveCategory.SPECIAL,
@@ -104,6 +105,7 @@ class MoveFactory:
             90,
             PokemonType.POISON,
             MoveCategory.STATUS,
+            StatusEnum.POISON,
         ),
         "Paralysie": Move(
             "Paralysie",
@@ -112,6 +114,7 @@ class MoveFactory:
             90,
             PokemonType.ELECTRIC,
             MoveCategory.STATUS,
+            StatusEnum.PARALYSIS,
         ),
         "Mèche Enflammée": Move(
             "Mèche Enflammée",
@@ -120,6 +123,7 @@ class MoveFactory:
             75,
             PokemonType.FIRE,
             MoveCategory.STATUS,
+            StatusEnum.BURN,
         ),
         "Tacle": Move(
             "Tacle",
@@ -205,7 +209,7 @@ class MoveFactory:
             "Lance-Flamme",
             "Une attaque de feu très puissante ",
             110,
-            85,
+            75,
             PokemonType.FIRE,
             MoveCategory.SPECIAL,
         ),
@@ -288,6 +292,7 @@ class MoveFactory:
             100,
             PokemonType.POISON,
             MoveCategory.STATUS,
+            StatusEnum.POISON,
         ),
         "Hypnose": Move(
             "Hypnose",
@@ -296,6 +301,7 @@ class MoveFactory:
             60,
             PokemonType.PSYCHIC,
             MoveCategory.STATUS,
+            StatusEnum.SLEEP,
         ),
         "Gel": Move(
             "Gel",
@@ -304,12 +310,31 @@ class MoveFactory:
             100,
             PokemonType.ICE,
             MoveCategory.STATUS,
+            StatusEnum.FREEZE,
+        ),
+        "Morsure": Move(
+            "Morsure",
+            "Une attaque de type ténèbres",
+            60,
+            100,
+            PokemonType.DARK,
+            MoveCategory.PHYSICAL,
+        ),
+        "Griffe": Move(
+            "Griffe",
+            "Une attaque de type normal",
+            40,
+            100,
+            PokemonType.NORMAL,
+            MoveCategory.PHYSICAL,
         ),
     }
 
     @staticmethod
     def get_move(name: str):
         """
-        Return the move if name matched else None
+        Return the move if name matched else None and print
         """
+        if name not in MoveFactory.__moves_dict:
+            print(f"Move {name} not found in the factory")
         return MoveFactory.__moves_dict.get(name, None)

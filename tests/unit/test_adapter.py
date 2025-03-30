@@ -35,8 +35,8 @@ class TestPlayerDBAdapter:
         factory_pokemon = PokemonFactory()
 
         player._pokemons = [None] * 6
-        player._pokemons[0] = factory_pokemon.created_pikachu()
-        player._pokemons[1] = factory_pokemon.created_dracaufeu()
+        player._pokemons[0] = factory_pokemon.create_pikachu()
+        player._pokemons[1] = factory_pokemon.create_dracaufeu()
 
         player_id = self.adapter.save_player(player)
         assert (

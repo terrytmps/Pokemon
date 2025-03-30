@@ -32,7 +32,6 @@ class LevelObservable(ABC):
         for observer in self._level_observers:
             observer.on_level_up(self, old_level, new_level)
 
-    """ @abstractmethod
     def notify_dead(self) -> None:
         for observer in self._level_observers:
-            observer.on_dead(self) """
+            observer.on_dead(self)

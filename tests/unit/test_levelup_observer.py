@@ -9,7 +9,7 @@ from models.level.Stats import LevelObserver
 class TestPokemonLevelUpObserver(unittest.TestCase):
 
     def setUp(self):
-        self.pikachu = PokemonFactory.created_pikachu()
+        self.pikachu = PokemonFactory.create_pikachu()
         # Mocking the LevelObserver
         self.mock_observer = MagicMock(spec=LevelObserver)
 
@@ -47,6 +47,12 @@ class TestPokemonLevelUpObserver(unittest.TestCase):
 
         # Check if the observer's on_level_up method was not called
         self.mock_observer.on_level_up.assert_not_called()
+
+    def test_level_100_limit(self):
+        self.pikachu.gain_experience(10000)
+        self.assertEqual(self.pikachu.level, 100)
+        self.pikachu.level_up_to(130)
+        self.assertEqual(self.pikachu.level, 130)
 
 
 if __name__ == "__main__":

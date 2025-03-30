@@ -8,71 +8,71 @@ class PokemonType(Enum):
 
     NONE = ("", "#A8A77A")  # Default (Normal)
     NORMAL = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/1.png",
+        "/static/img/logo-type/1.png",
         "#A8A77A",
     )
     FIGHT = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/2.png",
+        "/static/img/logo-type/2.png",
         "#C22E28",
     )
     FLYING = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/3.png",
+        "/static/img/logo-type/3.png",
         "#A98FF3",
     )
     POISON = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/4.png",
+        "/static/img/logo-type/4.png",
         "#A33EA1",
     )
     GROUND = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/5.png",
+        "/static/img/logo-type/5.png",
         "#E2BF65",
     )
     ROCK = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/6.png",
+        "/static/img/logo-type/6.png",
         "#B6A136",
     )
     BUG = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/7.png",
+        "/static/img/logo-type/7.png",
         "#A6B91A",
     )
     GHOST = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/8.png",
+        "/static/img/logo-type/8.png",
         "#735797",
     )
     STEEL = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/9.png",
+        "/static/img/logo-type/9.png",
         "#B7B7CE",
     )
     FIRE = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/10.png",
+        "/static/img/logo-type/10.png",
         "#EE8130",
     )
     WATER = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/11.png",
+        "/static/img/logo-type/11.png",
         "#6390F0",
     )
     GRASS = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/12.png",
+        "/static/img/logo-type/12.png",
         "#7AC74C",
     )
     ELECTRIC = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/13.png",
+        "/static/img/logo-type/13.png",
         "#F7D02C",
     )
     PSYCHIC = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/14.png",
+        "/static/img/logo-type/14.png",
         "#F95587",
     )
     ICE = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/15.png",
+        "/static/img/logo-type/15.png",
         "#96D9D6",
     )
     DRAGON = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/16.png",
+        "/static/img/logo-type/16.png",
         "#6F35FC",
     )
     DARK = (
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-iii/colosseum/17.png",
+        "/static/img/logo-type/17.png",
         "#705746",
     )
 
