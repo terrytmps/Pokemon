@@ -8,11 +8,14 @@ from models.RoundGenerator import RoundGenerator
 from models.factory.PokemonFactory import PokemonFactory
 
 player = Player()
-pokemon_self = PokemonFactory.create_chrysacier()
+pokemon_self = PokemonFactory.create_tyranocif()
+pokemon_self.level_up_to(250)
 pokemon_self_second = PokemonFactory.create_aquali()
 player.add_pokemon(pokemon_self)
 player.add_pokemon(pokemon_self_second)
 battle: Battle
+for i in range(55):
+    pokemon_op = RoundGenerator.get_instance().generate_round()
 pokemon_op = RoundGenerator.get_instance().generate_round()
 
 def create_battle():

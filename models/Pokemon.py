@@ -170,7 +170,7 @@ class Pokemon:
         return {
             "name": self.name,
             "sprite_url": self._sprite_url,
-            "level": self.__level.level,
+            "level": self.level,
             "hp_max": self.__stat.current_max_hp,
             "hp_current": self.__stat.current_hp,
             "status": str(self.get_status().value[1] if self.get_status() else None),

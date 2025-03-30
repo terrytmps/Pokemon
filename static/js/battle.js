@@ -40,36 +40,52 @@ function attackPokemon(attackId) {
         .then(response => response.json())  // Récupère la réponse en JSON
         .then(data => {
             // update data displayed
-            // if data[0] is true the player attacked first
-            // if data[0] is false the opponent attacked first
             if (data[1]) {
                 // player attacked first
                 attaquePlayer()
                 update_display_pokemon(data[3], 'op')
                 get_battle_log()
-                if (data[0]) return
+                if (data[0]) {
+                    setTimeout(() => {
+                        update_display_pokemon(data[2])
+                        check_ending()
+                    }, 2000)
+                    return
+                }
                 // wait 2 seconds before updating the opponent
                 setTimeout(() => {
                     attaqueAdversaire()
                     update_display_pokemon(data[2])
                     get_battle_log()
+                    setTimeout(() => {
+                        check_ending()
+                    }, 2000)
                 }, 4000)
             } else {
                 // opponent attacked first
                 attaqueAdversaire()
                 update_display_pokemon(data[2])
                 get_battle_log()
-                if (data[0]) return
+                if (data[0]) {
+                    setTimeout(() => {
+                        check_ending()
+                    }, 2000)
+
+                    return
+                }
                 // wait 2 seconds before updating the player
                 setTimeout(() => {
                     attaquePlayer()
                     update_display_pokemon(data[3], 'op')
                     get_battle_log()
+                    setTimeout(() => {
+                        check_ending()
+                    }, 2000)
                 }, 4000)
             }
         })
         .catch(error => console.error("Erreur:", error));
-    check_ending()
+
 }
 
 function forfet() {
@@ -135,7 +151,6 @@ function update_display_pokemon(pokemonJson, player = 'self') {
     updateButtonFromJson(1, null, pokemonJson.hp_current)
     updateButtonFromJson(2, null, pokemonJson.hp_current)
     updateButtonFromJson(3, null, pokemonJson.hp_current)
-
     // Met à jour le nom
     name.innerText = pokemonJson.name;
 

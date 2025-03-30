@@ -62,7 +62,7 @@ class Battle:
 
         # Damage calculation formula (simplified)
         damage = (
-            base_damage * (attack_stat / defense_stat) * 0.3
+            base_damage * (attack_stat / defense_stat) * 0.6
         )
 
         # Type effectiveness
@@ -168,7 +168,6 @@ class Battle:
             self.handle_end_combat(False, player)
             return self.opponent_pokemon
         elif self.opponent_pokemon.get_current_hp() <= 0:
-            self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
             if RoundGenerator.get_instance().is_last_pokemon():
                 self.handle_end_combat(True, player)
             return self.player_pokemon
@@ -235,7 +234,8 @@ class Battle:
         # Gérer les effets de fin de tour pour chaque Pokémon
         self.handle_end_of_turn(self.player_pokemon)
         self.handle_end_of_turn(self.opponent_pokemon)
-
+        if self.opponent_pokemon.get_current_hp() <= 0:
+            self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
         # Return winner if battle is over
         return [False, first_attacker == self.player_pokemon]
 
