@@ -20,15 +20,16 @@ function changePokemonBack(pokemonId) {
         .then(data => {
             modal.classList.remove('show');
             update_display_pokemon(data[0])
-            updateButtonFromJson(0, data[0]['first_move'])
-            updateButtonFromJson(1, data[0]['second_move'])
-            updateButtonFromJson(2, data[0]['third_move'])
-            updateButtonFromJson(3, data[0]['fourth_move'])
+            updateButtonFromJson(0, data[0]['first_move'], data[0]['hp_current'])
+            updateButtonFromJson(1, data[0]['second_move'], data[0]['hp_current'])
+            updateButtonFromJson(2, data[0]['third_move'], data[0]['hp_current'])
+            updateButtonFromJson(3, data[0]['fourth_move'], data[0]['hp_current'])
             get_battle_log()
             attaqueAdversaire()
             update_display_pokemon(data[1], 'op')
         })
         .catch(error => console.error("Erreur:", error));
+    check_ending()
 }
 
 function attackPokemon(attackId) {
@@ -58,7 +59,7 @@ function attackPokemon(attackId) {
                 attaqueAdversaire()
                 update_display_pokemon(data[2])
                 get_battle_log()
-                    if (data[0]) return
+                if (data[0]) return
                 // wait 2 seconds before updating the player
                 setTimeout(() => {
                     attaquePlayer()
@@ -68,6 +69,7 @@ function attackPokemon(attackId) {
             }
         })
         .catch(error => console.error("Erreur:", error));
+    check_ending()
 }
 
 function forfet() {
@@ -78,18 +80,45 @@ function forfet() {
     }) // response is a redirect
         .then(response => response.json())  // Convertit la réponse en JSON
         .then(data => {
-            if (data.redirect) {
-                window.location.href = data.redirect;  // Redirige vers la page cible
-            } else {
-                console.log("Action réussie, mais pas de redirection.");
-            }
+            get_battle_log()
+            // Redirige vers la page cible après 5 secondes
+
+            setTimeout(() => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;  // Redirige vers la page cible
+                } else {
+                    console.log("Action réussie, mais pas de redirection.");
+                }
+            }, 5000)
         })
         .catch(error => console.error("Erreur:", error));
 
 }
 
 function check_ending() {
+    fetch('/is/winner', {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"}
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data === false) {
+                console.log("Le combat continue...");
+            } else if (data === true) {
+                // wait 8sec and redirect to  /
+                setTimeout(() => {
+                    get_battle_log()
+                    window.location.href = "/"
+                }, 8000)
 
+            } else if (typeof data === "object" && data.name) {
+                get_battle_log()
+                update_display_pokemon(data, 'op');
+            } else {
+                get_battle_log()
+            }
+        })
+        .catch(error => console.error("Erreur lors de la vérification du gagnant:", error));
 }
 
 
@@ -102,6 +131,10 @@ function update_display_pokemon(pokemonJson, player = 'self') {
     const name = document.getElementById('pokemon_' + player + '_name');
     const status = document.getElementById('pokemon_' + player + '_status');
     const hp_bar = document.getElementById('pokemon_' + player + '_hp_bar');
+    updateButtonFromJson(0, null, pokemonJson.hp_current)
+    updateButtonFromJson(1, null, pokemonJson.hp_current)
+    updateButtonFromJson(2, null, pokemonJson.hp_current)
+    updateButtonFromJson(3, null, pokemonJson.hp_current)
 
     // Met à jour le nom
     name.innerText = pokemonJson.name;

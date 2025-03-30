@@ -1,6 +1,7 @@
 from flask import render_template, Blueprint, redirect, url_for, jsonify
 
-from service.GameService import game_perform_attack, game_perform_change, player, create_battle, forfet, battle_log_get
+from service.GameService import game_perform_attack, game_perform_change, player, create_battle, forfet, battle_log_get, \
+    is_winner_back
 
 game_controller = Blueprint("game_controller", __name__)
 
@@ -35,6 +36,14 @@ Forfeit the game
 def forfeit():
     forfet()
     return jsonify({"redirect": url_for("shop_controller.menu")})
+
+@game_controller.route("/is/winner", methods=['PUT'])
+def is_winner():
+    pokemon = is_winner_back()
+    # if pokemon is type pokemon return jsonify .to_dict() else return pokemon
+    if hasattr(pokemon, 'to_dict'):
+        return jsonify(pokemon.to_dict())
+    return jsonify(pokemon)
 
 @game_controller.route("/battle_log")
 def get_last_battle_log():

@@ -81,6 +81,11 @@ class Pokemon:
         if self.__stat.current_hp == 0:
             self.__level.notify_dead()
 
+    def get_experience(self):
+        """
+        Return the experience of the pokemon
+        """
+        return self.__level.level * 2
 
     def gain_experience(self, xp: int):
         """

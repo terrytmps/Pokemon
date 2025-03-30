@@ -88,26 +88,33 @@ function attaqueAdversaire() {
     });
 }
 
-function updateButtonFromJson(index, move) {
-            let bouton = document.getElementById(`attaque_button${index}`);
-            if (!bouton) return;
-            // Mise à jour des données du bouton
-            console.log(move)
-            if (!move) {
-                bouton.style.display = "btn btn-disabled move-btn w-100";
-                bouton.disabled = true;
-                bouton.innerHTML = "Libre";
-                return;
-            }
-            bouton.style.display = "btn move-btn w-100 bouton-attaque";
-            bouton.style.backgroundColor = move.move_color;
+function updateButtonFromJson(index, move, pokemon_hp) {
+    let bouton = document.getElementById(`attaque_button${index}`);
+    if (!bouton) return;
+    if (pokemon_hp <= 0) {
+        bouton.disabled = true;
+    } else {
+        bouton.disabled = false;
+    }
+    if (move === null) return;
+    // Mise à jour des données du bouton
+    console.log(move)
+    if (!move) {
+        bouton.style.display = "btn btn-disabled move-btn w-100";
+        bouton.disabled = true;
+        bouton.innerHTML = "Libre";
+        return;
+    }
+    bouton.style.display = "btn move-btn w-100 bouton-attaque";
+    bouton.style.backgroundColor = move.move_color;
 
-            bouton.dataset.name = move.name;
-            bouton.dataset.description = move.description;
-            bouton.dataset.power = move.power;
-            bouton.dataset.accuracy = move.accuracy;
-            bouton.dataset.type = move.move_type;
-            bouton.dataset.category = move.move_category;
-            bouton.dataset.effect = move.move_effect;
-            bouton.innerHTML = move.name;
+
+    bouton.dataset.name = move.name;
+    bouton.dataset.description = move.description;
+    bouton.dataset.power = move.power;
+    bouton.dataset.accuracy = move.accuracy;
+    bouton.dataset.type = move.move_type;
+    bouton.dataset.category = move.move_category;
+    bouton.dataset.effect = move.move_effect;
+    bouton.innerHTML = move.name;
 }

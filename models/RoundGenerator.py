@@ -102,12 +102,18 @@ class RoundGenerator:
             return pokemon
         return None
 
+    def is_last_pokemon(self) -> bool:
+        """Return if the current pokemon is last one"""
+        return self.__index == len(self.__rounds) - 1
+
     def reset(self):
         """Reset the round generator."""
         self.__index = 0
 
     def get_price(self) -> int:
         """Get the price for all cleared round"""
+        if self.__index <= 1:
+            return 0
         return self.__index * 2
 
     @classmethod

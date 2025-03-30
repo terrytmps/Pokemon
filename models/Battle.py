@@ -1,8 +1,10 @@
 from typing import List, Optional
 import random
 
+from models.Player import Player
 from models.Pokemon import Pokemon
 from models.Move import Move
+from models.RoundGenerator import RoundGenerator
 from models.enum.MoveCategory import MoveCategory
 from models.status.BurnStatusStrategy import BurnStatusStrategy
 from models.status.FreezeStatusStrategy import FreezeStatusStrategy
@@ -158,24 +160,37 @@ class Battle:
             or self.opponent_pokemon.get_current_hp() <= 0
         )
 
-    def get_battle_winner(self) -> Optional[Pokemon]:
+    def get_battle_winner(self, player) -> Optional[Pokemon]:
         """
         Determine the winner of the battle
         """
         if self.player_pokemon.get_current_hp() <= 0:
-            self.battle_log.append(f"{self.opponent_pokemon.name} gagne!")
-            self.handle_end_combat(False)
+            self.handle_end_combat(False, player)
             return self.opponent_pokemon
         elif self.opponent_pokemon.get_current_hp() <= 0:
-            self.battle_log.append(f"{self.player_pokemon.name} gagne!")
-            self.handle_end_combat(True)
+            self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
+            if RoundGenerator.get_instance().is_last_pokemon():
+                self.handle_end_combat(True, player)
             return self.player_pokemon
         return None
 
-    def handle_end_combat(self, winner: bool):
+    def handle_end_combat(self, winner: bool, player: Player):
         """
         True if player wins, False if opponent wins
         """
+        if not winner:
+            player.money += RoundGenerator.get_instance().get_price() // 2
+            self.battle_log.append(f"{player.get_current_pokemon().name} est K.O.!")
+
+        if winner:
+            player.money += RoundGenerator.get_instance().get_price()
+            self.battle_log.append(f"Vous avez gagné, vos gains:{RoundGenerator.get_instance().get_price()} $")
+            RoundGenerator.get_instance().reset()
+
+    def gave_up(self, player: Player):
+        player.money += RoundGenerator.get_instance().get_price() // 2
+        self.battle_log.append(f"Vous avez perdu, voici vos gains :{RoundGenerator.get_instance().get_price() // 2} $")
+        RoundGenerator.get_instance().reset()
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """
