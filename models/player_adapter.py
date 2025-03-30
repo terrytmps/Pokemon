@@ -97,7 +97,7 @@ class PlayerDBAdapter:
             from models.factory.PokemonFactory import PokemonFactory
 
             player = Player()
-            player.name = "Terry"
+            player.name = "Gimmighoul"
 
             pokemon_self = PokemonFactory.create_tyranocif()
             pokemon_self.level_up_to(100)
@@ -105,6 +105,7 @@ class PlayerDBAdapter:
             player.add_pokemon(pokemon_self)
             player.add_pokemon(pokemon_self_second)
             player.set_current_pokemon(1)
+            player.money = 100
 
             player_id = self.save_player(player)
 

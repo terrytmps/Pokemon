@@ -1,188 +1,273 @@
 {% extends "partials/base.html" %}
 
 {% block content %}
-    <div onclick="hideDetails()">
-        <div class="pc-container">
-            <!-- Shop Section -->
-            <div class="shop-container">
-                <h2>Magasin</h2>
-                <div class="shop-screen">
-                    <div class="pokemon-grid shop-grid">
-                        {% for poke in shop_pokemons %}
-                            <div class="pokemon-slot shop-slot"
-                                 onclick="showDetails('{{ loop.index - 1 }}', '{{ poke.name }}', '{{ poke._sprite_url }}', {{ poke.price }}, '{{ poke.first_type.value }}', '{{ poke.second_type.value }}', '{{ poke.level }}')">
-                                <img src="{{ poke._sprite_url }}" width="60" alt="{{ poke.name }}">
-                                <br>{{ poke.name }}
-                                <br><span class="pokemon-level">(Lvl: {{ poke.level }})</span>
-                                <br>${{ poke.price }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+	<div onclick="hideDetails()">
+		<div class="pc-container">
 
-            <!-- Player Pokémon Team (Max 6) -->
-            <div class="team-container">
-                <h2>Votre Équipe</h2>
-                <div class="team-screen">
-                    <div class="pokemon-flex">
-                        {% for poke in player.pokemons %}
-                            <div class="pokemon-slot">
-                                {% if poke %}
-                                    <div onclick="buyPokemon({{ loop.index - 1 }}, 1)">
-                                        <!-- Show player's Pokémon -->
-                                        <img src="{{ poke._sprite_url }}" width="70" alt="{{ poke.name }}"
-                                             class="team-slot">
-                                        <br class="pokemon-name-team">{{ poke.name }}
-                                        <br><span class="pokemon-level">(Lvl: {{ poke.level }})</span>
-                                    </div>
-                                {% else %}
-                                    <div onclick="buyPokemon({{ loop.index - 1 }}, 0)">
-                                        <!-- Show empty Poké Ball if slot is None -->
-                                        <img src="{{ url_for('static', filename='img/pokeball.png') }}" width="70"
-                                             alt="Empty Slot">
-                                        <br class="pokemon-name-team">Vide
-                                    </div>
+			<!-- Shop Section -->
+			<div class="shop-container">
+				<h2>Magasin</h2>
+				<div class="shop-screen">
+					<div class="pokemon-grid shop-grid">
+						{% for poke in shop_pokemons %}
+							<div class="pokemon-slot shop-slot"
+							     onclick="showDetails('{{ loop.index - 1 }}', '{{ poke.name }}', '{{ poke._sprite_url }}', {{ poke.price }}, '{{ poke.first_type.value }}', '{{ poke.second_type.value }}', '{{ poke.level }}')">
+								<img src="{{ poke._sprite_url }}" width="60" alt="{{ poke.name }}">
+								<br>{{ poke.name }}
+								<br><span class="pokemon-level">(Lvl: {{ poke.level }})</span>
+								<br>${{ poke.price }}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
 
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+			<!-- Player Pokémon Team (Max 6) -->
+			<div class="team-container">
+				<h2>Votre Équipe</h2>
+				<div class="team-screen">
+					<div class="pokemon-flex">
+						{% for poke in player.pokemons %}
+							<div class="pokemon-slot">
+								{% if poke %}
+									<div onclick="buyPokemon({{ loop.index - 1 }}, 1)">
+										<!-- Show player's Pokémon -->
+										<img src="{{ poke._sprite_url }}" width="70" alt="{{ poke.name }}"
+										     class="team-slot">
+										<br class="pokemon-name-team">{{ poke.name }}
+										<br><span class="pokemon-level">(Lvl: {{ poke.level }})</span>
+									</div>
+								{% else %}
+									<div onclick="buyPokemon({{ loop.index - 1 }}, 0)">
+										<!-- Show empty Poké Ball if slot is None -->
+										<img src="{{ url_for('static', filename='img/pokeball.png') }}" width="70"
+										     alt="Empty Slot">
+										<br class="pokemon-name-team">Vide
+									</div>
 
-            <!-- Details Panel -->
-            <div class="details-container" id="details-container">
-                <h2 id="pokemon-name">Nom</h2>
-                <img id="pokemon-image" src="" alt="Pokémon" class="pokemon-img">
-                <div class="pokemon-types">
-                    <img id="pokemon-type1" src="" alt="Type 1" width="60" height="20" class="type-img-poke">
-                    <img id="pokemon-type2" src="" alt="Type 2" width="60" height="20" class="type-img-poke">
-                </div>
-                <hr>
-                <span><strong>Price:</strong> $<span id="pokemon-price"></span></span>
-                <span><strong>level:</strong> <span id="pokemon-level"></span></span>
-            </div>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
 
-        <!-- Player Details -->
-        <div class="player-details-container" id="player-details-container">
-		    <h2 id="player-name">{{ player.name }}</h2>
-		    <img id="player-image" src="{{ url_for('static', filename='img/trainer.jpg') }}" alt="Dresseur" class="player-img">
-		    <div class="player-money">
-		        <span id="player-money">${{ player.money }}</span>
-		    </div>
-		    <hr>
-		    <div class="player-stats">
-		        <p><strong>Record:</strong> <span id="player-wins">{{ player.record_round }}</span></p>
-		    </div>
+			<!-- Details Panel -->
+			<div class="details-container" id="details-container">
+				<h2 id="pokemon-name">Nom</h2>
+				<img id="pokemon-image" src="" alt="Pokémon" class="pokemon-img">
+				<div class="pokemon-types">
+					<img id="pokemon-type1" src="" alt="Type 1" width="60" height="20" class="type-img-poke">
+					<img id="pokemon-type2" src="" alt="Type 2" width="60" height="20" class="type-img-poke">
+				</div>
+				<hr>
+				<span><strong>Price:</strong> $<span id="pokemon-price"></span></span>
+				<span><strong>level:</strong> <span id="pokemon-level"></span></span>
+			</div>
+
+			<!-- Player Details -->
+			<div class="player-details-container" id="player-details-container">
+				<h2 id="player-name">{{ player.name }}</h2>
+				<img id="player-image" src="{{ url_for('static', filename='img/trainer.jpg') }}" alt="Dresseur"
+				     class="player-img">
+				<div class="player-money">
+					<span id="player-money">${{ player.money }}</span>
+				</div>
+				<hr>
+				<div class="player-stats">
+					<p><strong>Record:</strong> <span id="player-wins">{{ player.record_round }}</span></p>
+				</div>
+			</div>
+
+			<form action="/game" method="post">
+				<button type="submit" class="pokemon-button">Combattre</button>
+			</form>
+
 		</div>
+	</div>
+	<script>
+        let selectedPokemon = null;
+        let pokemon_index = null;
 
-        <form action="/game" method="post">
-	        <button type="submit" class="pokemon-button">Combattre</button>
-        </form>
+        function showDetails(index, name, sprite_url, price, type1, type2, level) {
+            pokemon_index = index;
+            selectedPokemon = 1;
+            document.getElementById("pokemon-name").textContent = name;
+            document.getElementById("pokemon-image").src = sprite_url;
+            document.getElementById("pokemon-type1").src = type1;
+            if (type2 === "") {
+                document.getElementById("pokemon-type2").src = "static/img/blank.png";
+            } else {
+                document.getElementById("pokemon-type2").src = type2;
+            }
+            document.getElementById("pokemon-price").textContent = price;
+            document.getElementById("pokemon-level").textContent = level;
+            document.getElementById("details-container").classList.add("show");
+        }
 
-        </div>
-    </div>
-    <script>
-    let selectedPokemon = null;
-	let pokemon_index = null;
+        function hideDetails() {
+            if (selectedPokemon >= 2) {
+                selectedPokemon = 0;
+                pokemon_index = null;
+                document.getElementById("details-container").classList.remove("show");
+            }
+            selectedPokemon = 2;
+        }
 
-	function showDetails(index, name, sprite_url, price, type1, type2, level) {
-	    pokemon_index = index;
-	    selectedPokemon = 1;
-	    document.getElementById("pokemon-name").textContent = name;
-	    document.getElementById("pokemon-image").src = sprite_url;
-	    document.getElementById("pokemon-type1").src = type1;
-	    if (type2 === "") {
-	        document.getElementById("pokemon-type2").src = "static/img/blank.png";
-	    } else {
-	        document.getElementById("pokemon-type2").src = type2;
-	    }
-	    document.getElementById("pokemon-price").textContent = price;
-	    document.getElementById("pokemon-level").textContent = level;
-	    document.getElementById("details-container").classList.add("show");
-	}
+        function showModal(title, message, confirmCallback = null, cancelCallback = null) {
+            let modal = document.getElementById('custom-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'custom-modal';
+                modal.className = 'modal';
 
-	function hideDetails() {
-	    if (selectedPokemon >= 2) {
-	        selectedPokemon = 0;
-	        pokemon_index = null;
-	        document.getElementById("details-container").classList.remove("show");
-	    }
-	    selectedPokemon = 2;
-	}
+                const modalContent = document.createElement('div');
+                modalContent.className = 'modal-content';
 
-	function buyPokemon(teamIndex, alreadyHasPokemon) {
-	    if (pokemon_index !== null) {
-	        const pokemonName = document.getElementById("pokemon-name").textContent;
-	        const pokemonPrice = document.getElementById("pokemon-price").textContent;
+                const closeBtn = document.createElement('span');
+                closeBtn.className = 'close-btn';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = closeModal;
 
-	        // Check if player has enough money
-	        const playerMoney = parseInt(document.getElementById("player-money").textContent.replace('$', ''));
+                const modalTitle = document.createElement('h3');
+                modalTitle.id = 'modal-title';
 
-	        if (playerMoney < parseInt(pokemonPrice)) {
-	            alert("Vous n'avez pas assez d'argent pour acheter ce Pokémon!");
-	            return;
-	        }
+                const modalMessage = document.createElement('p');
+                modalMessage.id = 'modal-message';
 
-	        let confirmMessage = "";
-	        if (alreadyHasPokemon === 1) {
-	            confirmMessage = `Voulez-vous remplacer votre Pokémon actuel par ${pokemonName} pour $${pokemonPrice}?`;
-	        } else {
-	            confirmMessage = `Voulez-vous acheter ${pokemonName} pour $${pokemonPrice}?`;
-	        }
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'modal-buttons';
 
-	        if (confirm(confirmMessage)) {
-	            // Send purchase request to server
-	            fetch('/buy_pokemon', {
-	                method: 'POST',
-	                headers: {
-	                    'Content-Type': 'application/json',
-	                },
-	                body: JSON.stringify({
-	                    pokemon_shop_index: pokemon_index,
-	                    team_slot_index: teamIndex
-	                })
-	            })
-	            .then(response => {
-	                if (!response.ok) {
-	                    throw new Error('Problème lors de l\'achat');
-	                }
-	                return response.json();
-	            })
-	            .then(data => {
-	                if (data.success) {
-	                    // Update player money
-	                    document.getElementById("player-money").textContent = '$' + data.new_money;
+                const confirmBtn = document.createElement('button');
+                confirmBtn.id = 'modal-confirm';
+                confirmBtn.className = 'open-modal-btn';
+                confirmBtn.textContent = 'Confirmer';
 
-	                    // Update team display
-	                    const teamSlots = document.querySelectorAll('.team-screen .pokemon-slot');
-	                    const slot = teamSlots[teamIndex];
+                const cancelBtn = document.createElement('button');
+                cancelBtn.id = 'modal-cancel';
+                cancelBtn.className = 'open-modal-btn';
+                cancelBtn.style.backgroundColor = '#888';
+                cancelBtn.style.borderColor = '#555';
+                cancelBtn.textContent = 'Annuler';
 
-	                    // Replace the content of the slot with the new Pokemon
-	                    slot.innerHTML = `
-	                        <div onclick="buyPokemon(${teamIndex}, 1)">
-	                            <img src="${data.pokemon.sprite_url}" width="70" alt="${data.pokemon.name}" class="team-slot">
-	                            <br class="pokemon-name-team">${data.pokemon.name}
-	                            <br><span class="pokemon-level">(Lvl: ${data.pokemon.level})</span>
-	                        </div>
-	                    `;
+                buttonContainer.appendChild(confirmBtn);
+                buttonContainer.appendChild(cancelBtn);
 
-	                    alert(`Félicitations! Vous avez acheté ${data.pokemon.name}!`);
-	                } else {
-	                    alert(data.message || 'Une erreur est survenue lors de l\'achat.');
-	                }
-	            })
-	            .catch(error => {
-	                console.error('Error:', error);
-	                alert('Une erreur est survenue lors de l\'achat.');
-	            });
-	        }
-	    } else {
-	        alert("Veuillez d'abord sélectionner un Pokémon du magasin!");
-	    }
-	}
-</script>
+                modalContent.appendChild(closeBtn);
+                modalContent.appendChild(modalTitle);
+                modalContent.appendChild(modalMessage);
+                modalContent.appendChild(buttonContainer);
 
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+            }
+
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+
+            const confirmBtn = document.getElementById('modal-confirm');
+            const cancelBtn = document.getElementById('modal-cancel');
+
+            const newConfirmBtn = confirmBtn.cloneNode(true);
+            const newCancelBtn = cancelBtn.cloneNode(true);
+            confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+            cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+
+            if (confirmCallback) {
+                newConfirmBtn.style.display = 'inline-block';
+                newConfirmBtn.onclick = function () {
+                    closeModal();
+                    confirmCallback();
+                };
+            } else {
+                newConfirmBtn.style.display = 'none';
+            }
+
+            if (cancelCallback) {
+                newCancelBtn.style.display = 'inline-block';
+                newCancelBtn.onclick = function () {
+                    closeModal();
+                    cancelCallback();
+                };
+            } else {
+                newCancelBtn.style.display = 'none';
+            }
+
+            if (!confirmCallback && !cancelCallback) {
+                newConfirmBtn.style.display = 'inline-block';
+                newConfirmBtn.textContent = 'OK';
+                newConfirmBtn.onclick = closeModal;
+                newCancelBtn.style.display = 'none';
+            }
+
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        function showAlert(message) {
+            showModal('Information', message);
+        }
+
+        function showConfirm(message, confirmCallback) {
+            showModal('Confirmation', message, confirmCallback, () => {
+            });
+        }
+
+        function buyPokemon(teamIndex, alreadyHasPokemon) {
+            if (pokemon_index !== null) {
+                const currentPokemonIndex = pokemon_index;
+                const pokemonName = document.getElementById("pokemon-name").textContent;
+                const pokemonPrice = parseInt(document.getElementById("pokemon-price").textContent);
+                const playerMoney = parseInt(document.getElementById("player-money").textContent.replace('$', ''));
+
+                if (playerMoney < pokemonPrice) {
+                    showAlert("Vous n'avez pas assez d'argent pour acheter ce Pokémon!");
+                    return;
+                }
+
+                let confirmMessage = alreadyHasPokemon ?
+                    `Voulez-vous remplacer votre Pokémon actuel par ${pokemonName} pour $${pokemonPrice}?` :
+                    `Voulez-vous acheter ${pokemonName} pour $${pokemonPrice}?`;
+
+                showConfirm(confirmMessage, function () {
+                    fetch('/buy_pokemon', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            pokemon_shop_index: currentPokemonIndex,
+                            team_slot_index: teamIndex
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById("player-money").textContent = '$' + data.new_money;
+                                const teamSlots = document.querySelectorAll('.team-screen .pokemon-slot');
+                                const slot = teamSlots[teamIndex];
+                                slot.innerHTML = `
+                        <div onclick="buyPokemon(${teamIndex}, 1)">
+                            <img src="${data.pokemon.sprite_url}" width="70" alt="${data.pokemon.name}" class="team-slot">
+                            <br class="pokemon-name-team">${data.pokemon.name}
+                            <br><span class="pokemon-level">(Lvl: ${data.pokemon.level})</span>
+                        </div>
+                    `;
+                                showAlert(`Félicitations! Vous avez acheté ${data.pokemon.name}!`);
+                            } else {
+                                showAlert(data.message || 'Erreur lors de l\'achat.');
+                            }
+                        })
+                        .catch(error => showAlert('Erreur réseau.'));
+                });
+            } else {
+                showAlert("Veuillez sélectionner un Pokémon du magasin!");
+            }
+        }
+	</script>
 
 {% endblock %}
