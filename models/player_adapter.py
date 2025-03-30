@@ -81,3 +81,28 @@ class PlayerDBAdapter:
             player._pokemons[pokemon_model.position] = pokemon
 
         return player
+
+    def get_unique_player(self):
+        """
+        Récupère le joueur unique depuis la base de données
+        S'il n'existe pas, crée un nouveau joueur et le retourne
+
+        Returns:
+            Player: L'objet Player unique (existant ou nouveau)
+        """
+        player_model = PlayerModel.query.first()
+
+        if player_model:
+            return self.load_player(player_model.id)
+        else:
+            from models.factory.PokemonFactory import PokemonFactory
+
+            player = Player()
+            player.name = "Player"
+
+            factory = PokemonFactory()
+            player._pokemons[0] = factory.create_pikachu()
+
+            player_id = self.save_player(player)
+
+            return self.load_player(player_id)
