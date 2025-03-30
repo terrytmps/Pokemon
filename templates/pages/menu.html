@@ -51,7 +51,6 @@
                 </div>
             </div>
 
-
             <!-- Details Panel -->
             <div class="details-container" id="details-container">
                 <h2 id="pokemon-name">Nom</h2>
@@ -65,11 +64,21 @@
                 <span><strong>level:</strong> <span id="pokemon-level"></span></span>
             </div>
 
+        <div class="player-details-container" id="player-details-container">
+		    <h2 id="player-name">{{ player.name }}</h2>
+		    <img id="player-image" src="{{ url_for('static', filename='img/trainer.jpg') }}" alt="Dresseur" class="player-img">
+		    <div class="player-money">
+		        <span id="player-money">${{ player.money }}</span>
+		    </div>
+		    <hr>
+		    <div class="player-stats">
+		        <p><strong>Record:</strong> <span id="player-wins">{{ player.record_round }}</span></p>
+		    </div>
+		</div>
 
-            <form action="/game" method="post">
-			    <button type="submit" class="pokemon-button">Combattre</button>
-			</form>
-        </div>
+        <form action="/game" method="post">
+	        <button type="submit" class="pokemon-button">Combattre</button>
+        </form>
 
         </div>
     </div>

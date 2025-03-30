@@ -3,6 +3,7 @@ from models.Pokemon import Pokemon
 
 class Player:
     def __init__(self):
+        self.name = "Player"
         self.money = 0
         self._pokemons = [None] * 6
         self.record_round = 0

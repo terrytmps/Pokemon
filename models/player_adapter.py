@@ -24,6 +24,7 @@ class PlayerDBAdapter:
         else:
             player_model = PlayerModel()
 
+        player_model.name = player.name
         player_model.money = player.money
         player_model.record_round = player.record_round
         player_model.current_pokemon = player.current_pokemon
@@ -55,6 +56,7 @@ class PlayerDBAdapter:
             return None
 
         player = Player()
+        player.name = player_model.name
         player.money = player_model.money
         player.record_round = player_model.record_round
         player.current_pokemon = player_model.current_pokemon
