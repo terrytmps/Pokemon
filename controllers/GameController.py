@@ -13,7 +13,7 @@ from service.GameService import (
 game_controller = Blueprint("game_controller", __name__)
 
 
-@game_controller.route("/game")
+@game_controller.route("/game", methods=["GET", "POST"])
 def game():
     """
     Game endpoints handle the combat part
