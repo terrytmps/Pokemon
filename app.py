@@ -13,7 +13,7 @@ from controllers.GameController import game_controller
 from controllers.ShopController import shop_controller
 
 with app.app_context():
-    #db.drop_all()
+    # db.drop_all()
     db.create_all()
 
 app.register_blueprint(game_controller)

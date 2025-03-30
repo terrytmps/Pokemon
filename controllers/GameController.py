@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, redirect, url_for, jsonify
+from flask import render_template, Blueprint, url_for, jsonify
 
 from models.player_adapter import PlayerDBAdapter
 from service.GameService import (

@@ -1,11 +1,13 @@
 from typing import List, Optional
 import random
 
+from models.Database import DatabaseSingleton
 from models.Player import Player
 from models.Pokemon import Pokemon
 from models.Move import Move
 from models.RoundGenerator import RoundGenerator
 from models.enum.MoveCategory import MoveCategory
+from models.player_adapter import PlayerDBAdapter
 from models.status.BurnStatusStrategy import BurnStatusStrategy
 from models.status.FreezeStatusStrategy import FreezeStatusStrategy
 from models.status.NormalStatusStrategy import NormalStatusStrategy
@@ -191,6 +193,7 @@ class Battle:
             f"Vous avez perdu, voici vos gains :{RoundGenerator.get_instance().get_price() // 2} $"
         )
         RoundGenerator.get_instance().reset()
+        PlayerDBAdapter().update_player(player)
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """
