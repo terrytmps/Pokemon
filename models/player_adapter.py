@@ -1,3 +1,4 @@
+from models.enum.PokemonName import PokemonName, pokemon_factory_methods
 from models.player_model import PlayerModel
 from models.pokemon_model import PokemonModel
 from models.Database import DatabaseSingleton
@@ -72,11 +73,11 @@ class PlayerDBAdapter:
         factory = PokemonFactory()
 
         for pokemon_model in pokemon_models:
-            # Créer un Pokémon en fonction du nom
-            if pokemon_model.name == "Pikachu":
-                pokemon = factory.create_pikachu()
-            else:
-                pokemon = factory.create_dracaufeu()
+            try:
+                pokemon_name = PokemonName(pokemon_model.name)
+                pokemon = pokemon_factory_methods[pokemon_name]()
+            except ValueError:
+                raise ValueError(f"Unknown Pokémon name: {pokemon_model.name}")
 
             player._pokemons[pokemon_model.position] = pokemon
 
@@ -98,10 +99,14 @@ class PlayerDBAdapter:
             from models.factory.PokemonFactory import PokemonFactory
 
             player = Player()
-            player.name = "Player"
+            player.name = "Terry"
 
-            factory = PokemonFactory()
-            player._pokemons[0] = factory.create_pikachu()
+            pokemon_self = PokemonFactory.create_tyranocif()
+            pokemon_self.level_up_to(100)
+            pokemon_self_second = PokemonFactory.create_aquali()
+            player.add_pokemon(pokemon_self)
+            player.add_pokemon(pokemon_self_second)
+            player.set_current_pokemon(1)
 
             player_id = self.save_player(player)
 

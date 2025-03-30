@@ -2,18 +2,10 @@ from flask import jsonify
 from typing_extensions import Optional
 
 from models.Battle import Battle
-from models.Player import Player
 from models.Pokemon import Pokemon
 from models.RoundGenerator import RoundGenerator
-from models.factory.PokemonFactory import PokemonFactory
+from models.player_adapter import PlayerDBAdapter
 
-player = Player()
-pokemon_self = PokemonFactory.create_tyranocif()
-pokemon_self.level_up_to(100)
-pokemon_self_second = PokemonFactory.create_aquali()
-player.add_pokemon(pokemon_self)
-player.add_pokemon(pokemon_self_second)
-player.set_current_pokemon(1)
 battle: Battle
 pokemon_op = RoundGenerator.get_instance().generate_round()
 
@@ -21,7 +13,8 @@ pokemon_op = RoundGenerator.get_instance().generate_round()
 def create_battle():
     """create a battle with the player pokemon and a random pokemon"""
     global battle
-    battle = Battle(player.get_current_pokemon(), pokemon_op)
+    current_player = PlayerDBAdapter().get_unique_player()
+    battle = Battle(current_player.get_current_pokemon(), pokemon_op)
     return battle
 
 
@@ -45,6 +38,7 @@ def game_perform_attack(attack: int):
 def game_perform_change(position: int):
     """change the pokemon of the player and return the pokemon new stats"""
     # get player in database
+    player = PlayerDBAdapter().get_unique_player()
     player.set_current_pokemon(int(position) - 1)
     battle.player_pokemon = player.get_current_pokemon()
     battle.battle_turn(
@@ -55,6 +49,7 @@ def game_perform_change(position: int):
 
 def forfet():
     """forfet the game and return to the menu"""
+    player = PlayerDBAdapter().get_unique_player()
     battle.gave_up(player)
 
 
@@ -65,6 +60,7 @@ def is_winner_back() -> Pokemon | bool | None:
     - if no one win return false
     - if player loose return false
     """
+    player = PlayerDBAdapter().get_unique_player()
     pokemon: Optional[Pokemon] = battle.get_battle_winner(player)
     # if optional is empty then no one won and return false
     if pokemon is None:
