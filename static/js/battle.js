@@ -90,6 +90,8 @@ function attackPokemon(attackId) {
 
 function forfet() {
     // forfeit and return a redirect to new page
+    forfeit_button = document.getElementById('forfeit_button')
+    forfeit_button.disabled = true
     fetch(`/forfeit`, {
         method: "POST",
         headers: {"Content-Type": "application/json"}
