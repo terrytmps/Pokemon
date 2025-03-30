@@ -104,7 +104,7 @@ class RoundGenerator:
 
     def is_last_pokemon(self) -> bool:
         """Return if the current pokemon is last one"""
-        return self.__index == len(self.__rounds) - 1
+        return self.__index == len(self.__rounds)
 
     def reset(self):
         """Reset the round generator."""

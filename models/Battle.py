@@ -160,7 +160,7 @@ class Battle:
             or self.opponent_pokemon.get_current_hp() <= 0
         )
 
-    def get_battle_winner(self, player) -> Optional[Pokemon]:
+    def get_battle_winner(self, player) -> Optional[Pokemon] | bool:
         """
         Determine the winner of the battle
         """
@@ -170,6 +170,7 @@ class Battle:
         elif self.opponent_pokemon.get_current_hp() <= 0:
             if RoundGenerator.get_instance().is_last_pokemon():
                 self.handle_end_combat(True, player)
+                return True
             return self.player_pokemon
         return None
 
