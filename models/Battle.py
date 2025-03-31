@@ -1,7 +1,6 @@
 from typing import List, Optional
 import random
 
-from models.Database import DatabaseSingleton
 from models.Player import Player
 from models.Pokemon import Pokemon
 from models.Move import Move
@@ -15,10 +14,13 @@ from models.status.ParalysisStatusStrategy import ParalysisStatusStrategy
 from models.status.PoisonStatusStrategy import PoisonStatusStrategy
 from models.status.SleepStatusStrategy import SleepStatusStrategy
 from models.status.StatusEnum import StatusEnum
+from models.ai.HighestDamageStrategy import HighestDamageStrategy
+from models.ai.AttackStrategy import AttackStrategy
 
 
 class Battle:
-    def __init__(self, player_pokemon: Pokemon, opponent_pokemon: Pokemon):
+    def __init__(self, player_pokemon: Pokemon, opponent_pokemon: Pokemon,
+                 opponent_strategy: AttackStrategy = None):
         """
         Initialize a battle between two Pokemon
         """
@@ -26,6 +28,7 @@ class Battle:
         self.opponent_pokemon: Pokemon = opponent_pokemon
         self.turn_count: int = 0
         self.battle_log: List[str] = []
+        self.opponent_strategy: AttackStrategy = opponent_strategy or HighestDamageStrategy()
 
     @property
     def player_pokemon(self) -> Pokemon:
@@ -255,29 +258,6 @@ class Battle:
 
     def choose_opponent_move(self) -> Move:
         """
-        Chooses a move for the opponent based on the best damage
+        Chooses a move for the opponent based on the current strategy.
         """
-        opponent = self.opponent_pokemon
-        player = self.player_pokemon
-        available_moves = opponent.get_moves()
-
-        if not available_moves:
-            raise ValueError(f"{opponent.name} n'a aucune attaque disponible!")
-
-        best_move = None
-        max_damage = -1
-
-        for move in available_moves:
-            if move is None:
-                continue
-
-            potential_damage = self.calculate_damage(opponent, player, move)
-
-            if potential_damage > max_damage:
-                max_damage = potential_damage
-                best_move = move
-
-        if best_move is None:
-            best_move = available_moves[0]
-
-        return best_move
+        return self.opponent_strategy.choose_move(self)

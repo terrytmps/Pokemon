@@ -34,6 +34,12 @@
             <button id="forfeit_button" class="pokemon-button abandonner-button" onclick="forfet()">
                 Abandonner
             </button>
+
+	        <button id="strategie_button" class="pokemon-button strategy-button" onclick="strategie()">
+			    Strategie
+			    <span class="tooltiptext" id="strategy_tooltip"></span>
+			</button>
+
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/battle.js') }}"></script>

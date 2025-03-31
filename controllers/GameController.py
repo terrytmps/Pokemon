@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, url_for, jsonify
+from flask import render_template, Blueprint, url_for, jsonify, request
 
 from models.player_adapter import PlayerDBAdapter
 from service.GameService import (
@@ -8,7 +8,11 @@ from service.GameService import (
     forfet,
     battle_log_get,
     is_winner_back,
+    get_current_battle
 )
+
+from models.ai.RandomAttackStrategy import RandomAttackStrategy
+from models.ai.HighestDamageStrategy import HighestDamageStrategy
 
 game_controller = Blueprint("game_controller", __name__)
 
@@ -68,3 +72,22 @@ def is_winner():
 @game_controller.route("/battle_log")
 def get_last_battle_log():
     return jsonify(battle_log_get())
+
+
+@game_controller.route("/change_strategy", methods=["POST"])
+def change_strategy():
+    data = request.get_json()
+    strategy = data.get('strategy', 'highest_damage')
+
+    battle = get_current_battle()
+    if battle:
+        if strategy == 'random':
+            battle.opponent_strategy = RandomAttackStrategy()
+            return jsonify({'message': 'Stratégie changée en aléatoire.', 'strategy': 'random'})
+        elif strategy == 'highest_damage':
+            battle.opponent_strategy = HighestDamageStrategy()
+            return jsonify({'message': 'Stratégie changée en dégâts maximums.', 'strategy': 'highest_damage'})
+        else:
+            return jsonify({'error': 'Stratégie invalide.'}), 400
+    else:
+        return jsonify({'error': 'Aucune bataille en cours.'}), 400

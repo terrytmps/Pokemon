@@ -88,6 +88,43 @@ function attackPokemon(attackId) {
 
 }
 
+function strategie() {
+    const currentStrategy = window.currentStrategy || 'highest_damage';
+    const newStrategy = currentStrategy === 'highest_damage' ? 'random' : 'highest_damage';
+
+    fetch('/change_strategy', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ strategy: newStrategy }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            afficherMessage(data.message);
+            window.currentStrategy = data.strategy; // Update current strategy
+            updateStrategyButtonText(); // Update button text
+        } else {
+            console.error('Erreur lors du changement de stratégie:', data.error);
+            afficherMessage(data.error);
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+}
+
+function updateStrategyButtonText() {
+    const strategyButton = document.getElementById('strategie_button');
+    if (window.currentStrategy === 'highest_damage') {
+        strategyButton.innerText = 'Dégâts Max';
+    } else {
+        strategyButton.innerText = 'Aléatoire';
+    }
+}
+
+// Call updateStrategyButtonText on page load to set initial button text
+updateStrategyButtonText();
+
 function forfet() {
     // forfeit and return a redirect to new page
     forfeit_button = document.getElementById('forfeit_button')

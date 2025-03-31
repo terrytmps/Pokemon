@@ -10,6 +10,10 @@ battle: Battle
 pokemon_op = RoundGenerator.get_instance().generate_round()
 
 
+def get_current_battle():
+    return battle
+
+
 def create_battle():
     """create a battle with the player pokemon and a random pokemon"""
     global battle
