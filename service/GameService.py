@@ -20,10 +20,14 @@ def create_battle():
 
 def game_perform_attack(attack: int):
     """perform the attack of the player and return the pokemon new stats"""
+
+    player_selected_move = battle.player_pokemon.get_moves()[attack]
+    opponent_selected_move = battle.choose_opponent_move()
+
     [only_one_attack, player_attacked_first] = battle.battle_turn(
-        battle.player_pokemon.get_moves()[attack],
-        battle.opponent_pokemon.get_moves()[0],
-    )  # TODO : select specific attack
+        player_selected_move,
+        opponent_selected_move,
+    )
 
     return jsonify(
         [
@@ -37,13 +41,15 @@ def game_perform_attack(attack: int):
 
 def game_perform_change(position: int):
     """change the pokemon of the player and return the pokemon new stats"""
-    # get player in database
     player = PlayerDBAdapter().get_unique_player()
     player.set_current_pokemon(int(position) - 1)
     battle.player_pokemon = player.get_current_pokemon()
+
+    opponent_selected_move = battle.choose_opponent_move()
+
     battle.battle_turn(
-        None, battle.opponent_pokemon.get_moves()[0]
-    )  # TODO : select specific attack
+        None, opponent_selected_move
+    )
     return [battle.player_pokemon.to_dict(), battle.opponent_pokemon.to_dict()]
 
 

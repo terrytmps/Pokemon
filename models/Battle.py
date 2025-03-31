@@ -237,9 +237,9 @@ class Battle:
                 second_attacker, first_attacker, second_move
             )
 
-        # Gérer les effets de fin de tour pour chaque Pokémon
         self.handle_end_of_turn(self.player_pokemon)
         self.handle_end_of_turn(self.opponent_pokemon)
+
         if self.opponent_pokemon.get_current_hp() <= 0:
             self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
         # Return winner if battle is over
@@ -252,3 +252,32 @@ class Battle:
         if self.battle_log:
             return self.battle_log.pop(0)
         return ""
+
+    def choose_opponent_move(self) -> Move:
+        """
+        Chooses a move for the opponent based on the best damage
+        """
+        opponent = self.opponent_pokemon
+        player = self.player_pokemon
+        available_moves = opponent.get_moves()
+
+        if not available_moves:
+            raise ValueError(f"{opponent.name} n'a aucune attaque disponible!")
+
+        best_move = None
+        max_damage = -1
+
+        for move in available_moves:
+            if move is None:
+                continue
+
+            potential_damage = self.calculate_damage(opponent, player, move)
+
+            if potential_damage > max_damage:
+                max_damage = potential_damage
+                best_move = move
+
+        if best_move is None:
+            best_move = available_moves[0]
+
+        return best_move
