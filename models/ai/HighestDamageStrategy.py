@@ -9,7 +9,7 @@ from models.Move import Move
 class HighestDamageStrategy(AttackStrategy):
     """Strategy that chooses the move that deals the most damage to the opponent."""
 
-    def choose_move(self, battle: 'Battle') -> Move:
+    def choose_move(self, battle: "Battle") -> Move:
         opponent = battle.opponent_pokemon
         player = battle.player_pokemon
         available_moves = opponent.get_moves()
@@ -36,6 +36,8 @@ class HighestDamageStrategy(AttackStrategy):
                     max_damage = potential_damage
                     best_move = move
             except Exception as e:
-                print(f"Avertissement: Erreur calcul dégâts pour {move.name}: {e}. Ignorée.")
+                print(
+                    f"Avertissement: Erreur calcul dégâts pour {move.name}: {e}. Ignorée."
+                )
                 continue
         return best_move

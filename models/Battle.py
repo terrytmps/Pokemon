@@ -19,8 +19,12 @@ from models.ai.AttackStrategy import AttackStrategy
 
 
 class Battle:
-    def __init__(self, player_pokemon: Pokemon, opponent_pokemon: Pokemon,
-                 opponent_strategy: AttackStrategy = None):
+    def __init__(
+        self,
+        player_pokemon: Pokemon,
+        opponent_pokemon: Pokemon,
+        opponent_strategy: AttackStrategy = None,
+    ):
         """
         Initialize a battle between two Pokemon
         """
@@ -28,7 +32,9 @@ class Battle:
         self.opponent_pokemon: Pokemon = opponent_pokemon
         self.turn_count: int = 0
         self.battle_log: List[str] = []
-        self.opponent_strategy: AttackStrategy = opponent_strategy or HighestDamageStrategy()
+        self.opponent_strategy: AttackStrategy = (
+            opponent_strategy or HighestDamageStrategy()
+        )
 
     @property
     def player_pokemon(self) -> Pokemon:

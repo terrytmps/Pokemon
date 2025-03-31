@@ -10,8 +10,5 @@ class AttackStrategy(ABC):
     """Interface for attack strategies"""
 
     @abstractmethod
-    def choose_move(self, battle: 'Battle') -> Move:
+    def choose_move(self, battle: "Battle") -> Move:
         pass
-
-
-

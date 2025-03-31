@@ -10,7 +10,7 @@ if typing.TYPE_CHECKING:
 class RandomAttackStrategy(AttackStrategy):
     """Strategy that chooses a random move from the opponent's available moves."""
 
-    def choose_move(self, battle: 'Battle') -> Move:
+    def choose_move(self, battle: "Battle") -> Move:
         opponent = battle.opponent_pokemon
         available_moves = opponent.get_moves()
 

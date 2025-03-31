@@ -8,7 +8,7 @@ from service.GameService import (
     forfet,
     battle_log_get,
     is_winner_back,
-    get_current_battle
+    get_current_battle,
 )
 
 from models.ai.RandomAttackStrategy import RandomAttackStrategy
@@ -77,17 +77,24 @@ def get_last_battle_log():
 @game_controller.route("/change_strategy", methods=["POST"])
 def change_strategy():
     data = request.get_json()
-    strategy = data.get('strategy', 'highest_damage')
+    strategy = data.get("strategy", "highest_damage")
 
     battle = get_current_battle()
     if battle:
-        if strategy == 'random':
+        if strategy == "random":
             battle.opponent_strategy = RandomAttackStrategy()
-            return jsonify({'message': 'Stratégie changée en aléatoire.', 'strategy': 'random'})
-        elif strategy == 'highest_damage':
+            return jsonify(
+                {"message": "Stratégie changée en aléatoire.", "strategy": "random"}
+            )
+        elif strategy == "highest_damage":
             battle.opponent_strategy = HighestDamageStrategy()
-            return jsonify({'message': 'Stratégie changée en dégâts maximums.', 'strategy': 'highest_damage'})
+            return jsonify(
+                {
+                    "message": "Stratégie changée en dégâts maximums.",
+                    "strategy": "highest_damage",
+                }
+            )
         else:
-            return jsonify({'error': 'Stratégie invalide.'}), 400
+            return jsonify({"error": "Stratégie invalide."}), 400
     else:
-        return jsonify({'error': 'Aucune bataille en cours.'}), 400
+        return jsonify({"error": "Aucune bataille en cours."}), 400

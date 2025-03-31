@@ -51,9 +51,7 @@ def game_perform_change(position: int):
 
     opponent_selected_move = battle.choose_opponent_move()
 
-    battle.battle_turn(
-        None, opponent_selected_move
-    )
+    battle.battle_turn(None, opponent_selected_move)
     return [battle.player_pokemon.to_dict(), battle.opponent_pokemon.to_dict()]
 
 
