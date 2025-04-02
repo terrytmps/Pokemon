@@ -1,7 +1,8 @@
 from flask import request, jsonify
 from flask import render_template, Blueprint
+
+from models.Models.PlayerRepository import PlayerRepository
 from models.factory.PokemonFactory import PokemonFactory
-from models.player_adapter import PlayerDBAdapter
 
 shop_controller = Blueprint("shop_controller", __name__)
 
@@ -11,7 +12,7 @@ def menu():
     """
     Main menu  (where player buy Pokémon, etc.)
     """
-    player = PlayerDBAdapter().get_unique_player()
+    player = PlayerRepository().find_by_id(1)
     pokemons = PokemonFactory.get_shop_pokemons()
     return render_template("pages/menu.html", player=player, shop_pokemons=pokemons)
 
@@ -45,15 +46,14 @@ def buy_pokemon():
 
     selected_pokemon = shop_pokemons[shop_index_int]
 
-    player_adapter = PlayerDBAdapter()
-    player = player_adapter.get_unique_player()
+    player = PlayerRepository().find_by_id(1)
 
     if player.money < selected_pokemon.price:
         return jsonify({"success": False, "message": "Fonds insuffisants."}), 400
 
     player.money -= selected_pokemon.price
     player.pokemons[team_slot_index] = selected_pokemon
-    player_adapter.update_player(player)
+    PlayerRepository().save(player)
 
     return jsonify(
         {

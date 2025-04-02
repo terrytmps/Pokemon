@@ -9,9 +9,9 @@ Handle logic behing levelUp
 class Level(LevelObservable):
     def __init__(self, level: int, xp_difficulty: XPDifficulty):
         super().__init__()
-        self._level = level
-        self.__xp_difficulty = xp_difficulty
-        self.__current_xp = 0
+        self._level: int = level
+        self.__xp_difficulty: XPDifficulty = xp_difficulty
+        self.__current_xp: int = 0
 
     def gain_experience(self, value):
         if self._level >= 100:

@@ -22,13 +22,13 @@ class Move:
         move_category: MoveCategory,
         move_effect: StatusEnum = StatusEnum.NORMAL,
     ):
-        self.name = name
-        self.description = description
-        self.power = power
-        self.accuracy = accuracy
-        self.move_type = move_type
-        self.move_category = move_category
-        self.move_effect = move_effect
+        self.name: str = name
+        self.description: str = description
+        self.power: int = power
+        self.accuracy: int = accuracy
+        self.move_type: PokemonType = move_type
+        self.move_category: MoveCategory = move_category
+        self.move_effect: StatusEnum = move_effect
 
     def to_dict(self):
         return {

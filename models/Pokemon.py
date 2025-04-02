@@ -1,3 +1,4 @@
+from models.Move import Move
 from models.level.Level import Level
 from models.level.Stats import Stat
 from models.level.XpDifficulty import XPDifficulty
@@ -21,13 +22,14 @@ class Pokemon:
         Not recommend use the builder
         """
         super().__init__()
-        self.name = name
-        self.__level = level
-        self.__stat = stat
-        self._sprite_url = sprite_url
-        self._moves = [None] * 4
-        self.price = price
-        self._status_strategy = NormalStatusStrategy()
+        self.id: int = 0
+        self.name: str = name
+        self.__level: Level = level
+        self.__stat: Stat = stat
+        self._sprite_url: str = sprite_url
+        self._moves: list[Move | None] = [None] * 4
+        self.price: int = price
+        self._status_strategy: StatusStrategy = NormalStatusStrategy()
 
     def max_hp(self):
         return self.__stat.current_max_hp

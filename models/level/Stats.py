@@ -106,3 +106,51 @@ class Stat(LevelObserver):
             and self.current_defense_special == stat.current_defense_special
             and self.current_speed == stat.current_speed
         )
+
+    @property
+    def base_hp(self):
+        return self.__base_hp
+
+    @property
+    def base_attack(self):
+        return self.__base_attack
+
+    @property
+    def base_attack_special(self):
+        return self.__base_attack_special
+
+    @property
+    def base_defense(self):
+        return self.__base_defense
+
+    @property
+    def base_defense_special(self):
+        return self.__base_defense_special
+
+    @property
+    def base_speed(self):
+        return self.__base_speed
+
+    @property
+    def max_hp(self):
+        return self.__max_hp
+
+    @property
+    def max_attack(self):
+        return self.__max_attack
+
+    @property
+    def max_attack_special(self):
+        return self.__max_attack_special
+
+    @property
+    def max_defense(self):
+        return self.__max_defense
+
+    @property
+    def max_defense_special(self):
+        return self.__max_defense_special
+
+    @property
+    def max_speed(self):
+        return self.__max_speed

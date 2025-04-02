@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint, url_for, jsonify, request
 
-from models.player_adapter import PlayerDBAdapter
+from models.Models.PlayerRepository import PlayerRepository
 from service.GameService import (
     game_perform_attack,
     game_perform_change,
@@ -22,7 +22,7 @@ def game():
     """
     Game endpoints handle the combat part
     """
-    player = PlayerDBAdapter().get_unique_player()
+    player = PlayerRepository().find_by_id(1)
     battle_created = create_battle()
     return render_template(
         "pages/game.html", player=player, pokemon_op=battle_created.opponent_pokemon

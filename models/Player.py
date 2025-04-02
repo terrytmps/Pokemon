@@ -3,11 +3,12 @@ from models.Pokemon import Pokemon
 
 class Player:
     def __init__(self):
-        self.name = "Player"
-        self.money = 0
-        self._pokemons = [None] * 6
-        self.record_round = 0
-        self.current_pokemon = -1
+        self.id: int = 0
+        self.name: str = "Player"
+        self.money: int = 0
+        self._pokemons: list[Pokemon | None] = [None] * 6
+        self.record_round: int = 0
+        self.current_pokemon: int = -1
 
     @property
     def pokemons(self):
