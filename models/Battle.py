@@ -202,7 +202,6 @@ class Battle:
         )
         current_round = RoundGenerator.get_instance().get_index()
         player.set_record_round(current_round)
-        RoundGenerator.get_instance().reset()
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """
