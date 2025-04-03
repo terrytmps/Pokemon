@@ -2,24 +2,26 @@ from flask import jsonify
 from typing_extensions import Optional
 
 from models.Battle import Battle
+from models.Models.PlayerRepository import PlayerRepository
 from models.Player import Player
 from models.Pokemon import Pokemon
 from models.RoundGenerator import RoundGenerator
-from models.factory.PokemonFactory import PokemonFactory
 
 player = Player()
-pokemon_self = PokemonFactory.create_tyranocif()
-pokemon_self.level_up_to(100)
-pokemon_self_second = PokemonFactory.create_aquali()
-player.add_pokemon(pokemon_self)
-player.add_pokemon(pokemon_self_second)
-player.set_current_pokemon(1)
 battle: Battle
 pokemon_op = RoundGenerator.get_instance().generate_round()
 
 
 def get_current_battle():
     return battle
+
+
+def init_battle():
+    global player
+    player = PlayerRepository().find_by_id(1)
+    global pokemon_op
+    pokemon_op = RoundGenerator.get_instance().generate_round()
+    return None
 
 
 def create_battle():
@@ -65,6 +67,7 @@ def game_perform_change(position: int):
 def forfet():
     """forfet the game and return to the menu"""
     battle.gave_up(player)
+    PlayerRepository.save(player)
 
 
 def is_winner_back() -> Pokemon | bool | None:

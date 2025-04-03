@@ -108,3 +108,17 @@ pokemon_factory_methods = {
     PokemonName.PYROLI: PokemonFactory.create_pyroli,
     PokemonName.NOCTALI: PokemonFactory.create_noctali,
 }
+
+
+def get_enum_by_value(value: str) -> PokemonName | None:
+    for name in PokemonName:
+        if name.value == value:
+            return name
+    return None
+
+
+def create_pokemon(pokemon_name: PokemonName):
+    if pokemon_name in pokemon_factory_methods:
+        return pokemon_factory_methods[pokemon_name]()
+    else:
+        raise ValueError(f"No factory method found for {pokemon_name}")

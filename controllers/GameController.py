@@ -4,6 +4,7 @@ from models.Models.PlayerRepository import PlayerRepository
 from service.GameService import (
     game_perform_attack,
     game_perform_change,
+    init_battle,
     create_battle,
     forfet,
     battle_log_get,
@@ -23,6 +24,7 @@ def game():
     Game endpoints handle the combat part
     """
     player = PlayerRepository().find_by_id(1)
+    init_battle()
     battle_created = create_battle()
     return render_template(
         "pages/game.html", player=player, pokemon_op=battle_created.opponent_pokemon

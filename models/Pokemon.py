@@ -16,7 +16,12 @@ class Pokemon:
     """
 
     def __init__(
-        self, name: str, sprite_url: str, price: int, level: Level, stat: Stat
+            self,
+            name: str = "",
+            sprite_url: str = "",
+            price: int = 0,
+            level: Level = None,
+            stat: Stat = None
     ):
         """
         Not recommend use the builder
@@ -57,6 +62,10 @@ class Pokemon:
     @property
     def level(self):
         return self.__level.level
+
+    @level.setter
+    def level(self, value):
+        self.__level.level_up_to(value)
 
     @property
     def first_type(self):
@@ -261,3 +270,13 @@ class Pokemon:
                     pokemon.add_move(move)
 
             return pokemon
+
+    def __str__(self):
+        moves = [move.name if move else "None" for move in self._moves]
+        return (
+            f"Pokemon(id={self.id}, name={self.name}, level={self.level}, hp={self.get_current_hp()}/{self.get_current_max_hp()}, "
+            f"price={self.price}, status={self.get_status().value[1] if self.get_status() else 'None'}, "
+            f"first_type={self.first_type if self.first_type else 'None'}, "
+            f"second_type={self.second_type if self.second_type else 'None'}, "
+            f"moves={moves}, sprite_url={self.sprite_url})"
+        )

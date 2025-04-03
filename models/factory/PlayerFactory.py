@@ -14,9 +14,10 @@ class PlayerFactory:
         pokemon_self = PokemonFactory.create_tyranocif()
         pokemon_self.level_up_to(100)
         pokemon_self_second = PokemonFactory.create_aquali()
-        player.add_pokemon(pokemon_self)
+        pokemon_self_second.level_up_to(10)
         player.add_pokemon(pokemon_self_second)
-        player.set_current_pokemon(1)
+        player.add_pokemon(pokemon_self)
+        player.set_current_pokemon(0)
         player.money = 100
         return player
 

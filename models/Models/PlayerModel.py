@@ -15,9 +15,7 @@ class PlayerModel(db.Model):
     name = db.Column(db.String(80), nullable=False)
     money = db.Column(db.Integer, default=0)
     record_round = db.Column(db.Integer, default=0)
-    current_pokemon_id = db.Column(
-        db.Integer, db.ForeignKey("pokemon.id"), nullable=True
-    )
+    current_pokemon_index = db.Column(db.Integer, default=0)
 
     pokemons = db.relationship(
         "PokemonModel",
