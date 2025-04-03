@@ -16,12 +16,12 @@ class Pokemon:
     """
 
     def __init__(
-            self,
-            name: str = "",
-            sprite_url: str = "",
-            price: int = 0,
-            level: Level = None,
-            stat: Stat = None
+        self,
+        name: str = "",
+        sprite_url: str = "",
+        price: int = 0,
+        level: Level = None,
+        stat: Stat = None,
     ):
         """
         Not recommend use the builder

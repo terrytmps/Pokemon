@@ -113,6 +113,7 @@ function strategie() {
     .catch(error => console.error('Erreur:', error));
 }
 
+window.currentStrategy = 'highest_damage';
 function updateStrategyButtonText() {
     const strategyButton = document.getElementById('strategie_button');
     if (window.currentStrategy === 'highest_damage') {

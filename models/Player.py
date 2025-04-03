@@ -41,3 +41,10 @@ class Player:
         """
         assert 0 <= index < 6
         self._pokemons[index] = pokemon
+
+    def set_record_round(self, current_round):
+        """
+        Set the current round if it is greater than the previous record round
+        """
+        if current_round > self.record_round:
+            self.record_round = current_round

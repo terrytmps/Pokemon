@@ -2,12 +2,6 @@ from models.Database import DatabaseSingleton
 
 db = DatabaseSingleton.get_instance().get_db()
 
-pokemon_moves_table = db.Table(
-    "pokemon_moves",
-    db.Column("pokemon_id", db.Integer, db.ForeignKey("pokemon.id"), primary_key=True),
-    db.Column("move_id", db.Integer, db.ForeignKey("move.id"), primary_key=True),
-)
-
 
 class PlayerModel(db.Model):
     __tablename__ = "player"

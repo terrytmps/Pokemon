@@ -185,7 +185,7 @@ class Battle:
         True if player wins, False if opponent wins
         """
         if not winner:
-            player.money += RoundGenerator.get_instance().get_price() // 2
+            # player.money += RoundGenerator.get_instance().get_price() // 2
             self.battle_log.append(f"{player.get_current_pokemon().name} est K.O.!")
 
         if winner:
@@ -200,7 +200,9 @@ class Battle:
         self.battle_log.append(
             f"Vous avez perdu, voici vos gains :{RoundGenerator.get_instance().get_price() // 2} $"
         )
-        RoundGenerator.get_instance().reset()
+        current_round = RoundGenerator.get_instance().get_index()
+        player.set_record_round(current_round)
+        # RoundGenerator.get_instance().reset()
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """

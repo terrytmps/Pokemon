@@ -120,3 +120,7 @@ class RoundGenerator:
     def get_instance(cls):
         """Retrieve the singleton instance."""
         return cls.__new__(cls)
+
+    def get_index(self):
+        """Return the current index."""
+        return self.__index
