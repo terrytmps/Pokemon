@@ -19,10 +19,14 @@ class RoundGenerator:
         return cls._instance
 
     def _initialize(self):
-        """Unique initialization method."""
         if hasattr(self, "__rounds"):
             return
 
+        self.__index = 0
+        self._initialize_rounds()
+
+    def _initialize_rounds(self):
+        """Initialize or reinitialize the rounds with fresh Pokemon instances."""
         self.__rounds = [
             (PokemonFactory.create_salameche(), 1),
             (PokemonFactory.create_pikachu(), 1),
@@ -91,8 +95,6 @@ class RoundGenerator:
             (PokemonFactory.create_mewtwo(), 130),
         ]
 
-        self.__index = 0
-
     def generate_round(self) -> Pokemon | None:
         """Generate the next round."""
         if self.__index < len(self.__rounds):
@@ -109,6 +111,7 @@ class RoundGenerator:
     def reset(self):
         """Reset the round generator."""
         self.__index = 0
+        self._initialize_rounds()
 
     def get_price(self) -> int:
         """Get the price for all cleared round"""
