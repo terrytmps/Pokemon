@@ -24,6 +24,7 @@ function changePokemonBack(pokemonId) {
             updateButtonFromJson(1, data[0]['second_move'], data[0]['hp_current'])
             updateButtonFromJson(2, data[0]['third_move'], data[0]['hp_current'])
             updateButtonFromJson(3, data[0]['fourth_move'], data[0]['hp_current'])
+
             get_battle_log()
             attaqueAdversaire()
             update_display_pokemon(data[1], 'op')
@@ -187,10 +188,11 @@ function update_display_pokemon(pokemonJson, player = 'self') {
     const name = document.getElementById('pokemon_' + player + '_name');
     const status = document.getElementById('pokemon_' + player + '_status');
     const hp_bar = document.getElementById('pokemon_' + player + '_hp_bar');
-    updateButtonFromJson(0, null, pokemonJson.hp_current)
-    updateButtonFromJson(1, null, pokemonJson.hp_current)
-    updateButtonFromJson(2, null, pokemonJson.hp_current)
-    updateButtonFromJson(3, null, pokemonJson.hp_current)
+
+    updateButtonFromJson(0, "hp_update", pokemonJson.hp_current)
+    updateButtonFromJson(1, "hp_update", pokemonJson.hp_current)
+    updateButtonFromJson(2, "hp_update", pokemonJson.hp_current)
+    updateButtonFromJson(3, "hp_update", pokemonJson.hp_current)
     // Met à jour le nom
     name.innerText = pokemonJson.name;
 
