@@ -311,7 +311,7 @@ class PokemonFactory:
             )
             .set_level(1, XPDifficulty.EASY)
             .set_stat(stat)
-            .set_price(16)
+            .set_price(22)
             .set_type(PokemonType.FLYING)
             .set_type(PokemonType.NORMAL)
             .set_moves(MoveFactory.get_move("Rafale Piquante"))
