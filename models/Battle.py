@@ -238,7 +238,9 @@ class Battle:
         # Check if battle is over after first attack
         if self.is_battle_over():
             if self.opponent_pokemon.get_current_hp() <= 0:
-                self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
+                self.player_pokemon.gain_experience(
+                    self.opponent_pokemon.get_experience()
+                )
             return [True, first_attacker == self.player_pokemon]
 
         if player_move is not None:

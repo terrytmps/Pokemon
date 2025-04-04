@@ -1,6 +1,4 @@
-import pytest
 from models.Models.PlayerRepository import PlayerRepository
-from models.factory.PokemonFactory import PokemonFactory  # Ajout pour obtenir le prix et le nom exact
 
 
 def test_e2e_buy_evoli_battle_attack_forfeit(client, app):
@@ -27,7 +25,7 @@ def test_e2e_buy_evoli_battle_attack_forfeit(client, app):
         # --- 2. Buy Pokémon ---
         response_buy = client.post(
             "/buy_pokemon",
-            json={"pokemon_shop_index": evoli_shop_index, "team_slot_index": 0}
+            json={"pokemon_shop_index": evoli_shop_index, "team_slot_index": 0},
         )
         assert response_buy.status_code == 200
         buy_data = response_buy.get_json()
@@ -60,8 +58,7 @@ def test_e2e_buy_evoli_battle_attack_forfeit(client, app):
 
         # Check if the attack was successful
         assert isinstance(attack_data, list)
-        assert len(
-            attack_data) >= 4
+        assert len(attack_data) >= 4
         assert isinstance(attack_data[0], bool)
         assert isinstance(attack_data[1], bool)
         assert isinstance(attack_data[2], dict)
@@ -73,8 +70,8 @@ def test_e2e_buy_evoli_battle_attack_forfeit(client, app):
         assert response_log.status_code == 200
         log_data = response_log.get_json()
         assert isinstance(log_data, str)
-        # because Pikachu's attack is before Evoli's attack
-        assert "Pikachu" in log_data or "attaque" in log_data
+        # because Salamèche's attack is before Evoli's attack
+        assert "Salamèche" in log_data or "attaque" in log_data
 
         # --- 5. Forfeit the battle ---
         response_forfeit = client.post("/forfeit")
