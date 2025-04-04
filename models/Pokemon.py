@@ -96,7 +96,7 @@ class Pokemon:
         """
         Return the experience of the pokemon
         """
-        return self.__level.level * 2
+        return self.__level.level + 1
 
     def gain_experience(self, xp: int):
         """

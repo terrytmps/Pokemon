@@ -37,6 +37,7 @@ class Stat(LevelObserver):
         self.__max_defense_special = max_defense_special
         self.__max_speed = max_speed
         self.__current_hp = self.__base_hp
+        self.current_max_hp = self.__base_hp
         self.__set_stat(1)
 
     def __set_stat(self, level_current: int):
@@ -47,10 +48,19 @@ class Stat(LevelObserver):
         linear_interpolation = lambda level, base, max_value: floor(
             base + (max_value - base) * level / 100
         )
+        # if pokemon hurt then he gain back hp that the new level_max difference is from the old
+        # so if max_hp before 100 after 110 pokemon gain 10
+        if self.__current_hp <= self.current_max_hp:
+            new_current_max_hp = linear_interpolation(
+            level_current, self.__base_hp, self.__max_hp
+            )
+            self.__current_hp += new_current_max_hp - self.current_max_hp
+
         self.current_max_hp = linear_interpolation(
             level_current, self.__base_hp, self.__max_hp
         )
-        self.__current_hp = self.current_max_hp
+
+
         self.current_attack = linear_interpolation(
             level_current, self.__base_attack, self.__max_attack
         )
