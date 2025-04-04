@@ -202,7 +202,6 @@ class Battle:
         )
         current_round = RoundGenerator.get_instance().get_index()
         player.set_record_round(current_round)
-        RoundGenerator.get_instance().reset()
 
     def handle_end_of_turn(self, pokemon: Pokemon):
         """
@@ -238,6 +237,8 @@ class Battle:
 
         # Check if battle is over after first attack
         if self.is_battle_over():
+            if self.opponent_pokemon.get_current_hp() <= 0:
+                self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
             return [True, first_attacker == self.player_pokemon]
 
         if player_move is not None:
@@ -248,7 +249,6 @@ class Battle:
 
         self.handle_end_of_turn(self.player_pokemon)
         self.handle_end_of_turn(self.opponent_pokemon)
-
         if self.opponent_pokemon.get_current_hp() <= 0:
             self.player_pokemon.gain_experience(self.opponent_pokemon.get_experience())
         # Return winner if battle is over

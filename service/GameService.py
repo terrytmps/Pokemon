@@ -9,7 +9,7 @@ from models.RoundGenerator import RoundGenerator
 
 player = Player()
 battle: Battle
-pokemon_op = RoundGenerator.get_instance().generate_round()
+pokemon_op = None
 
 
 def get_current_battle():
@@ -20,6 +20,7 @@ def init_battle():
     global player
     player = PlayerRepository().find_by_id(1)
     global pokemon_op
+    pokemon_op = RoundGenerator.get_instance().reset()
     pokemon_op = RoundGenerator.get_instance().generate_round()
     return None
 
