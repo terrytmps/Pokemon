@@ -52,14 +52,13 @@ class Stat(LevelObserver):
         # so if max_hp before 100 after 110 pokemon gain 10
         if self.__current_hp <= self.current_max_hp:
             new_current_max_hp = linear_interpolation(
-            level_current, self.__base_hp, self.__max_hp
+                level_current, self.__base_hp, self.__max_hp
             )
             self.__current_hp += new_current_max_hp - self.current_max_hp
 
         self.current_max_hp = linear_interpolation(
             level_current, self.__base_hp, self.__max_hp
         )
-
 
         self.current_attack = linear_interpolation(
             level_current, self.__base_attack, self.__max_attack

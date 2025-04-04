@@ -55,12 +55,15 @@ def game_perform_attack(attack: int):
 
 def game_perform_change(position: int):
     """change the pokemon of the player and return the pokemon new stats"""
-    # get player in database
+    is_dead = battle.player_pokemon.get_current_hp() <= 1
+
     player.set_current_pokemon(int(position) - 1)
     battle.player_pokemon = player.get_current_pokemon()
 
-    opponent_selected_move = battle.choose_opponent_move()
-    battle.battle_turn(None, opponent_selected_move)
+    # if the change happens because your Pokemon is dead, the opponent won't attack you directly
+    if not is_dead:
+        opponent_selected_move = battle.choose_opponent_move()
+        battle.battle_turn(None, opponent_selected_move)
 
     return [battle.player_pokemon.to_dict(), battle.opponent_pokemon.to_dict()]
 
