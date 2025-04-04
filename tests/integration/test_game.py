@@ -1,7 +1,4 @@
 import pytest
-from flask import url_for
-from models.Models.PlayerRepository import PlayerRepository
-from service.GameService import get_current_battle
 
 
 def test_game_page_loads(client):
