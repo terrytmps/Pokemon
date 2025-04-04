@@ -96,23 +96,34 @@ function updateButtonFromJson(index, move, pokemon_hp) {
     } else {
         bouton.disabled = false;
     }
-    if (move === null) return;
+    if (move === "hp_update") return;
+
     // Mise à jour des données du bouton
-    console.log(move)
     if (!move) {
-        bouton.style.display = "btn btn-disabled move-btn w-100";
-        bouton.disabled = true;
-        bouton.innerHTML = "Libre";
+        const newButton = document.createElement('button');
+
+        newButton.id = `attaque_button${index}`;
+        newButton.className = "btn btn-disabled move-btn w-100";
+        newButton.disabled = true;
+        newButton.textContent = "Libre";
+
+        bouton.parentNode.replaceChild(newButton, bouton);
+
         return;
     }
     bouton.style.display = "btn move-btn w-100 bouton-attaque";
     bouton.style.backgroundColor = move.move_color;
-
-
-    bouton.dataset.name = move.name;
+    // remove class
+    bouton.classList.remove('btn-disabled');
+    bouton.setAttribute("onclick", `lancerAttaque(${index}, '${move.name}')`);
+    bouton.setAttribute("onmouseover", "startTooltip(this)");
+    bouton.setAttribute("onmouseout", "hideTooltip()");
     bouton.dataset.description = move.description;
+    bouton.dataset.index = index;
+    bouton.dataset.name = move.name;
     bouton.dataset.power = move.power;
     bouton.dataset.accuracy = move.accuracy;
+
     bouton.dataset.type = move.move_type;
     bouton.dataset.category = move.move_category;
     bouton.dataset.effect = move.move_effect;
