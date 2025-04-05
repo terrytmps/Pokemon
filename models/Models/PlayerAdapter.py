@@ -2,6 +2,9 @@ from models.Player import Player
 from models.Models.PlayerModel import PlayerModel
 from models.Models.PokemonRepository import PokemonRepository
 from models.enum.PokemonName import get_enum_by_value, create_pokemon
+from models.Database import DatabaseSingleton
+
+db = DatabaseSingleton.get_instance().get_db()
 
 
 class PlayerAdapter:
@@ -11,7 +14,7 @@ class PlayerAdapter:
         Convert an object of domain Player to a PlayerModel.
         """
         if hasattr(player, "id") and player.id:
-            player_model = PlayerModel.query.get(player.id)
+            player_model = db.session.get(PlayerModel, player.id)
             if player_model is None:
                 player_model = PlayerModel()
         else:

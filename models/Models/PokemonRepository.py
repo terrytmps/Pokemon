@@ -60,7 +60,7 @@ class PokemonRepository:
         """
         Look up a Pokémon by its ID in the database.
         """
-        pokemon_model = PokemonModel.query.get(pokemon_id)
+        pokemon_model = db.session.get(PokemonModel, pokemon_id)
 
         if pokemon_model:
             return PokemonAdapter.from_model(pokemon_model)

@@ -17,7 +17,7 @@ class PlayerRepository:
         player_model = None
 
         if player_id:
-            player_model = PlayerModel.query.get(player_id)
+            player_model = db.session.get(PlayerModel, player_id)
 
         if player_model is None:
 
@@ -55,7 +55,7 @@ class PlayerRepository:
         """
         Load a Player from the database
         """
-        player_model = PlayerModel.query.get(player_id)
+        player_model = db.session.get(PlayerModel, player_id)
         if not player_model:
             return None
 

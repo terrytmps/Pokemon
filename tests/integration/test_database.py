@@ -85,7 +85,7 @@ def test_delete_player(setup_db):
     PokemonRepository.save(pokemon, player_id)
 
     PlayerRepository.find_by_id(player_id)
-    db.session.delete(PlayerModel.query.get(player_id))
+    db.session.delete(db.session.get(PlayerModel, player_id))
     db.session.commit()
 
     deleted_player = PlayerRepository.find_by_id(player_id)

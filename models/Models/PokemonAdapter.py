@@ -2,6 +2,9 @@ from models.Models.PokemonModel import PokemonModel
 from models.Pokemon import Pokemon
 from models.level.Level import Level
 from models.level.XpDifficulty import XPDifficulty
+from models.Database import DatabaseSingleton
+
+db = DatabaseSingleton.get_instance().get_db()
 
 
 class PokemonAdapter:
@@ -14,7 +17,7 @@ class PokemonAdapter:
         pokemon_id = getattr(pokemon, "id", None)
 
         if pokemon_id:
-            pokemon_model = PokemonModel.query.get(pokemon_id)
+            pokemon_model = db.session.get(PokemonModel, pokemon_id)
 
         if pokemon_model is None:
             pokemon_model = PokemonModel()
