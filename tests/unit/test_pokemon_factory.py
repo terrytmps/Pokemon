@@ -1,6 +1,6 @@
 import unittest
 
-from models.factory.PokemonFactory import PokemonFactory
+from pokemon_app.core.factories.pokemon_factory import PokemonFactory
 
 
 class TestPokemonFactory(unittest.TestCase):

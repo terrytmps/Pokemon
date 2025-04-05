@@ -1,9 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
-from models.Pokemon import Pokemon
-from models.factory.PokemonFactory import PokemonFactory
-from models.level.XpDifficulty import XPDifficulty
-from models.level.Stats import LevelObserver
+from pokemon_app.core.factories.pokemon_factory import PokemonFactory
+from pokemon_app.core.level.stats import LevelObserver
 
 
 class TestPokemonLevelUpObserver(unittest.TestCase):

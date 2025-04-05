@@ -1,10 +1,10 @@
 import unittest
 
-from models.Pokemon import Pokemon
-from models.level.Level import Level
-from models.level.Stats import Stat
-from models.level.XpDifficulty import XPDifficulty
-from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from pokemon_app.core.pokemon import Pokemon
+from pokemon_app.core.level.level import Level
+from pokemon_app.core.level.stats import Stat
+from pokemon_app.core.level.xp_difficulty import XPDifficulty
+from pokemon_app.core.pokemon_type.utils.pokemon_type_enum import PokemonType
 
 
 class TestPokemonBuilder(unittest.TestCase):

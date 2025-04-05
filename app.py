@@ -1,6 +1,6 @@
 from flask import Flask, render_template
-from models.Database import DatabaseSingleton
-from models.factory.PlayerFactory import PlayerFactory
+from pokemon_app.data.database import DatabaseSingleton
+from pokemon_app.core.factories.player_factory import PlayerFactory
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -9,9 +9,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db_singleton = DatabaseSingleton.get_instance(app)
 db = db_singleton.get_db()
 
-from models.Models.PlayerRepository import PlayerRepository
-from controllers.GameController import game_controller
-from controllers.ShopController import shop_controller
+from pokemon_app.data.repositories.player_repository import PlayerRepository
+from pokemon_app.api.game_routes import game_controller
+from pokemon_app.api.shop_routes import shop_controller
 
 
 # TODO : move this to a service

@@ -2,8 +2,8 @@
 # from flask import Flask
 # from models.Database import DatabaseSingleton
 # from models.Player import Player
-# from models.factory.PlayerFactory import PlayerFactory
-# from models.factory.PokemonFactory import PokemonFactory
+# from models.factories.PlayerFactory import PlayerFactory
+# from models.factories.PokemonFactory import PokemonFactory
 #
 #
 # @pytest.fixture(scope="module")

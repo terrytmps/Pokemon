@@ -1,27 +1,27 @@
 import unittest
 
-from models.level.Stats import Stat
-from models.pokemonType.TypeDecorator import TypeDecorator
-from models.pokemonType.BugTypeDecorator import BugTypeDecorator
-from models.pokemonType.DarkTypeDecorator import DarkTypeDecorator
-from models.pokemonType.DragonTypeDecorator import DragonTypeDecorator
-from models.pokemonType.ElectricTypeDecorator import ElectricTypeDecorator
-from models.pokemonType.FightingTypeDecorator import FightingTypeDecorator
-from models.pokemonType.FlyingTypeDecorator import FlyingTypeDecorator
-from models.pokemonType.GhostTypeDecorator import GhostTypeDecorator
-from models.pokemonType.GrassTypeDecorator import GrassTypeDecorator
-from models.pokemonType.GroundTypeDecorator import GroundTypeDecorator
-from models.pokemonType.IceTypeDecorator import IceTypeDecorator
-from models.pokemonType.PoisonTypeDecorator import PoisonTypeDecorator
-from models.pokemonType.PsychicTypeDecorator import PsychicTypeDecorator
-from models.pokemonType.RockTypeDecorator import RockTypeDecorator
-from models.pokemonType.SteelTypeDecorator import SteelTypeDecorator
-from models.pokemonType.WaterTypeDecorator import WaterTypeDecorator
-from models.Pokemon import Pokemon
-from models.level.XpDifficulty import XPDifficulty
-from models.pokemonType.FireTypeDecorator import FireTypeDecorator
-from models.pokemonType.NormalTypeDecorator import NormalTypeDecorator
-from models.pokemonType.utils.PokemonTypeEnum import PokemonType
+from pokemon_app.core.level.stats import Stat
+from pokemon_app.core.pokemon_type.type_decorator import TypeDecorator
+from pokemon_app.core.pokemon_type.bug_type_decorator import BugTypeDecorator
+from pokemon_app.core.pokemon_type.dark_type_decorator import DarkTypeDecorator
+from pokemon_app.core.pokemon_type.dragon_type_decorator import DragonTypeDecorator
+from pokemon_app.core.pokemon_type.electric_type_decorator import ElectricTypeDecorator
+from pokemon_app.core.pokemon_type.fighting_type_decorator import FightingTypeDecorator
+from pokemon_app.core.pokemon_type.flying_type_decorator import FlyingTypeDecorator
+from pokemon_app.core.pokemon_type.ghost_type_decorator import GhostTypeDecorator
+from pokemon_app.core.pokemon_type.grass_type_decorator import GrassTypeDecorator
+from pokemon_app.core.pokemon_type.ground_type_decorator import GroundTypeDecorator
+from pokemon_app.core.pokemon_type.ice_type_decorator import IceTypeDecorator
+from pokemon_app.core.pokemon_type.poison_type_decorator import PoisonTypeDecorator
+from pokemon_app.core.pokemon_type.psychic_type_decorator import PsychicTypeDecorator
+from pokemon_app.core.pokemon_type.rock_type_decorator import RockTypeDecorator
+from pokemon_app.core.pokemon_type.steel_type_decorator import SteelTypeDecorator
+from pokemon_app.core.pokemon_type.water_type_decorator import WaterTypeDecorator
+from pokemon_app.core.pokemon import Pokemon
+from pokemon_app.core.level.xp_difficulty import XPDifficulty
+from pokemon_app.core.pokemon_type.fire_type_decorator import FireTypeDecorator
+from pokemon_app.core.pokemon_type.normal_type_decorator import NormalTypeDecorator
+from pokemon_app.core.pokemon_type.utils.pokemon_type_enum import PokemonType
 
 
 class TestTypeDecorator(unittest.TestCase):
