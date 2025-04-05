@@ -1,7 +1,8 @@
 import pytest
 import os
 import tempfile
-from app import app as flask_app, db, initialize_database
+from app import app as flask_app, db
+from service.initialization_service import InitializationService
 
 
 @pytest.fixture(scope="module")
@@ -21,7 +22,8 @@ def app():
         print(f"Using test database: {db_path}")
         db.drop_all()
         db.create_all()
-        initialize_database()
+        initializer = InitializationService()
+        initializer.seed_initial_data()
 
     yield flask_app
 
