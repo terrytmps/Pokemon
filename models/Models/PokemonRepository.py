@@ -1,8 +1,7 @@
 from models.Database import DatabaseSingleton
+from models.Models.PokemonAdapter import PokemonAdapter
 from models.Pokemon import Pokemon
 from models.Models.PokemonModel import PokemonModel
-from models.level.Level import Level
-from models.level.XpDifficulty import XPDifficulty
 
 db = DatabaseSingleton.get_instance().get_db()
 
@@ -12,40 +11,46 @@ class PokemonRepository:
     @staticmethod
     def delete_all_pokemons_player(player_id: int):
         """
-        Delete all pokemons from a player
+        Delete all pokemons for a given player from the database.
         """
-        pokemons = PokemonModel.query.filter_by(player_id=player_id).all()
-        for pokemon in pokemons:
-            db.session.delete(pokemon)
-        db.session.commit()
+        PokemonModel.query.filter_by(player_id=player_id).delete(
+            synchronize_session=False
+        )
+
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error deleting pokemons for player {player_id}: {e}")
+            raise
 
     @staticmethod
     def save(pokemon: Pokemon, player_id: int = None) -> int:
         """
-        Save a Pokémon in the database
+        Save a Pokémon in the database. If the Pokémon already exists, it will be updated.
         """
+        pokemon_model = PokemonAdapter.to_model(pokemon, player_id)
+        original_pokemon_id = getattr(pokemon, "id", None)
 
-        pokemon_id = getattr(pokemon, "id", None)
-        pokemon_model = None
-
-        if pokemon_id:
-            pokemon_model = PokemonModel.query.get(pokemon_id)
-
-        if pokemon_model is None:
-            pokemon_model = PokemonModel(
-                name=pokemon.name,
-                player_id=player_id,
-                level=pokemon.level,
-            )
+        if pokemon_model.id is None:
             db.session.add(pokemon_model)
+            try:
+                db.session.flush()
+            except Exception as e:
+                db.session.rollback()
+                print(f"Error flushing new pokemon {pokemon.name}: {e}")
+                raise
         else:
-            pokemon_model.name = pokemon.name
-            pokemon_model.player_id = player_id
-            pokemon_model.level = pokemon.level
+            pass
 
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error committing pokemon {pokemon.name}: {e}")
+            raise
 
-        if not hasattr(pokemon, "id"):
+        if original_pokemon_id is None and pokemon_model.id is not None:
             pokemon.id = pokemon_model.id
 
         return pokemon_model.id
@@ -53,17 +58,11 @@ class PokemonRepository:
     @staticmethod
     def find_by_id(pokemon_id: int) -> Pokemon | None:
         """
-        Load a pokemon from the database
+        Look up a Pokémon by its ID in the database.
         """
         pokemon_model = PokemonModel.query.get(pokemon_id)
-        if not pokemon_model:
+
+        if pokemon_model:
+            return PokemonAdapter.from_model(pokemon_model)
+        else:
             return None
-
-        pokemon = Pokemon(
-            name=pokemon_model.name,
-            level=Level(level=pokemon_model.level, xp_difficulty=XPDifficulty.EASY),
-        )
-
-        pokemon.id = pokemon_model.id
-
-        return pokemon
