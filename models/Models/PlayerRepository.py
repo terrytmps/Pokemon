@@ -20,6 +20,7 @@ class PlayerRepository:
             player_model = PlayerModel.query.get(player_id)
 
         if player_model is None:
+
             player_model = PlayerModel(
                 name=player.name,
                 money=player.money,
@@ -32,6 +33,7 @@ class PlayerRepository:
             player_model.name = player.name
             player_model.money = player.money
             player_model.record_round = player.record_round
+            player_model.current_pokemon_index = player.current_pokemon
 
         PokemonRepository().delete_all_pokemons_player(player_id=player_model.id)
 
@@ -43,8 +45,7 @@ class PlayerRepository:
 
         db.session.commit()
 
-        # if the player was new, set the id
-        if not hasattr(player, "id"):
+        if player_id is None:
             player.id = player_model.id
 
         return player_model.id
@@ -68,8 +69,8 @@ class PlayerRepository:
         for i, pokemon_model in enumerate(player_model.pokemons):
             if i < 6:
                 pokemon_bdd = PokemonRepository.find_by_id(pokemon_model.id)
-                pokemon_obj = create_pokemon(get_enum_by_value(pokemon_bdd.name))
-                pokemon_obj.level_up_to(pokemon_bdd.level)
-                player.replace_pokemon(i, pokemon_obj)
-
+                if pokemon_bdd:
+                    pokemon_obj = create_pokemon(get_enum_by_value(pokemon_bdd.name))
+                    pokemon_obj.level_up_to(pokemon_bdd.level)
+                    player.replace_pokemon(i, pokemon_obj)
         return player
