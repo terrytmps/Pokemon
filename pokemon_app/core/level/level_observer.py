@@ -9,7 +9,3 @@ class LevelObserver(ABC):
     @abstractmethod
     def on_level_up(self, pokemon, old_level: int, new_level: int):
         pass
-
-    @abstractmethod
-    def on_dead(self, pokemon):
-        pass

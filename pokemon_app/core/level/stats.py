@@ -82,12 +82,6 @@ class Stat(LevelObserver):
         """
         self.__set_stat(new_level)
 
-    def on_dead(self, pokemon):
-        """
-        Method called by observable when pokemon die
-        """
-        self._current_hp = 0
-
     @property
     def current_hp(self):
         """
