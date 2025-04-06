@@ -183,7 +183,7 @@ class Pokemon:
             "level": self.level,
             "hp_max": self.__stat.current_max_hp,
             "hp_current": self.__stat.current_hp,
-            "status_effects": str(
+            "status": str(
                 self.get_status().value[1] if self.get_status() else None
             ),
             "first_type": self.first_type.value if self.first_type else None,
