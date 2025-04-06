@@ -14,10 +14,9 @@ from pokemon_app.api.shop_routes import shop_controller
 from service.initialization_service import InitializationService
 
 with app.app_context():
-    # db.drop_all()
     db.create_all()
     initializer = InitializationService()
-    initializer.seed_initial_data()
+    initializer.seed_initial_data("prod")
 
 app.register_blueprint(game_controller)
 app.register_blueprint(shop_controller)

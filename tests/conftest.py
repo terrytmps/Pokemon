@@ -23,7 +23,7 @@ def app():
         db.drop_all()
         db.create_all()
         initializer = InitializationService()
-        initializer.seed_initial_data()
+        initializer.seed_initial_data("tests")
 
     yield flask_app
 

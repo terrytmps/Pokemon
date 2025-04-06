@@ -74,3 +74,13 @@ class PlayerRepository:
                     pokemon_obj.level_up_to(pokemon_bdd.level)
                     player.replace_pokemon(i, pokemon_obj)
         return player
+
+    @staticmethod
+    def delete(player_id: int) -> None:
+        """
+        Delete a Player from the database
+        """
+        player_model = db.session.get(PlayerModel, player_id)
+        if player_model:
+            db.session.delete(player_model)
+            db.session.commit()

@@ -8,7 +8,7 @@ class PlayerFactory:
     """
 
     @staticmethod
-    def create_player_1():
+    def create_player_tests():
         player = Player()
         player.name = "Gimmighoul"
         pokemon_self = PokemonFactory.create_tyranocif()
@@ -19,13 +19,16 @@ class PlayerFactory:
         player.add_pokemon(pokemon_self)
         player.set_current_pokemon(0)
         player.money = 100
+        player.id = 2
         return player
 
     @staticmethod
-    def create_player_2():
+    def create_player_prod():
         player = Player()
-        player.money = 100
-        player.record_round = 5
+        player.name = "Devastator"
         player.add_pokemon(PokemonFactory.create_pikachu())
-        player.add_pokemon(PokemonFactory.create_leviator())
+        player.set_current_pokemon(0)
+        player.money = 20
+        player.record_round = 0
+        player.id = 1
         return player
