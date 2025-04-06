@@ -1,4 +1,4 @@
-from models.Models.PlayerRepository import PlayerRepository
+from pokemon_app.data.repositories.player_repository import PlayerRepository
 
 
 def test_menu_page_loads(client):
@@ -34,7 +34,7 @@ def test_buy_pokemon_success(client, app):
 
 
 def test_buy_pokemon_insufficient_funds(client, app):
-    from models.factory.PokemonFactory import PokemonFactory
+    from pokemon_app.core.factories.pokemon_factory import PokemonFactory
 
     with app.app_context():
         player = PlayerRepository().find_by_id(1)

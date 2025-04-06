@@ -1,13 +1,12 @@
 import pytest
-from models.Database import DatabaseSingleton
-from models.Models.PlayerModel import PlayerModel
-from models.Models.PokemonModel import PokemonModel
-from models.Models.PokemonRepository import PokemonRepository
-from models.Models.PlayerRepository import PlayerRepository
-from models.Player import Player
-from models.Pokemon import Pokemon
-from models.level.Level import Level
-from models.level.XpDifficulty import XPDifficulty
+from pokemon_app.data.database import DatabaseSingleton
+from pokemon_app.data.models.player_model import PlayerModel
+from pokemon_app.data.repositories.player_repository import PokemonRepository
+from pokemon_app.data.repositories.player_repository import PlayerRepository
+from pokemon_app.core.player import Player
+from pokemon_app.core.pokemon import Pokemon
+from pokemon_app.core.level.level import Level
+from pokemon_app.core.level.xp_difficulty import XPDifficulty
 
 db = DatabaseSingleton.get_instance().get_db()
 
@@ -85,7 +84,7 @@ def test_delete_player(setup_db):
     PokemonRepository.save(pokemon, player_id)
 
     PlayerRepository.find_by_id(player_id)
-    db.session.delete(PlayerModel.query.get(player_id))
+    db.session.delete(db.session.get(PlayerModel, player_id))
     db.session.commit()
 
     deleted_player = PlayerRepository.find_by_id(player_id)

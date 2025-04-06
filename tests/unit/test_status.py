@@ -1,12 +1,14 @@
 import unittest
 
-from models.factory.PokemonFactory import PokemonFactory
-from models.status.BurnStatusStrategy import BurnStatusStrategy
-from models.status.FreezeStatusStrategy import FreezeStatusStrategy
-from models.status.ParalysisStatusStrategy import ParalysisStatusStrategy
-from models.status.PoisonStatusStrategy import PoisonStatusStrategy
-from models.status.SleepStatusStrategy import SleepStatusStrategy
-from models.status.StatusEnum import StatusEnum
+from pokemon_app.core.factories.pokemon_factory import PokemonFactory
+from pokemon_app.core.status_effects.burn_status_strategy import BurnStatusStrategy
+from pokemon_app.core.status_effects.freeze_status_strategy import FreezeStatusStrategy
+from pokemon_app.core.status_effects.paralysis_status_strategy import (
+    ParalysisStatusStrategy,
+)
+from pokemon_app.core.status_effects.poison_status_strategy import PoisonStatusStrategy
+from pokemon_app.core.status_effects.sleep_status_strategy import SleepStatusStrategy
+from pokemon_app.core.status_effects.status_enum import StatusEnum
 
 
 class TestPokemonStatus(unittest.TestCase):

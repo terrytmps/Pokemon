@@ -1,4 +1,4 @@
-from models.Models.PlayerRepository import PlayerRepository
+from pokemon_app.data.repositories.player_repository import PlayerRepository
 
 
 def test_e2e_buy_evoli_battle_attack_forfeit(client, app):
