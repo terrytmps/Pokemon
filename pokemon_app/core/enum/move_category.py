@@ -6,7 +6,7 @@ class MoveCategory(Enum):
     Represent the category of a move
     """
 
-    STATUS = "status_effects"
+    STATUS = "status"
     PHYSICAL = "physical"
     SPECIAL = "special"
     OTHER = "other"
