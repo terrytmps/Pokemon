@@ -58,8 +58,8 @@ class MoveFactory:
             PokemonType.ICE,
             MoveCategory.SPECIAL,
         ),
-        "Ball'Ombre": Move(
-            "Ball'Ombre",
+        "Ball Ombre": Move(
+            "Ball Ombre",
             "Une attaque de type spectre",
             80,
             100,
@@ -158,7 +158,7 @@ class MoveFactory:
             MoveCategory.PHYSICAL,
         ),
         "Tranch'Herbe": Move(
-            "Tranch'Herbe",
+            "Tranch Herbe",
             "Une attaque de type plante",
             90,
             100,
@@ -298,7 +298,7 @@ class MoveFactory:
             "Hypnose",
             "Une attaque qui endort la cible avec une forte chance.",
             0,
-            60,
+            100,
             PokemonType.PSYCHIC,
             MoveCategory.STATUS,
             StatusEnum.SLEEP,

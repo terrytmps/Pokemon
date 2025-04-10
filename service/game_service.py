@@ -71,6 +71,7 @@ def game_perform_change(position: int):
 def forfet():
     """forfet the game and return to the menu"""
     battle.gave_up(player)
+    player.current_pokemon = 0
     PlayerRepository.save(player)
 
 

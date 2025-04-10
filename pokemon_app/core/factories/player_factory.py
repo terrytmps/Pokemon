@@ -28,7 +28,7 @@ class PlayerFactory:
         player.name = "Devastator"
         player.add_pokemon(PokemonFactory.create_pikachu())
         player.set_current_pokemon(0)
-        player.money = 20
+        player.money = 60
         player.record_round = 0
         player.id = 1
         return player

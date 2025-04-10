@@ -14,6 +14,9 @@ Sleep status_effects strategy class effect:
 
 
 class SleepStatusStrategy(StatusStrategy):
+
+    first_turn = True
+
     def get_status(self) -> StatusEnum:
         return StatusEnum.SLEEP
 
@@ -26,5 +29,8 @@ class SleepStatusStrategy(StatusStrategy):
 
     def end_turn(self, pokemon) -> None:
         # 50% chance to wake up
+        if self.first_turn:
+            self.first_turn = False
+            return
         if random.random() < 0.5:
             pokemon.status_strategy = NormalStatusStrategy()
