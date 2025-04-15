@@ -5,22 +5,20 @@
 1. **Première installation** :
     ```bash
     make venv
-    source .venv/bin/activate
+    source .venv/bin/activate # différent selon l'OS
     make install
     ```
 
-2. **Lancement** :
-    ```bash
-    source .venv/bin/activate
-    ```
 
 ## Lancer l'application
 ```bash
+# dans l'env après make install 
 make run
 ```
 
 ## Lancer les tests
 ```bash
+# dans l'env après make install 
 make test
 ```
 
